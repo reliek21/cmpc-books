@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { User } from 'src/modules/users/entities/user.entity';
+import { Book } from 'src/modules/books/entities/book.entity';
 
 export const databaseProviders = [
   {
@@ -13,7 +14,7 @@ export const databaseProviders = [
         password: 'postgrescmpc', // String(process.env.DATABASE_PASSWORD!),
         database: 'cmpc', // process.env.DATABASE_NAME!,
       });
-      sequelize.addModels([User]);
+      sequelize.addModels([User, Book]);
       await sequelize.sync();
       return sequelize;
     },

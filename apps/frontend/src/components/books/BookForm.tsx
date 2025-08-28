@@ -12,8 +12,8 @@ const schema = z.object({
 })
 
 type Props = {
-  initial?: any
-  onSubmit: (data: any) => Promise<void>
+  initial?: Record<string, unknown>
+  onSubmit: (data: Record<string, unknown>) => Promise<void>
 }
 
 export function BookForm({ initial = {}, onSubmit }: Props) {
@@ -47,8 +47,9 @@ export function BookForm({ initial = {}, onSubmit }: Props) {
     setLoading(true)
     try {
       await onSubmit({ title, author, publisher, genre, available, cover })
-    } catch (err: any) {
-      setError(err?.message || 'Submit failed')
+    } catch (err: unknown) {
+      const msg = err && typeof err === 'object' && 'message' in err ? (err as any).message : null
+      setError(msg || 'Submit failed')
     } finally {
       setLoading(false)
     }
