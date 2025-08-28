@@ -35,7 +35,7 @@ export default function LoginPage() {
     // Validar con Zod antes de enviar
     const parsed = loginSchema.safeParse({ email, password })
     if (!parsed.success) {
-      const first = parsed.error.errors[0]
+      const first = parsed.error.issues[0]
       setLoading(false)
       setError(first?.message || 'Datos inválidos')
       return
@@ -63,8 +63,9 @@ export default function LoginPage() {
         localStorage.setItem('access_token', data.access_token)
       }
       window.location.href = '/'
-    } catch (err: any) {
-      setError(err?.message || 'Network error')
+    } catch (err: unknown) {
+      const msg = err && typeof err === 'object' && 'message' in err ? (err as any).message : null
+      setError(msg || 'Network error')
     } finally {
       setLoading(false)
     }

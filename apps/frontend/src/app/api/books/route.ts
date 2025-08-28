@@ -3,15 +3,16 @@ import { NextResponse } from 'next/server'
 type Book = {
   id: string
   title: string
-  author: string
-  publisher: string
-  genre: string
-  available: boolean
+  author?: string
+  publisher?: string
+  genre?: string
+  available?: boolean
   cover?: string
-  createdAt: string
+  createdAt?: string
 }
 
-const globalDb: any = (global as any)._booksDb || { books: [] }
+type GlobalDb = { books: Book[] }
+const globalDb = (global as unknown as { _booksDb?: GlobalDb })._booksDb || { books: [] }
 if (!globalDb.books.length) {
   const genres = ['Fiction', 'Sci-Fi', 'Fantasy', 'Non-Fiction', 'Mystery']
   const publishers = ['ACME', 'Orbit', 'Penguin', 'Harper']
@@ -30,7 +31,7 @@ if (!globalDb.books.length) {
   ;(global as any)._booksDb = globalDb
 }
 
-function applyFilters(items: Book[], q?: string, filters?: any) {
+function applyFilters(items: Book[], q?: string, filters?: { genre?: string; publisher?: string; author?: string; available?: string | boolean } | undefined) {
   let out = items
   if (q) {
     const qq = q.toLowerCase()
@@ -67,8 +68,8 @@ export async function GET(req: Request) {
     items = items.slice().sort((a, b) => {
       for (const s of sorts) {
         const [field, dir] = s.split(':')
-        const av = (a as any)[field]
-        const bv = (b as any)[field]
+        const av = (a as unknown as Record<string, unknown>)[field]
+        const bv = (b as unknown as Record<string, unknown>)[field]
         if (av == null || bv == null) continue
         if (av < bv) return dir === 'desc' ? 1 : -1
         if (av > bv) return dir === 'desc' ? -1 : 1
@@ -85,11 +86,17 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const body = await req.json().catch(() => ({}))
-  const { title, author, publisher, genre, available, cover } = body
+  const body = await req.json().catch(() => ({} as Record<string, unknown>))
+  const { title: t, author: a, publisher: p, genre: g, available: av, cover: c } = body as Record<string, unknown>
+  const title = typeof t === 'string' ? t : ''
   if (!title) return NextResponse.json({ message: 'title required' }, { status: 400 })
+  const author = typeof a === 'string' ? a : undefined
+  const publisher = typeof p === 'string' ? p : undefined
+  const genre = typeof g === 'string' ? g : undefined
+  const available = av === true || av === 'true'
+  const cover = typeof c === 'string' ? c : undefined
   const id = String(globalDb.books.length + 1)
-  const book: Book = { id, title, author, publisher, genre, available: !!available, cover, createdAt: new Date().toISOString() }
+  const book: Book = { id, title, author, publisher, genre, available, cover, createdAt: new Date().toISOString() }
   globalDb.books.unshift(book)
   return NextResponse.json(book, { status: 201 })
 }

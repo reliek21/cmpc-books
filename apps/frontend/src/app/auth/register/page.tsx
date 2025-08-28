@@ -28,7 +28,7 @@ export default function RegisterPage() {
     // Validación con Zod
     const parsed = registerSchema.safeParse({ name, email, password, confirmPassword })
     if (!parsed.success) {
-      setError(parsed.error.errors[0]?.message || 'Datos inválidos')
+      setError(parsed.error.issues[0]?.message || 'Datos inválidos')
       return
     }
     if (password !== confirmPassword) {
