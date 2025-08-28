@@ -1,0 +1,25 @@
+# docker-compose.yml
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cmpc
+    ports: ["5432:5432"]
+    volumes: ["db_data:/var/lib/postgresql/data"]
+
+  backend:
+    build: ./apps/backend
+    env_file: ./apps/backend/.env
+    ports: ["3001:3001"]
+    depends_on: [db]
+
+  frontend:
+    build: ./apps/frontend
+    env_file: ./apps/frontend/.env.local
+    ports: ["3000:3000"]
+    depends_on: [backend]
+
+volumes:
+  db_data: {}
