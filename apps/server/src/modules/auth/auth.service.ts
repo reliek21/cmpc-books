@@ -1,90 +1,76 @@
+import { Injectable } from '@nestjs/common';
+import { RegisterUseCase } from './use-cases/register.use-case';
+import { LoginUseCase } from './use-cases/login.use-case';
 import {
-  ConflictException,
-  Inject,
-  Injectable,
-  Logger,
-  UnauthorizedException,
-  InternalServerErrorException,
-} from '@nestjs/common';
-import { User } from '../users/entities/user.entity';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UsersService } from '../users/users.service';
-import { LoginUserDto } from './dto/login-user.dto';
-import { PasswordHelper } from 'src/core/helpers/password.helper';
-import { JwtService } from '@nestjs/jwt';
+  IAuthService,
+  ICreateUser,
+  ILoginCredentials,
+  IAuthResponse,
+  IAuthUser,
+  IAuthTokens,
+} from '../../common/interfaces';
 
+/**
+ * Auth Service Implementation
+ * Orchestrates authentication operations using Use Cases
+ * Follows Single Responsibility Principle and Dependency Inversion
+ */
 @Injectable()
-export class AuthService {
-  private readonly logger: Logger = new Logger(AuthService.name, {
-    timestamp: true,
-  });
-  private readonly usersService: UsersService;
-  private readonly passwordHelper: PasswordHelper = new PasswordHelper();
-
+export class AuthService implements IAuthService {
   constructor(
-    @Inject('USERS_REPOSITORY')
-    private usersRepository: typeof User,
-    usersService: UsersService,
-    private jwtService: JwtService,
-  ) {
-    this.usersService = usersService;
+    private readonly registerUseCase: RegisterUseCase,
+    private readonly loginUseCase: LoginUseCase,
+  ) {}
+
+  /**
+   * Register a new user
+   * @param userData - User registration data
+   */
+  async register(userData: ICreateUser): Promise<void> {
+    await this.registerUseCase.execute(userData);
   }
 
-  async registerWithEmail(createUserDto: CreateUserDto): Promise<void> {
-    try {
-      const findUser: User | null = await this.usersRepository.findOne({
-        where: { email: createUserDto.email },
-      });
-      if (findUser)
-        throw new ConflictException(
-          'Error registering user, please try with another email',
-        );
-
-      await this.usersService.create(createUserDto);
-    } catch (error) {
-      this.logger.error('Error during user registration', error);
-      throw new InternalServerErrorException('Error during user registration');
-    }
+  /**
+   * Authenticate user and return tokens
+   * @param credentials - User login credentials
+   * @returns Authentication response
+   */
+  async login(credentials: ILoginCredentials): Promise<IAuthResponse> {
+    return await this.loginUseCase.execute(credentials);
   }
 
-  async loginWithEmail(loginUserDto: LoginUserDto) {
-    const { email, password: providedPassword }: LoginUserDto = loginUserDto;
+  /**
+   * Validate JWT token and return user info
+   * @param _token - JWT access token
+   * @returns Authenticated user information
+   */
+  validateToken(_token: string): Promise<IAuthUser> {
+    // Prevent unused parameter warning
+    void _token;
+    // This will be implemented when we create the ValidateTokenUseCase
+    throw new Error('Method not implemented yet');
+  }
 
-    const existUser: User | null = await this.usersRepository.findOne({
-      where: { email },
-    });
-    if (!existUser) throw new UnauthorizedException('Invalid credentials');
+  /**
+   * Refresh access token using refresh token
+   * @param _refreshToken - JWT refresh token
+   * @returns New authentication tokens
+   */
+  refreshToken(_refreshToken: string): Promise<IAuthTokens> {
+    // Prevent unused parameter warning
+    void _refreshToken;
+    // This will be implemented when we create the RefreshTokenUseCase
+    throw new Error('Method not implemented yet');
+  }
 
-    const match: boolean = await this.passwordHelper.comparePassword(
-      providedPassword,
-      existUser.password,
-    );
-    if (!match) throw new UnauthorizedException('Invalid credentials');
-    if (!existUser.is_active)
-      throw new UnauthorizedException('Account is not active');
-
-    try {
-      const payload: {
-        sub: string;
-        email: string;
-      } = { sub: existUser.id, email: existUser.email };
-      const accessToken: string = this.jwtService.sign(payload);
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...userData } = existUser;
-
-      return {
-        access_token: accessToken,
-        user: {
-          id: existUser.id,
-          email: existUser.email,
-          first_name: existUser.first_name,
-          last_name: existUser.last_name,
-        },
-      };
-    } catch (error) {
-      this.logger.error('Error during login', error);
-      throw new InternalServerErrorException('Error during login');
-    }
+  /**
+   * Logout user by invalidating tokens
+   * @param _userId - User ID to logout
+   */
+  logout(_userId: string): Promise<void> {
+    // Prevent unused parameter warning
+    void _userId;
+    // This will be implemented when we add token repository
+    throw new Error('Method not implemented yet');
   }
 }

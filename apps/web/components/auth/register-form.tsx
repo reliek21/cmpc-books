@@ -11,12 +11,17 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from '@/components/ui/input';
+import { useAuth } from "@/contexts/auth-context";
 
 const registerSchema = z.object({
   first_name: z.string().min(2, 'First name must be at least 2 characters'),
   last_name: z.string().min(2, 'Last name must be at least 2 characters'),
   email: z.email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long')
+    .regex(/[a-zA-Z]/, 'Password must contain at least one letter')
+    .regex(/\d/, 'Password must contain at least one number'),
 });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
@@ -56,8 +61,19 @@ export function RegisterForm({
         return;
       }
 
-      // Registration successful, redirect to login
-      router.push('/auth/login?message=Registration successful, please login');
+      const responseData = await response.json();
+
+      // Store auth data in localStorage (similar to login)
+      if (responseData.access_token && responseData.user) {
+        localStorage.setItem('auth-token', responseData.access_token);
+        localStorage.setItem('user', JSON.stringify(responseData.user));
+
+        // Redirect to dashboard after successful registration
+        router.push('/dashboard');
+      } else {
+        // Fallback: redirect to login with success message
+        router.push('/auth/login?message=Registration successful, please login');
+      }
     } catch (err) {
       setError('root', { message: 'Registration failed' });
     } finally {

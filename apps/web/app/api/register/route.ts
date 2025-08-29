@@ -22,11 +22,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Registration successful (status 201)
-    return NextResponse.json(
-      { message: 'User registered successfully' },
-      { status: 201 }
-    );
+    // Registration successful - backend returns auth tokens
+    const data = await response.json();
+    return NextResponse.json(data, { status: 201 });
   } catch (error) {
     console.error('Register API error:', error);
     return NextResponse.json(

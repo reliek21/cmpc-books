@@ -3,11 +3,22 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
-import { usersProviders } from '../users/users.providers';
+import { RegisterUseCase } from './use-cases/register.use-case';
+import { LoginUseCase } from './use-cases/login.use-case';
+import { PasswordService } from '../../core/helpers/password.service';
+import { PasswordHelper } from '../../core/helpers/password.helper';
+import { JwtService } from '../../core/helpers/jwt.service';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, ...usersProviders],
+  providers: [
+    AuthService,
+    RegisterUseCase,
+    LoginUseCase,
+    PasswordService,
+    PasswordHelper,
+    JwtService,
+  ],
   imports: [
     UsersModule,
     JwtModule.register({
@@ -15,5 +26,6 @@ import { usersProviders } from '../users/users.providers';
       signOptions: { expiresIn: process.env.JWT_EXPIRES || '1d' },
     }),
   ],
+  exports: [AuthService],
 })
 export class AuthModule {}

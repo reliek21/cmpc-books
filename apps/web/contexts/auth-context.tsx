@@ -1,13 +1,7 @@
 "use client"
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-
-interface User {
-  id: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-}
+import { User, AuthResponse } from '@/types/auth';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -28,8 +22,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (token && userData) {
       try {
+        const user: User = JSON.parse(userData);
         setIsAuthenticated(true);
-        setUser(JSON.parse(userData));
+        setUser(user);
       } catch (error) {
         localStorage.removeItem('auth-token');
         localStorage.removeItem('user');
@@ -54,12 +49,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return false;
       }
 
-      const data = await response.json();
+      const data: AuthResponse = await response.json();
       if (data.access_token && data.user) {
+        // Convert AuthUser to User format for local state
+        const userData: User = {
+          ...data.user,
+          is_active: true, // Assume active if login successful
+          created_at: new Date(), // We don't have this from auth response
+        };
+
         localStorage.setItem('auth-token', data.access_token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('user', JSON.stringify(userData));
         setIsAuthenticated(true);
-        setUser(data.user);
+        setUser(userData);
         return true;
       }
       return false;
