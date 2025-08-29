@@ -10,36 +10,36 @@ export class Book extends Model<Book> {
     primaryKey: true,
     autoIncrement: true,
   })
-  declare id: number;
+  id: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  declare title: string;
+  title: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  declare author: string;
+  author: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  declare publisher: string;
+  publisher: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  declare genre: string;
+  genre: string;
 
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
     defaultValue: true,
   })
-  declare available: boolean;
+  available: boolean;
 }

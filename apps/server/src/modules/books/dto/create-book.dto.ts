@@ -1,37 +1,22 @@
-import { IsDefined, IsOptional, IsString, IsBoolean } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsBoolean, IsNotEmpty } from 'class-validator';
 
 export class CreateBookDto {
-  @IsOptional()
-  public id?: string;
-
-  @ApiProperty({ example: 'The Old Man and the Sea' })
-  @IsDefined()
   @IsString()
-  public title!: string;
+  @IsNotEmpty()
+  title: string;
 
-  @ApiProperty({ example: 'Ernest Hemingway' })
-  @IsOptional()
   @IsString()
-  public author?: string;
+  @IsNotEmpty()
+  author: string;
 
-  @ApiProperty({ example: 'Scribner' })
-  @IsOptional()
   @IsString()
-  public publisher?: string;
+  @IsNotEmpty()
+  publisher: string;
 
-  @ApiProperty({ example: 'Fiction' })
-  @IsOptional()
   @IsString()
-  public genre?: string;
+  @IsNotEmpty()
+  genre: string;
 
-  @ApiProperty({ example: true })
-  @IsOptional()
   @IsBoolean()
-  public available?: boolean;
-
-  @ApiProperty({ example: null, required: false })
-  @IsOptional()
-  @IsString()
-  public cover?: string;
+  available?: boolean;
 }

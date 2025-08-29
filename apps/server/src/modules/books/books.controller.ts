@@ -1,59 +1,48 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
   Post,
-  Put,
+  Body,
+  Patch,
+  Param,
+  Delete,
   Query,
-  Res,
-  HttpStatus,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { FilterBooksDto } from './dto/filter-books.dto';
-import type { Response } from 'express';
 
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
-  @Get()
-  async findAll(@Query() query: FilterBooksDto) {
-    const result = await this.booksService.findAll(query);
-    return result;
+  @Post()
+  create(@Body() createBookDto: CreateBookDto) {
+    return this.booksService.create(createBookDto);
   }
 
-  @Get('export')
-  async exportCsv(@Res() res: Response) {
-    const csv = await this.booksService.exportCsv();
-    res.header('Content-Type', 'text/csv');
-    res.attachment('books.csv');
-    res.send(csv);
+  @Get()
+  findAll(@Query() filterDto: FilterBooksDto) {
+    return this.booksService.findAll(filterDto);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.booksService.findOne(id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.booksService.findOne(id);
   }
 
-  @Post()
-  async create(@Body() createBookDto: CreateBookDto) {
-    const created = await this.booksService.create(createBookDto);
-    return { status: HttpStatus.CREATED, data: created };
-  }
-
-  @Put(':id')
-  async update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    const updated = await this.booksService.update(id, updateBookDto);
-    return { status: HttpStatus.OK, data: updated };
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateBookDto: UpdateBookDto,
+  ) {
+    return this.booksService.update(id, updateBookDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.booksService.remove(id);
-    return { status: HttpStatus.NO_CONTENT };
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.booksService.remove(id);
   }
 }

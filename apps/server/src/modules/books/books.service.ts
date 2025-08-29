@@ -1,115 +1,117 @@
-import { Inject, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Op } from 'sequelize';
+import { Book } from './entities/book.entity';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { FilterBooksDto } from './dto/filter-books.dto';
-import { Book } from './entities/book.entity';
-import { Op } from 'sequelize';
 
 @Injectable()
 export class BooksService {
-  private readonly logger: Logger = new Logger(BooksService.name, {
-    timestamp: true,
-  });
-
   constructor(
-    @Inject('BOOKS_REPOSITORY')
-    private booksRepository: typeof Book,
+    @InjectModel(Book)
+    private bookModel: typeof Book,
   ) {}
 
   async create(createBookDto: CreateBookDto): Promise<Book> {
-    try {
-      return await this.booksRepository.create({ ...createBookDto });
-    } catch (error) {
-      this.logger.error('Error creating book', error);
-      throw new InternalServerErrorException('Error creating book');
-    }
+    return await this.bookModel.create(createBookDto as any);
   }
 
-  async findAll(filter: FilterBooksDto): Promise<{ data: Book[]; total: number }> {
-    try {
-      const where: any = {};
-      if (filter.search) {
-        where[Op.or] = [
-          { title: { [Op.iLike]: `%${filter.search}%` } },
-          { author: { [Op.iLike]: `%${filter.search}%` } },
-          { publisher: { [Op.iLike]: `%${filter.search}%` } },
-        ];
-      }
-      // Exclude soft-deleted
-      where.deleted_at = null;
+  async findAll(filterDto: FilterBooksDto): Promise<{
+    data: Book[];
+    total: number;
+    page: number;
+    per_page: number;
+    total_pages: number;
+  }> {
+    const {
+      search,
+      genre,
+      publisher,
+      author,
+      available,
+      sort,
+      page = 1,
+      per_page = 10,
+    } = filterDto;
 
-      const page = filter.page ?? 1;
-      const per_page = filter.per_page ?? 10;
-      const offset = (page - 1) * per_page;
+    // Build where clause
+    const where: any = {};
 
-      // Sorting
-      let order: any = [['created_at', 'DESC']];
-      if (filter.sort) {
-        order = filter.sort.split(',').map((s) => {
-          const [field, dir] = s.split(':');
-          return [field, dir?.toUpperCase() === 'DESC' ? 'DESC' : 'ASC'];
-        });
-      }
+    if (search) {
+      where['$or'] = [
+        { title: { [Op.iLike]: `%${search}%` } },
+        { author: { [Op.iLike]: `%${search}%` } },
+        { publisher: { [Op.iLike]: `%${search}%` } },
+        { genre: { [Op.iLike]: `%${search}%` } },
+      ];
+    }
 
-      const { rows, count } = await this.booksRepository.findAndCountAll({
-        where,
-        limit: per_page,
-        offset,
-        order,
+    if (genre) {
+      where.genre = { [Op.iLike]: `%${genre}%` };
+    }
+
+    if (publisher) {
+      where.publisher = { [Op.iLike]: `%${publisher}%` };
+    }
+
+    if (author) {
+      where.author = { [Op.iLike]: `%${author}%` };
+    }
+
+    if (available !== undefined) {
+      where.available = available;
+    }
+
+    // Build order clause
+    let order: any[] = [['createdAt', 'DESC']];
+
+    if (sort) {
+      const sortFields = sort.split(',').map((s) => s.trim());
+      order = sortFields.map((sortField) => {
+        const [field, direction = 'asc'] = sortField.split(':');
+        return [field, direction.toUpperCase()];
       });
-
-      return { data: rows, total: count };
-    } catch (error) {
-      this.logger.error('Error fetching books', error);
-      throw new InternalServerErrorException('Error fetching books');
     }
+
+    // Calculate offset
+    const offset = (page - 1) * per_page;
+
+    // Execute query
+    const { rows: data, count: total } = await this.bookModel.findAndCountAll({
+      where,
+      order,
+      limit: per_page,
+      offset,
+    });
+
+    const total_pages = Math.ceil(total / per_page);
+
+    return {
+      data,
+      total,
+      page,
+      per_page,
+      total_pages,
+    };
   }
 
-  async findOne(id: string): Promise<Book | null> {
-    try {
-      return await this.booksRepository.findOne({ where: { id, deleted_at: null } });
-    } catch (error) {
-      this.logger.error('Error fetching book', error);
-      throw new InternalServerErrorException('Error fetching book');
+  async findOne(id: number): Promise<Book> {
+    const book = await this.bookModel.findByPk(id);
+    if (!book) {
+      throw new NotFoundException(`Book with ID ${id} not found`);
     }
+    return book;
   }
 
-  async update(id: string, updateBookDto: UpdateBookDto): Promise<Book | null> {
-    try {
-      const book = await this.booksRepository.findByPk(id);
-      if (!book) return null;
-      await book.update({ ...updateBookDto });
-      return book;
-    } catch (error) {
-      this.logger.error('Error updating book', error);
-      throw new InternalServerErrorException('Error updating book');
-    }
+  async update(id: number, updateBookDto: UpdateBookDto): Promise<Book> {
+    const book = await this.findOne(id);
+    await book.update(updateBookDto);
+    return book;
   }
 
-  async remove(id: string): Promise<void> {
-    try {
-      const book = await this.booksRepository.findByPk(id);
-      if (!book) return;
-      // Soft delete by setting deleted_at
-      await book.update({ deleted_at: new Date() });
-    } catch (error) {
-      this.logger.error('Error deleting book', error);
-      throw new InternalServerErrorException('Error deleting book');
-    }
-  }
-
-  async exportCsv(): Promise<string> {
-    try {
-      const books = await this.booksRepository.findAll({ where: { deleted_at: null } });
-      // Simple CSV serialization
-      const headers = ['id', 'title', 'author', 'publisher', 'genre', 'available'];
-      const rows = books.map((b) =>
-        headers.map((h) => String((b as any)[h] ?? '')).join(','),
-      );
-      return [headers.join(','), ...rows].join('\n');
-    } catch (error) {
-      this.logger.error('Error exporting CSV', error);
-      throw new InternalServerErrorException('Error exporting CSV');
-    }
+  async remove(id: number): Promise<void> {
+    const book = await this.findOne(id);
+    await book.destroy();
   }
 }

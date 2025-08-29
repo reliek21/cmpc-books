@@ -1,34 +1,29 @@
 import { IsOptional, IsString, IsBoolean } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateBookDto {
-  @ApiProperty({ example: 'The Old Man and the Sea', required: false })
+  @ApiPropertyOptional({ example: 'The Great Gatsby' })
   @IsOptional()
   @IsString()
   public title?: string;
 
-  @ApiProperty({ example: 'Ernest Hemingway', required: false })
+  @ApiPropertyOptional({ example: 'F. Scott Fitzgerald' })
   @IsOptional()
   @IsString()
   public author?: string;
 
-  @ApiProperty({ example: 'Scribner', required: false })
+  @ApiPropertyOptional({ example: 'Scribner' })
   @IsOptional()
   @IsString()
   public publisher?: string;
 
-  @ApiProperty({ example: 'Fiction', required: false })
+  @ApiPropertyOptional({ example: 'Fiction' })
   @IsOptional()
   @IsString()
   public genre?: string;
 
-  @ApiProperty({ example: true, required: false })
+  @ApiPropertyOptional({ example: true })
   @IsOptional()
   @IsBoolean()
   public available?: boolean;
-
-  @ApiProperty({ example: null, required: false })
-  @IsOptional()
-  @IsString()
-  public cover?: string;
 }
