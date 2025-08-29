@@ -8,18 +8,34 @@ import {
   Delete,
   Query,
   ParseIntPipe,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { FilterBooksDto } from './dto/filter-books.dto';
+import { UploadService } from '../upload/upload.service';
+import type { MulterFile } from '../upload/upload.service';
 
 @Controller('books')
 export class BooksController {
-  constructor(private readonly booksService: BooksService) {}
+  constructor(
+    private readonly booksService: BooksService,
+    private readonly uploadService: UploadService,
+  ) {}
 
   @Post()
-  create(@Body() createBookDto: CreateBookDto) {
+  @UseInterceptors(FileInterceptor('image', UploadService.getMulterOptions()))
+  create(
+    @Body() createBookDto: CreateBookDto,
+    @UploadedFile() file?: MulterFile,
+  ) {
+    if (file) {
+      createBookDto.imageUrl = this.uploadService.getFileUrl(file.filename);
+    }
     return this.booksService.create(createBookDto);
   }
 
@@ -59,5 +75,19 @@ export class BooksController {
   @Delete(':id/force')
   forceDelete(@Param('id', ParseIntPipe) id: number) {
     return this.booksService.forceDelete(id);
+  }
+
+  @Post(':id/upload-image')
+  @UseInterceptors(FileInterceptor('image', UploadService.getMulterOptions()))
+  async uploadImage(
+    @Param('id', ParseIntPipe) id: number,
+    @UploadedFile() file: MulterFile,
+  ) {
+    if (!file) {
+      throw new BadRequestException('Image file is required');
+    }
+
+    const imageUrl = this.uploadService.getFileUrl(file.filename);
+    return this.booksService.update(id, { imageUrl });
   }
 }

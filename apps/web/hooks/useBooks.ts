@@ -38,6 +38,7 @@ interface UseBooksReturn {
   restoreBook: (id: number) => Promise<void>;
   forceDeleteBook: (id: number) => Promise<void>;
   fetchDeletedBooks: () => Promise<Book[]>;
+  uploadBookImage: (id: number, file: File) => Promise<void>;
 }
 
 /**
@@ -268,6 +269,30 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     }
   }, []);
 
+  const uploadBookImage = useCallback(async (id: number, file: File): Promise<void> => {
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch(`/api/books/${id}/upload-image`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to upload image');
+      }
+
+      // Refetch data after image upload
+      await fetchBooks();
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to upload image';
+      setError(errorMessage);
+      throw err;
+    }
+  }, [fetchBooks]);
+
   // Pagination actions
   const handleSetPage = useCallback((newPage: number) => {
     setPage(Math.max(1, Math.min(totalPages, newPage)));
@@ -314,5 +339,6 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     restoreBook,
     forceDeleteBook,
     fetchDeletedBooks,
+    uploadBookImage,
   };
 }

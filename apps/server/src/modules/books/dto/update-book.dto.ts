@@ -26,4 +26,9 @@ export class UpdateBookDto {
   @IsOptional()
   @IsBoolean()
   public available?: boolean;
+
+  @ApiPropertyOptional({ example: '/uploads/books/image.jpg' })
+  @IsOptional()
+  @IsString()
+  public imageUrl?: string;
 }

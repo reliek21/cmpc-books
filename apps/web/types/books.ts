@@ -9,6 +9,7 @@ export interface Book {
   createdAt?: string;
   updatedAt?: string;
   deletedAt?: string;
+  imageUrl?: string;
 }
 
 export interface BookFilters {

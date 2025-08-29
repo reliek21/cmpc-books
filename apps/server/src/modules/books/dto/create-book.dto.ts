@@ -1,4 +1,4 @@
-import { IsString, IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsString, IsBoolean, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateBookDto {
   @IsString()
@@ -19,4 +19,8 @@ export class CreateBookDto {
 
   @IsBoolean()
   available?: boolean;
+
+  @IsString()
+  @IsOptional()
+  imageUrl?: string;
 }

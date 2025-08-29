@@ -4,10 +4,13 @@ import React, { useState } from 'react';
 import { useBooks } from '../../hooks/useBooks';
 import { Book } from '../types/books';
 import Link from 'next/link';
+import { ImageUpload } from '../../components/ui/image-upload';
 
 const BooksList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [uploadingId, setUploadingId] = useState<number | null>(null);
+  const [showImageUpload, setShowImageUpload] = useState<number | null>(null);
 
   // Use the books hook
   const {
@@ -22,6 +25,7 @@ const BooksList: React.FC = () => {
     setSearch,
     setFilters,
     deleteBook,
+    uploadBookImage,
   } = useBooks();
 
   // Handle delete with confirmation
@@ -50,6 +54,20 @@ const BooksList: React.FC = () => {
   // Handle filter changes
   const handleFilterChange = (key: string, value: string) => {
     setFilters({ [key]: value || undefined });
+  };
+
+  // Handle image upload
+  const handleImageUpload = async (bookId: number, file: File) => {
+    setUploadingId(bookId);
+    try {
+      await uploadBookImage(bookId, file);
+      setShowImageUpload(null);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Failed to upload image. Please try again.');
+    } finally {
+      setUploadingId(null);
+    }
   };
 
   if (loading) {
@@ -156,6 +174,27 @@ const BooksList: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {books.map((book: Book) => (
           <div key={book.id} className="bg-white rounded-lg shadow-md p-6">
+            {/* Book Image */}
+            <div className="mb-4 flex justify-center">
+              {book.imageUrl ? (
+                <img
+                  src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}${book.imageUrl}`}
+                  alt={`${book.title} cover`}
+                  className="w-24 h-32 object-cover rounded-lg shadow-sm"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
+              ) : (
+                <div className="w-24 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                  <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              )}
+            </div>
+
             <h3 className="text-xl font-semibold mb-2">{book.title}</h3>
             <p className="text-gray-600 mb-1">Author: {book.author}</p>
             <p className="text-gray-600 mb-1">Publisher: {book.publisher}</p>
@@ -167,15 +206,35 @@ const BooksList: React.FC = () => {
               Added: {book.createdAt ? new Date(book.createdAt).toLocaleDateString() : 'N/A'}
             </p>
             
-            {/* Delete Button */}
-            <div className="mt-4">
-              <button
-                onClick={() => handleDelete(book)}
-                disabled={deletingId === book.id}
-                className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                {deletingId === book.id ? 'Deleting...' : 'Delete'}
-              </button>
+            {/* Action Buttons */}
+            <div className="mt-4 space-y-2">
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowImageUpload(showImageUpload === book.id ? null : book.id)}
+                  className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors flex-1"
+                >
+                  {book.imageUrl ? 'Change Image' : 'Add Image'}
+                </button>
+                <button
+                  onClick={() => handleDelete(book)}
+                  disabled={deletingId === book.id}
+                  className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  {deletingId === book.id ? 'Deleting...' : 'Delete'}
+                </button>
+              </div>
+
+              {/* Image Upload Component */}
+              {showImageUpload === book.id && (
+                <div className="mt-4 p-4 border rounded-lg bg-gray-50">
+                  <ImageUpload
+                    onImageUpload={(file) => handleImageUpload(book.id, file)}
+                    currentImageUrl={book.imageUrl ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}${book.imageUrl}` : undefined}
+                    isUploading={uploadingId === book.id}
+                    bookId={book.id}
+                  />
+                </div>
+              )}
             </div>
           </div>
         ))}

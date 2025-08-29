@@ -53,6 +53,12 @@ export class Book extends Model<Book> {
   })
   declare available: boolean;
 
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  declare imageUrl?: string;
+
   @CreatedAt
   @Column({ field: 'created_at', type: DataType.DATE })
   declare createdAt: Date;
