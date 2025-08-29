@@ -6,9 +6,10 @@ import { User } from './entities/user.entity';
 import { UserRepository } from './repositories/user.repository';
 import { PasswordService } from '../../core/helpers/password.service';
 import { PasswordHelper } from '../../core/helpers/password.helper';
+import { Book } from '../books/entities/book.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([User])],
+  imports: [SequelizeModule.forFeature([User, Book])],
   controllers: [UsersController],
   providers: [UserService, UserRepository, PasswordService, PasswordHelper],
   exports: [UserService, UserRepository],

@@ -51,11 +51,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       const data: AuthResponse = await response.json();
       if (data.access_token && data.user) {
-        // Convert AuthUser to User format for local state
         const userData: User = {
           ...data.user,
-          is_active: true, // Assume active if login successful
-          created_at: new Date(), // We don't have this from auth response
+          is_active: true,
+          created_at: new Date(),
         };
 
         localStorage.setItem('auth-token', data.access_token);

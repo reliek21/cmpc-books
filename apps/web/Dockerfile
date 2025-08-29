@@ -9,8 +9,8 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy package files
-COPY package*.json pnpm-lock.yaml* ./
+# Copy package files for workspace
+COPY package*.json pnpm-lock.yaml* pnpm-workspace.yaml ./
 COPY apps/web/package*.json ./apps/web/
 
 # Install dependencies
@@ -20,12 +20,13 @@ RUN pnpm install --frozen-lockfile
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
+COPY --from=deps /app/package.json ./package.json
+COPY --from=deps /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY apps/web ./apps/web
 
 # Build application
 WORKDIR /app/apps/web
-RUN pnpm build
+RUN pnpm next build
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -38,16 +39,13 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy built application
-COPY --from=builder /app/apps/web/public ./public
+# Copy the entire workspace
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=deps --chown=nextjs:nodejs /app/package.json ./package.json
+COPY --from=deps --chown=nextjs:nodejs /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-# Automatically leverage output traces to reduce image size
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./.next/static
+# Copy the built application
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web ./apps/web
 
 USER nextjs
 
@@ -55,4 +53,5 @@ EXPOSE 3000
 
 ENV PORT=3000
 
-CMD ["node", "server.js"]
+WORKDIR /app/apps/web
+CMD ["pnpm", "start"]

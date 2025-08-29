@@ -12,11 +12,6 @@ import {
   IUpdateUser,
 } from '../../common/interfaces';
 
-/**
- * User Service Implementation
- * Handles business logic for user operations
- * Follows Single Responsibility Principle
- */
 @Injectable()
 export class UserService implements IUserService {
   constructor(
@@ -24,38 +19,24 @@ export class UserService implements IUserService {
     private readonly passwordService: PasswordService,
   ) {}
 
-  /**
-   * Create a new user
-   * @param userData - User creation data
-   * @returns Created user
-   */
   async createUser(userData: ICreateUser): Promise<IUser> {
-    // Check if user already exists
     const existingUser = await this.userRepository.exists(userData.email);
     if (existingUser) {
       throw new ConflictException('User with this email already exists');
     }
 
-    // Hash password
     const hashedPassword = await this.passwordService.hashPassword(
       userData.password,
     );
 
-    // Create user
     const user = await this.userRepository.create({
       ...userData,
       password: hashedPassword,
     });
 
-    // Return user without password
     return this.excludePassword(user);
   }
 
-  /**
-   * Find user by ID
-   * @param id - User ID
-   * @returns User
-   */
   async getUserById(id: string): Promise<IUser> {
     const user = await this.userRepository.findById(id);
     if (!user) {
@@ -64,11 +45,6 @@ export class UserService implements IUserService {
     return this.excludePassword(user);
   }
 
-  /**
-   * Find user by email
-   * @param email - User email
-   * @returns User
-   */
   async getUserByEmail(email: string): Promise<IUser> {
     const user = await this.userRepository.findByEmail(email);
     if (!user) {
@@ -77,29 +53,17 @@ export class UserService implements IUserService {
     return this.excludePassword(user);
   }
 
-  /**
-   * Get all users
-   * @returns Array of users
-   */
   async getAllUsers(): Promise<IUser[]> {
     const users = await this.userRepository.findAll();
     return users.map((user) => this.excludePassword(user));
   }
 
-  /**
-   * Update user
-   * @param id - User ID
-   * @param userData - Updated user data
-   * @returns Updated user
-   */
   async updateUser(id: string, userData: IUpdateUser): Promise<IUser> {
-    // Check if user exists
     const existingUser = await this.userRepository.findById(id);
     if (!existingUser) {
       throw new NotFoundException('User not found');
     }
 
-    // Hash password if provided
     const updateData: Record<string, any> = { ...userData };
     if (userData.password) {
       updateData.password = await this.passwordService.hashPassword(
@@ -107,17 +71,11 @@ export class UserService implements IUserService {
       );
     }
 
-    // Update user
     const updatedUser = await this.userRepository.update(id, updateData);
     return this.excludePassword(updatedUser);
   }
 
-  /**
-   * Delete user
-   * @param id - User ID
-   */
   async deleteUser(id: string): Promise<void> {
-    // Check if user exists
     const existingUser = await this.userRepository.findById(id);
     if (!existingUser) {
       throw new NotFoundException('User not found');
@@ -126,12 +84,6 @@ export class UserService implements IUserService {
     await this.userRepository.delete(id);
   }
 
-  /**
-   * Validate user credentials
-   * @param email - User email
-   * @param password - User password
-   * @returns User if credentials are valid
-   */
   async validateUserCredentials(
     email: string,
     password: string,
@@ -152,11 +104,6 @@ export class UserService implements IUserService {
     return this.excludePassword(user);
   }
 
-  /**
-   * Exclude password from user object
-   * @param user - User object
-   * @returns User without password
-   */
   private excludePassword(user: Record<string, any>): IUser {
     const userData = user as {
       id: string;

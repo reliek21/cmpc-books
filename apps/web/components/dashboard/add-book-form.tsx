@@ -51,10 +51,17 @@ export function AddBookForm({ onSuccess, onCancel }: AddBookFormProps) {
     setError(null);
 
     try {
+      // Get authentication token
+      const token = localStorage.getItem('auth-token');
+      if (!token) {
+        throw new Error('Authentication required. Please log in again.');
+      }
+
       const response = await fetch('/api/books', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });

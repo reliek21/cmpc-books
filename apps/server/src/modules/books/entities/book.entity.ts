@@ -6,7 +6,10 @@ import {
   CreatedAt,
   UpdatedAt,
   DeletedAt,
+  ForeignKey,
+  BelongsTo,
 } from 'sequelize-typescript';
+import { User } from '../../users/entities/user.entity';
 
 @Table({
   tableName: 'books',
@@ -21,6 +24,17 @@ export class Book extends Model<Book> {
     autoIncrement: true,
   })
   declare id: number;
+
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.UUID,
+    allowNull: false,
+    field: 'user_id',
+  })
+  declare userId: string;
+
+  @BelongsTo(() => User)
+  declare user: User;
 
   @Column({
     type: DataType.STRING,

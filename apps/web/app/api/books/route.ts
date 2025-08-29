@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
 
     // Build query parameters for the backend
     const params = new URLSearchParams();
-    
+
     // Map frontend parameters to backend parameters
     searchParams.forEach((value, key) => {
       if (value) {
@@ -59,12 +59,24 @@ export async function POST(request: NextRequest) {
   try {
     const bookData = await request.json();
 
-    // Call backend API
+    // Get authorization token from request headers
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+
+    // Call backend API with authentication
     const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
     const response = await fetch(`${backendUrl}/books`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(bookData),
     });

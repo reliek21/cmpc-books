@@ -8,6 +8,7 @@ import { LoginUseCase } from './use-cases/login.use-case';
 import { PasswordService } from '../../core/helpers/password.service';
 import { PasswordHelper } from '../../core/helpers/password.helper';
 import { JwtService } from '../../core/helpers/jwt.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Module({
   controllers: [AuthController],
@@ -18,6 +19,7 @@ import { JwtService } from '../../core/helpers/jwt.service';
     PasswordService,
     PasswordHelper,
     JwtService,
+    JwtAuthGuard,
   ],
   imports: [
     UsersModule,
@@ -26,6 +28,6 @@ import { JwtService } from '../../core/helpers/jwt.service';
       signOptions: { expiresIn: process.env.JWT_EXPIRES || '1d' },
     }),
   ],
-  exports: [AuthService],
+  exports: [AuthService, JwtAuthGuard],
 })
 export class AuthModule {}

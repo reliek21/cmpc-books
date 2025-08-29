@@ -9,7 +9,9 @@ import {
   CreatedAt,
   UpdatedAt,
   DeletedAt,
+  HasMany,
 } from 'sequelize-typescript';
+import { Book } from '../../books/entities/book.entity';
 
 @Table({
   tableName: 'users',
@@ -52,4 +54,7 @@ export class User extends Model {
 
   @Column({ type: DataType.TEXT, allowNull: false })
   declare password: string;
+
+  @HasMany(() => Book)
+  declare books: Book[];
 }

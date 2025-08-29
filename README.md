@@ -1,127 +1,127 @@
-# CMPC Books - Sistema de Gestión de Biblioteca Digital
+# CMPC Books - Digital Library Management System
 
-## Descripción del Proyecto
+## Project Description
 
-**CMPC Books** es un sistema completo de gestión de biblioteca digital desarrollado como prueba técnica. El proyecto implementa una arquitectura moderna de full-stack con las siguientes características:
+**CMPC Books** is a complete digital library management system developed as a technical test. The project implements a modern full-stack architecture with the following features:
 
-- 📚 **Gestión de Libros**: CRUD completo con validaciones
-- 👤 **Sistema de Usuarios**: Autenticación JWT y manejo de roles
-- 📁 **Subida de Archivos**: Manejo de documentos relacionados
-- 🧪 **Testing Completo**: Cobertura de unit tests para frontend y backend
-- 🐳 **Containerización**: Despliegue con Docker Compose
+- 📚 **Book Management**: Complete CRUD with validations
+- 👤 **User System**: JWT authentication and role management
+- 📁 **File Upload**: Handling of related documents
+- 🧪 **Complete Testing**: Unit test coverage for frontend and backend
+- 🐳 **Containerization**: Deployment with Docker Compose
 
-## Arquitectura del Sistema
+## System Architecture
 
-### Stack Tecnológico
+### Technology Stack
 
 **Frontend:**
-- Next.js 15 con TypeScript
-- React 19 con Hooks modernos
-- TanStack Query para manejo de estado
-- Tailwind CSS + Radix UI para diseño
-- React Hook Form + Zod para validaciones
-- Jest + Testing Library para testing
+- Next.js 15 with TypeScript
+- React 19 with modern Hooks
+- TanStack Query for state management
+- Tailwind CSS + Radix UI for design
+- React Hook Form + Zod for validations
+- Jest + Testing Library for testing
 
 **Backend:**
-- NestJS con TypeScript
+- NestJS with TypeScript
 - Sequelize ORM + PostgreSQL
-- JWT para autenticación
-- Swagger para documentación API
-- Jest para testing unitario
-- Multer para subida de archivos
+- JWT for authentication
+- Swagger for API documentation
+- Jest for unit testing
+- Multer for file uploads
 
 **DevOps:**
 - Docker + Docker Compose
-- pnpm + Turbo para monorepo
-- ESLint + Prettier para código
+- pnpm + Turbo for monorepo
+- ESLint + Prettier for code
 - GitHub Actions ready
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
 cmcp-libros/
 ├── apps/
-│   ├── server/           # Backend NestJS
+│   ├── server/           # NestJS Backend
 │   │   ├── src/
 │   │   │   ├── modules/
-│   │   │   │   ├── auth/         # Autenticación JWT
-│   │   │   │   ├── users/        # Gestión de usuarios
-│   │   │   │   ├── books/        # CRUD de libros
-│   │   │   │   └── upload/       # Subida de archivos
-│   │   │   ├── config/           # Configuración DB
+│   │   │   │   ├── auth/         # JWT Authentication
+│   │   │   │   ├── users/        # User management
+│   │   │   │   ├── books/        # Book CRUD
+│   │   │   │   └── upload/       # File uploads
+│   │   │   ├── config/           # DB Configuration
 │   │   │   └── common/           # Guards, interceptors
-│   │   └── test/                 # Tests E2E
+│   │   └── test/                 # E2E Tests
 │   │
-│   └── web/              # Frontend Next.js
+│   └── web/              # Next.js Frontend
 │       ├── src/
 │       │   ├── app/              # App Router
-│       │   ├── components/       # Componentes UI
+│       │   ├── components/       # UI Components
 │       │   ├── hooks/            # Custom hooks
-│       │   ├── lib/              # Utilidades
+│       │   ├── lib/              # Utilities
 │       │   └── types/            # TypeScript types
 │       └── __tests__/            # Unit tests
 │
-├── docker-compose.yml    # Orquestación completa
-├── .env                  # Variables globales
-└── README.md            # Este archivo
+├── docker-compose.yml    # Complete orchestration
+├── .env                  # Global variables
+└── README.md            # This file
 ```
 
-## 🚀 Inicio Rápido (Un Solo Comando)
+## 🚀 Quick Start (One Command)
 
-### Prerrequisitos
+### Prerequisites
 
 - [Docker](https://www.docker.com/get-started) & Docker Compose
 - [pnpm](https://pnpm.io/installation) >= 9.0
 - [Node.js](https://nodejs.org/) >= 18
 
-### Instalación Automática
+### Automatic Installation
 
 ```bash
-# 1. Clonar repositorio
+# 1. Clone repository
 git clone <repo-url>
 cd cmcp-libros
 
-# 2. Configurar variables de entorno
+# 2. Configure environment variables
 cp .env.example .env
 cp apps/server/.env.example apps/server/.env
 cp apps/web/.env.example apps/web/.env.local
 
-# 3. Instalar dependencias
+# 3. Install dependencies
 pnpm install
 
-# 4. 🎯 LANZAR TODO EL PROYECTO
+# 4. 🎯 LAUNCH ENTIRE PROJECT
 docker-compose up --build
 ```
 
-### URLs de Acceso
+### Access URLs
 
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:3001
 - **Swagger Docs**: http://localhost:3001/api
 - **PostgreSQL**: localhost:5432
 
-## Variables de Entorno
+## Environment Variables
 
-### `.env` (Raíz del proyecto)
+### `.env` (Project root)
 
 ```env
-# Base de datos PostgreSQL
+# PostgreSQL Database
 POSTGRES_USER=cmpc123
 POSTGRES_PASSWORD=postgrescmpc
 POSTGRES_DB=cmpc
 
-# Red Docker
+# Docker Network
 COMPOSE_PROJECT_NAME=cmcp-libros
 ```
 
 ### `apps/server/.env` (Backend)
 
 ```env
-# Servidor
+# Server
 PORT=3001
 NODE_ENV=development
 
-# Base de datos
+# Database
 DATABASE_HOST=db
 DATABASE_PORT=5432
 DATABASE_USER=cmpc123
@@ -132,7 +132,7 @@ DATABASE_NAME=cmpc
 JWT_SECRET=super-secret-jwt-key-for-cmpc-books-2024
 JWT_EXPIRES=7d
 
-# Archivos
+# Files
 UPLOAD_DIR=/app/uploads
 MAX_FILE_SIZE=5242880
 
@@ -143,25 +143,25 @@ CORS_ORIGIN=http://localhost:3000
 ### `apps/web/.env.local` (Frontend)
 
 ```env
-# API Backend
+# Backend API
 NEXT_PUBLIC_API_URL=http://localhost:3001
 BASE_API_URL=http://localhost:3001
 
-# Configuración Next.js
+# Next.js Configuration
 NEXT_PUBLIC_APP_ENV=development
 NEXT_PUBLIC_APP_NAME=CMPC Books
 
-# Features flags
+# Feature flags
 NEXT_PUBLIC_ENABLE_UPLOAD=true
 NEXT_PUBLIC_ENABLE_EXPORT=true
 ```
 
-## 🔧 Comandos de Desarrollo
+## 🔧 Development Commands
 
-### Desarrollo Local (Sin Docker)
+### Local Development (Without Docker)
 
 ```bash
-# Terminal 1: Base de datos
+# Terminal 1: Database
 docker-compose up db
 
 # Terminal 2: Backend
@@ -173,244 +173,258 @@ cd apps/web
 pnpm dev
 ```
 
-### Scripts Disponibles
+### Available Scripts
 
 ```bash
-# Monorepo (desde raíz)
-pnpm dev          # Desarrollo paralelo
-pnpm build        # Build producción
-pnpm test         # Tests completos
+# Monorepo (from root)
+pnpm dev          # Parallel development
+pnpm build        # Production build
+pnpm test         # Complete tests
 pnpm lint         # Linting
-pnpm clean        # Limpiar builds
+pnpm clean        # Clean builds
 
-# Backend específico
+# Backend specific
 cd apps/server
-pnpm test:cov     # Tests con cobertura
-pnpm test:e2e     # Tests E2E
-pnpm start:prod   # Producción
+pnpm test:cov     # Tests with coverage
+pnpm test:e2e     # E2E Tests
+pnpm start:prod   # Production
 
-# Frontend específico
+# Frontend specific
 cd apps/web
-pnpm test:watch   # Tests en modo watch
-pnpm build        # Build estático
-pnpm start        # Servidor producción
+pnpm test:watch   # Tests in watch mode
+pnpm build        # Static build
+pnpm start        # Production server
 ```
 
 ## 🧪 Testing
 
-### Cobertura Actual
+### Current Coverage
 
-**Backend**: 96.4% de cobertura (53/55 tests ✅)
+**Backend**: 96.4% coverage (53/55 tests ✅)
 - BooksService: 94.82%
 - UsersService: 100%
 - AuthService: 92.3%
 - Controllers: 95%+
 
-**Frontend**: 87.5% de cobertura (7/8 tests ✅)
-- Hooks personalizados
-- Componentes UI
-- Utilidades y helpers
-- Rutas API
+**Frontend**: 87.5% coverage (7/8 tests ✅)
+- Custom hooks
+- UI Components
+- Utilities and helpers
+- API Routes
 
-### Ejecutar Tests
+### Run Tests
 
 ```bash
-# Todos los tests
+# All tests
 pnpm test
 
-# Tests específicos
+# Specific tests
 cd apps/server && pnpm test:cov
 cd apps/web && pnpm test:coverage
 
-# Tests en modo watch
+# Tests in watch mode
 pnpm test:watch
 ```
 
-## 📋 Funcionalidades Implementadas
+## 📋 Implemented Features
 
-### ✅ Autenticación y Usuarios
+### ✅ Authentication and Users
 
-- [x] Registro de usuarios con validación
-- [x] Login con JWT
-- [x] Middleware de autenticación
-- [x] Hash de contraseñas con bcrypt
-- [x] Protección de rutas
+- [x] User registration with validation
+- [x] JWT login
+- [x] Authentication middleware
+- [x] Password hashing with bcrypt
+- [x] Route protection
 
-### ✅ Gestión de Libros
+### ✅ Book Management
 
-- [x] CRUD completo (Create, Read, Update, Delete)
-- [x] Filtros y búsquedas
-- [x] Validaciones de entrada
-- [x] Paginación
-- [x] Ordenamiento
+- [x] Complete CRUD (Create, Read, Update, Delete)
+- [x] Filters and searches
+- [x] Input validations
+- [x] Pagination
+- [x] Sorting
 
-### ✅ Sistema de Archivos
+### ✅ File System
 
-- [x] Subida de archivos
-- [x] Validación de tipos MIME
-- [x] Límites de tamaño
-- [x] Almacenamiento organizado
+- [x] File uploads
+- [x] MIME type validation
+- [x] Size limits
+- [x] Organized storage
 
-### ✅ Frontend Moderno
+### ✅ Modern Frontend
 
-- [x] Interfaz responsive
-- [x] Formularios con validación
-- [x] Estado global con TanStack Query
-- [x] Componentes reutilizables
-- [x] Loading states y error handling
+- [x] Responsive interface
+- [x] Forms with validation
+- [x] Global state with TanStack Query
+- [x] Reusable components
+- [x] Loading states and error handling
 
-## 🔒 Seguridad Implementada
+## 🔒 Security Implemented
 
-- **JWT Authentication**: Tokens seguros con expiración
-- **Password Hashing**: bcrypt con salt
+- **JWT Authentication**: Secure tokens with expiration
+- **Password Hashing**: bcrypt with salt
 - **Input Validation**: Zod schemas + class-validator
-- **CORS Configuration**: Origen específico
-- **File Upload Security**: Validación de tipos y tamaño
-- **Environment Variables**: Separación de secretos
+- **CORS Configuration**: Specific origin
+- **File Upload Security**: Type and size validation
+- **Environment Variables**: Secret separation
 
 ## 🐳 Docker Configuration
 
-### Servicios Definidos
+### Defined Services
 
-1. **PostgreSQL**: Base de datos con persistencia
-2. **Backend**: API NestJS con hot-reload
-3. **Frontend**: App Next.js optimizada
-4. **Volumes**: Persistencia de datos y uploads
+1. **PostgreSQL**: Database with persistence
+2. **Backend**: NestJS API with hot-reload
+3. **Frontend**: Optimized Next.js app
+4. **Volumes**: Data and uploads persistence
 
-### Comandos Docker
+### Docker Commands
 
 ```bash
-# Construir y ejecutar
+# Build and run
 docker-compose up --build
 
-# Solo base de datos
+# Database only
 docker-compose up db
 
-# Logs específicos
+# Specific logs
 docker-compose logs backend
 docker-compose logs frontend
 
-# Limpiar containers
+# Clean containers
 docker-compose down -v
 ```
 
-## 📚 Documentación API
+## � Database Schema
+
+### ER Diagram
+
+![CMPC Books Database Schema](https://dbdiagram.io/d/CMPC-Books-68afd837777b52b76ce76658)
+
+The database schema includes the following main entities:
+
+- **Users**: User management with authentication
+- **Books**: Book catalog with user relationships
+- **Uploads**: File management system
+
+For detailed schema information, visit: [CMPC Books Database Diagram](https://dbdiagram.io/d/CMPC-Books-68afd837777b52b76ce76658)
+
+## 📚 API Documentation
 
 ### Swagger UI
-Accede a la documentación interactiva en: http://localhost:3001/api
+Access the interactive documentation at: http://localhost:3001/api
 
-### Endpoints Principales
+### Main Endpoints
 
 ```
-# Autenticación
+# Authentication
 POST /auth/login
 POST /auth/register
 
-# Usuarios
+# Users
 GET    /users
 GET    /users/:id
 PUT    /users/:id
 DELETE /users/:id
 
-# Libros
+# Books
 GET    /books
 POST   /books
 GET    /books/:id
 PUT    /books/:id
 DELETE /books/:id
 
-# Archivos
+# Files
 POST   /upload
 GET    /upload/:filename
 ```
 
 ## 🚨 Troubleshooting
 
-### Problemas Comunes
+### Common Issues
 
-**Puerto en uso:**
+**Port in use:**
 ```bash
 lsof -ti:3000 | xargs kill -9
 lsof -ti:3001 | xargs kill -9
 lsof -ti:5432 | xargs kill -9
 ```
 
-**Problemas con pnpm:**
+**pnpm issues:**
 ```bash
 pnpm store prune
 rm -rf node_modules
 pnpm install
 ```
 
-**Base de datos:**
+**Database:**
 ```bash
 docker-compose down -v
 docker-compose up db
 ```
 
-**Cache de Docker:**
+**Docker cache:**
 ```bash
 docker system prune -a
 docker-compose build --no-cache
 ```
 
-### Logs y Debugging
+### Logs and Debugging
 
 ```bash
-# Ver logs en tiempo real
+# Real-time logs
 docker-compose logs -f backend
 docker-compose logs -f frontend
 
-# Conectar a contenedor
+# Connect to container
 docker-compose exec backend sh
 docker-compose exec db psql -U cmpc123 -d cmpc
 ```
 
-## 🎯 Próximos Pasos
+## 🎯 Next Steps
 
-### Mejoras Sugeridas
+### Suggested Improvements
 
-- [ ] **Testing E2E**: Cypress o Playwright
-- [ ] **CI/CD**: GitHub Actions completo
-- [ ] **Monitoreo**: Logs estructurados
+- [ ] **E2E Testing**: Cypress or Playwright
+- [ ] **CI/CD**: Complete GitHub Actions
+- [ ] **Monitoring**: Structured logs
 - [ ] **Performance**: Redis cache
-- [ ] **Seguridad**: Rate limiting
-- [ ] **UI/UX**: Más componentes Radix
+- [ ] **Security**: Rate limiting
+- [ ] **UI/UX**: More Radix components
 - [ ] **PWA**: Service workers
-- [ ] **Analytics**: Tracking de eventos
+- [ ] **Analytics**: Event tracking
 
-### Optimizaciones
+### Optimizations
 
-- [ ] **Database**: Índices y queries optimizadas
-- [ ] **Frontend**: Code splitting automático
-- [ ] **Backend**: Compresión gzip
-- [ ] **Images**: Optimización automática
-- [ ] **Bundle**: Tree shaking avanzado
+- [ ] **Database**: Optimized indexes and queries
+- [ ] **Frontend**: Automatic code splitting
+- [ ] **Backend**: Gzip compression
+- [ ] **Images**: Automatic optimization
+- [ ] **Bundle**: Advanced tree shaking
 
-## 👥 Desarrollo en Equipo
+## 👥 Team Development
 
 ### Git Workflow
 
 ```bash
-# Branches recomendados
-git checkout -b feature/nueva-funcionalidad
-git checkout -b fix/correcion-bug
-git checkout -b docs/actualizacion-readme
+# Recommended branches
+git checkout -b feature/new-functionality
+git checkout -b fix/bug-fix
+git checkout -b docs/readme-update
 ```
 
 ### Code Standards
 
-- **TypeScript**: Strict mode habilitado
-- **ESLint**: Configuración extendida
-- **Prettier**: Formateo automático
+- **TypeScript**: Strict mode enabled
+- **ESLint**: Extended configuration
+- **Prettier**: Automatic formatting
 - **Commits**: Conventional commits
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto es una prueba técnica para evaluación de desarrollo full-stack.
+This project is a technical test for full-stack development evaluation.
 
-**Desarrollado con ❤️ para CMPC**
+**Developed with ❤️ for CMPC**
 
 ---
 
-*Para más información técnica, revisa los README específicos en `apps/server/` y `apps/web/`*
+*For more technical information, check the specific READMEs in `apps/server/` and `apps/web/`*

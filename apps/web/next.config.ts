@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable standalone output for Docker
-  output: 'standalone',
-  
   // Experimental features
   experimental: {
     // Enable server actions if needed
@@ -28,7 +25,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.BASE_API_URL || 'http://localhost:3001'}/:path*`
+        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/:path*`
       }
     ]
   }

@@ -27,7 +27,10 @@ describe('UploadService', () => {
         { filename: 'image.png', expected: '/uploads/books/image.png' },
         { filename: 'photo.jpeg', expected: '/uploads/books/photo.jpeg' },
         { filename: 'picture.gif', expected: '/uploads/books/picture.gif' },
-        { filename: 'uuid-123-456.jpg', expected: '/uploads/books/uuid-123-456.jpg' },
+        {
+          filename: 'uuid-123-456.jpg',
+          expected: '/uploads/books/uuid-123-456.jpg',
+        },
       ];
 
       testCases.forEach(({ filename, expected }) => {
@@ -66,15 +69,15 @@ describe('UploadService', () => {
       it('should accept valid image files', () => {
         const validMimeTypes = [
           'image/jpg',
-          'image/jpeg', 
+          'image/jpeg',
           'image/png',
           'image/gif',
         ];
 
-        validMimeTypes.forEach(mimetype => {
+        validMimeTypes.forEach((mimetype) => {
           const mockFile = { mimetype, originalname: 'test.jpg' };
           fileFilter(null, mockFile, mockCallback);
-          
+
           expect(mockCallback).toHaveBeenCalledWith(null, true);
           mockCallback.mockClear();
         });
@@ -89,15 +92,14 @@ describe('UploadService', () => {
           'application/zip',
         ];
 
-        invalidMimeTypes.forEach(mimetype => {
+        invalidMimeTypes.forEach((mimetype) => {
           const mockFile = { mimetype, originalname: 'test.pdf' };
           fileFilter(null, mockFile, mockCallback);
-          
-          expect(mockCallback).toHaveBeenCalledWith(
-            expect.any(Error),
-            false
+
+          expect(mockCallback).toHaveBeenCalledWith(expect.any(Error), false);
+          expect(mockCallback.mock.calls[0][0].message).toBe(
+            'Only image files are allowed!',
           );
-          expect(mockCallback.mock.calls[0][0].message).toBe('Only image files are allowed!');
           mockCallback.mockClear();
         });
       });
@@ -114,13 +116,13 @@ describe('UploadService', () => {
 
         // Access the filename function from storage configuration
         const filenameFunction = storage.getFilename || storage._getFilename;
-        
+
         if (filenameFunction) {
           filenameFunction(null, mockFile, mockCallback);
-          
+
           expect(mockCallback).toHaveBeenCalled();
           const generatedFilename = mockCallback.mock.calls[0][1];
-          
+
           // Should end with the original extension
           expect(generatedFilename).toMatch(/\.jpg$/);
           // Should contain UUID format (36 characters + extension)

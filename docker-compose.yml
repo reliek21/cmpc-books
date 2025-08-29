@@ -1,5 +1,5 @@
-version: '3.8'
 
+version: '3.8'
 services:
   db:
     image: postgres:16
@@ -15,17 +15,16 @@ services:
     networks:
       - cmcp-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cmpc123}"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U cmpc123 -d cmpc"]
+      interval: 5s
       timeout: 5s
-      retries: 5
-
+      retries: 10
   backend:
-    build: 
-      context: ./apps/server
-      dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile
     container_name: cmcp-backend
-    env_file: 
+    env_file:
       - ./apps/server/.env
     ports:
       - "3001:3001"
@@ -39,11 +38,10 @@ services:
     environment:
       - DATABASE_HOST=db
       - NODE_ENV=development
-
   frontend:
     build:
-      context: ./apps/web
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./apps/web/Dockerfile
     container_name: cmcp-frontend
     env_file:
       - ./apps/web/.env.local
@@ -54,14 +52,13 @@ services:
     networks:
       - cmcp-network
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:3001
-
+      - NEXT_PUBLIC_API_URL=http://backend:3001
+      - BASE_API_URL=http://backend:3001
 volumes:
   db_data:
     driver: local
   uploads_data:
     driver: local
-
 networks:
   cmcp-network:
     driver: bridge

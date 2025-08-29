@@ -8,23 +8,14 @@ interface UseBooksOptions {
 }
 
 interface UseBooksReturn {
-  // Data
   books: Book[];
   total: number;
   loading: boolean;
   error: string | null;
-
-  // Pagination
   pagination: PaginationInfo;
-
-  // Filters & Search
   filters: BookFilters;
   debouncedSearch: string;
-
-  // Sorting
   sorts: BookSort[];
-
-  // Actions
   setPage: (page: number) => void;
   setPerPage: (perPage: string) => void;
   setSearch: (search: string) => void;
@@ -41,9 +32,6 @@ interface UseBooksReturn {
   uploadBookImage: (id: number, file: File) => Promise<void>;
 }
 
-/**
- * Custom hook for managing books data, filters, pagination and sorting
- */
 export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
   const {
     initialPage = 1,
@@ -51,17 +39,14 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     initialSorts = [{ field: 'createdAt', dir: 'desc' }],
   } = options;
 
-  // State
   const [books, setBooks] = useState<Book[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Pagination
   const [page, setPage] = useState(initialPage);
   const [perPage, setPerPage] = useState(initialPerPage.toString());
 
-  // Filters
   const [filters, setFiltersState] = useState<BookFilters>({
     q: '',
     genre: '',
@@ -70,10 +55,8 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     available: '',
   });
 
-  // Sorting
   const [sorts, setSorts] = useState<BookSort[]>(initialSorts);
 
-  // Computed values
   const totalPages = Math.max(1, Math.ceil(total / Number(perPage)));
   const pagination: PaginationInfo = {
     page,
@@ -82,7 +65,6 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     totalPages,
   };
 
-  // Fetch books function
   const fetchBooks = useCallback(async () => {
     try {
       setLoading(true);
@@ -92,14 +74,12 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
       params.set('page', String(page));
       params.set('pageSize', String(perPage));
 
-      // Add filters
       if (filters.q) params.set('q', filters.q);
       if (filters.genre && filters.genre !== 'all') params.set('genre', filters.genre);
       if (filters.publisher && filters.publisher !== 'all') params.set('publisher', filters.publisher);
       if (filters.author && filters.author !== 'all') params.set('author', filters.author);
       if (filters.available && filters.available !== 'any') params.set('available', filters.available);
 
-      // Add sorting
       if (sorts.length) {
         params.set('sort', sorts.map((s) => `${s.field}:${s.dir}`).join(','));
       }
@@ -122,10 +102,9 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     }
   }, [page, perPage, filters, sorts]);
 
-  // Export CSV function
   const exportCsv = useCallback(async () => {
     try {
-      const response = await fetch('/api/books?limit=1000'); // Get more data for export
+      const response = await fetch('/api/books?limit=1000');
       if (!response.ok) throw new Error('Failed to export');
 
       const data = await response.json();
@@ -154,23 +133,20 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     }
   }, []);
 
-  // Filter actions
   const setSearch = useCallback((search: string) => {
     setFiltersState(prev => ({ ...prev, q: search }));
-    setPage(1); // Reset to first page when searching
+    setPage(1);
   }, []);
 
   const setFilters = useCallback((newFilters: Partial<BookFilters>) => {
     setFiltersState(prev => ({ ...prev, ...newFilters }));
-    setPage(1); // Reset to first page when filtering
+    setPage(1);
   }, []);
 
-  // Sort actions
   const addSort = useCallback((field: string) => {
     setSorts(prev => {
       const existingIndex = prev.findIndex(s => s.field === field);
       if (existingIndex >= 0) {
-        // Toggle direction if field already exists
         const newSorts = [...prev];
         newSorts[existingIndex] = {
           field,
@@ -178,7 +154,6 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
         };
         return newSorts;
       } else {
-        // Add new sort
         return [...prev, { field, dir: 'asc' }];
       }
     });
@@ -192,11 +167,18 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     setSorts(initialSorts);
   }, [initialSorts]);
 
-  // Delete operations
   const deleteBook = useCallback(async (id: number) => {
     try {
+      const token = localStorage.getItem('auth-token');
+      if (!token) {
+        throw new Error('Authentication required. Please log in again.');
+      }
+
       const response = await fetch(`/api/books/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
@@ -204,7 +186,6 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
         throw new Error(error.error || 'Failed to delete book');
       }
 
-      // Refetch data after deletion
       await fetchBooks();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to delete book';
@@ -215,8 +196,16 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
 
   const restoreBook = useCallback(async (id: number) => {
     try {
+      const token = localStorage.getItem('auth-token');
+      if (!token) {
+        throw new Error('Authentication required. Please log in again.');
+      }
+
       const response = await fetch(`/api/books/${id}/restore`, {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
@@ -224,7 +213,6 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
         throw new Error(error.error || 'Failed to restore book');
       }
 
-      // Refetch data after restoration
       await fetchBooks();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to restore book';
@@ -235,8 +223,16 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
 
   const forceDeleteBook = useCallback(async (id: number) => {
     try {
+      const token = localStorage.getItem('auth-token');
+      if (!token) {
+        throw new Error('Authentication required. Please log in again.');
+      }
+
       const response = await fetch(`/api/books/${id}/force`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
@@ -244,7 +240,6 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
         throw new Error(error.error || 'Failed to permanently delete book');
       }
 
-      // Refetch data after permanent deletion
       await fetchBooks();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to permanently delete book';
@@ -271,11 +266,19 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
 
   const uploadBookImage = useCallback(async (id: number, file: File): Promise<void> => {
     try {
+      const token = localStorage.getItem('auth-token');
+      if (!token) {
+        throw new Error('Authentication required. Please log in again.');
+      }
+
       const formData = new FormData();
       formData.append('image', file);
 
       const response = await fetch(`/api/books/${id}/upload-image`, {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
         body: formData,
       });
 
@@ -284,7 +287,6 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
         throw new Error(error.error || 'Failed to upload image');
       }
 
-      // Refetch data after image upload
       await fetchBooks();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to upload image';
@@ -293,39 +295,28 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     }
   }, [fetchBooks]);
 
-  // Pagination actions
   const handleSetPage = useCallback((newPage: number) => {
     setPage(Math.max(1, Math.min(totalPages, newPage)));
   }, [totalPages]);
 
   const handleSetPerPage = useCallback((newPerPage: string) => {
     setPerPage(newPerPage);
-    setPage(1); // Reset to first page when changing page size
+    setPage(1);
   }, []);
 
-  // Effect to fetch books when dependencies change
   useEffect(() => {
     fetchBooks();
   }, [fetchBooks]);
 
   return {
-    // Data
     books,
     total,
     loading,
     error,
-
-    // Pagination
     pagination,
-
-    // Filters & Search
     filters,
     debouncedSearch: filters.q,
-
-    // Sorting
     sorts,
-
-    // Actions
     setPage: handleSetPage,
     setPerPage: handleSetPerPage,
     setSearch,

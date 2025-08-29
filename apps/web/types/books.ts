@@ -10,6 +10,13 @@ export interface Book {
   updatedAt?: string;
   deletedAt?: string;
   imageUrl?: string;
+  userId?: string;
+  user?: {
+    id: string;
+    email: string;
+    first_name?: string;
+    last_name?: string;
+  };
 }
 
 export interface BookFilters {

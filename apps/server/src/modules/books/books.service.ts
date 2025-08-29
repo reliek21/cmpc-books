@@ -35,7 +35,6 @@ export class BooksService {
       per_page = 10,
     } = filterDto;
 
-    // Build where clause
     const where: any = {};
 
     if (search) {
@@ -63,14 +62,12 @@ export class BooksService {
       where.available = available;
     }
 
-    // Build order clause
     let order: any[] = [['createdAt', 'DESC']];
 
     if (sort) {
       const sortFields = sort.split(',').map((s) => s.trim());
       order = sortFields.map((sortField) => {
         const [field, direction = 'asc'] = sortField.split(':');
-        // Map frontend field names to database field names
         let dbField = field;
         if (field === 'created_at') {
           dbField = 'createdAt';
@@ -79,10 +76,8 @@ export class BooksService {
       });
     }
 
-    // Calculate offset
     const offset = (page - 1) * per_page;
 
-    // Execute query
     const { rows: data, count: total } = await this.bookModel.findAndCountAll({
       where,
       order,
@@ -117,7 +112,7 @@ export class BooksService {
 
   async remove(id: number): Promise<void> {
     const book = await this.findOne(id);
-    await book.destroy(); // This performs soft delete with paranoid: true
+    await book.destroy();
   }
 
   async restore(id: number): Promise<Book> {
@@ -147,6 +142,6 @@ export class BooksService {
     if (!book) {
       throw new NotFoundException(`Book with ID ${id} not found`);
     }
-    await book.destroy({ force: true }); // Permanent delete
+    await book.destroy({ force: true });
   }
 }
