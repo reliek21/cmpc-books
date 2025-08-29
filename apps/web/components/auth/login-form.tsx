@@ -3,6 +3,9 @@
 import { GalleryVerticalEnd } from "lucide-react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -10,31 +13,43 @@ import { Label } from "@/components/ui/label"
 import { Input } from '@/components/ui/input';
 import { useAuth } from "@/contexts/auth-context";
 
+const loginSchema = z.object({
+  email: z.email('Please enter a valid email address'),
+  password: z.string().min(1, 'Password is required'),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
   const router = useRouter()
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  })
+
+  const onSubmit = async (data: LoginFormData) => {
     setLoading(true)
-    setError('')
+    setError('root', { message: '' })
 
     try {
-      const success = await login(email, password)
+      const success = await login(data.email, data.password)
       if (success) {
         router.push('/dashboard')
       } else {
-        setError('Invalid credentials')
+        setError('root', { message: 'Invalid credentials' })
       }
     } catch (err) {
-      setError('Login failed')
+      setError('root', { message: 'Login failed' })
     } finally {
       setLoading(false)
     }
@@ -42,7 +57,7 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center gap-2">
             <a
@@ -62,9 +77,9 @@ export function LoginForm({
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            {error && (
+            {errors.root && (
               <div className="text-red-500 text-sm text-center">
-                {error}
+                {errors.root.message}
               </div>
             )}
             <div className="grid gap-1">
@@ -73,10 +88,9 @@ export function LoginForm({
                 id="email"
                 type="email"
                 placeholder="m@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                {...register('email')}
               />
+              {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
             <div className="grid gap-1">
               <Label htmlFor="password">Password</Label>
@@ -84,10 +98,9 @@ export function LoginForm({
                 id="password"
                 type="password"
                 placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                {...register('password')}
               />
+              {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? 'Logging in...' : 'Login'}

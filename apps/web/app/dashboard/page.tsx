@@ -8,7 +8,8 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectL
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { ProtectedRoute } from '@/components/auth/protected-route'
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/auth-context';
 
 type Book = {
 	id: string
@@ -31,6 +32,7 @@ function useDebounced<T>(value: T, ms = 300) {
 
 export default function DashboardPage() {
 		const router = useRouter();
+		const { user, logout } = useAuth();
 
 		const [books, setBooks] = useState<Book[]>([])
 	const [total, setTotal] = useState(0)
@@ -51,6 +53,11 @@ export default function DashboardPage() {
 	])
 
 	const totalPages = Math.max(1, Math.ceil(total / Number(perPage)))
+
+	const handleLogout = () => {
+		logout();
+		router.push('/auth/login');
+	};
 
 		const fetchBooks = async () => {
 		const params = new URLSearchParams()
@@ -135,7 +142,19 @@ export default function DashboardPage() {
 	return (
 		<ProtectedRoute>
 			<div className="p-6 max-w-7xl mx-auto">
-				<h2 className="text-2xl font-semibold mb-4">Books dashboard</h2>
+				<div className="flex justify-between items-center mb-6">
+					<div>
+						<h2 className="text-2xl font-semibold">Books dashboard</h2>
+						{user && (
+							<p className="text-sm text-gray-600 mt-1">
+								Welcome, {user.first_name} {user.last_name} ({user.email})
+							</p>
+						)}
+					</div>
+					<Button onClick={handleLogout} variant="outline" className="text-red-600 border-red-600 hover:bg-red-50">
+						Logout
+					</Button>
+				</div>
 
 	      <div className="grid gap-3 md:grid-cols-4 mb-4">
 	        <Input placeholder='Search books...' value={q} onChange={(e) => { setQ(e.target.value); setPage(1) }} />
