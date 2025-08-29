@@ -39,7 +39,7 @@ export class BooksService {
     const where: any = {};
 
     if (search) {
-      where['$or'] = [
+      where[Op.or] = [
         { title: { [Op.iLike]: `%${search}%` } },
         { author: { [Op.iLike]: `%${search}%` } },
         { publisher: { [Op.iLike]: `%${search}%` } },
@@ -70,7 +70,12 @@ export class BooksService {
       const sortFields = sort.split(',').map((s) => s.trim());
       order = sortFields.map((sortField) => {
         const [field, direction = 'asc'] = sortField.split(':');
-        return [field, direction.toUpperCase()];
+        // Map frontend field names to database field names
+        let dbField = field;
+        if (field === 'created_at') {
+          dbField = 'createdAt';
+        }
+        return [dbField, direction.toUpperCase()];
       });
     }
 

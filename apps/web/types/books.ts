@@ -1,13 +1,13 @@
 // Types for the Books Dashboard
 export interface Book {
-  id: string;
+  id: number;
   title: string;
-  author?: string;
-  publisher?: string;
-  genre?: string;
-  available?: boolean;
+  author: string;
+  publisher: string;
+  genre: string;
+  available: boolean;
   createdAt?: string;
-  imageUrl?: string;
+  updatedAt?: string;
 }
 
 export interface BookFilters {

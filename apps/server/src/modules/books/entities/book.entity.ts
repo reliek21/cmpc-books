@@ -1,8 +1,16 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  DataType,
+  CreatedAt,
+  UpdatedAt,
+} from 'sequelize-typescript';
 
 @Table({
   tableName: 'books',
   timestamps: true,
+  underscored: true,
 })
 export class Book extends Model<Book> {
   @Column({
@@ -42,4 +50,12 @@ export class Book extends Model<Book> {
     defaultValue: true,
   })
   declare available: boolean;
+
+  @CreatedAt
+  @Column({ field: 'created_at', type: DataType.DATE })
+  declare createdAt: Date;
+
+  @UpdatedAt
+  @Column({ field: 'updated_at', type: DataType.DATE })
+  declare updatedAt: Date;
 }

@@ -15,6 +15,7 @@ import { BooksModule } from './modules/books/books.module';
       database: process.env.DATABASE_NAME || 'cmpc',
       autoLoadModels: true,
       synchronize: true,
+      sync: { force: true }, // This will drop and recreate tables
     }),
     UsersModule,
     AuthModule,

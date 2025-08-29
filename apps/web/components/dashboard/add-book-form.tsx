@@ -17,17 +17,6 @@ const bookSchema = z.object({
   publisher: z.string().min(1, 'Publisher is required').max(100, 'Publisher must be less than 100 characters'),
   genre: z.string().min(1, 'Genre is required').max(50, 'Genre must be less than 50 characters'),
   available: z.boolean(),
-  image: z
-    .instanceof(FileList)
-    .refine((files) => files.length === 1, 'Image is required')
-    .refine(
-      (files) => files[0]?.type.startsWith('image/'),
-      'File must be an image'
-    )
-    .refine(
-      (files) => files[0]?.size <= 5 * 1024 * 1024, // 5MB
-      'Image must be less than 5MB'
-    ),
 });
 
 type BookFormData = z.infer<typeof bookSchema>;
@@ -62,28 +51,17 @@ export function AddBookForm({ onSuccess, onCancel }: AddBookFormProps) {
     setError(null);
 
     try {
-      const formData = new FormData();
-
-      // Add text fields
-      formData.append('title', data.title);
-      formData.append('author', data.author);
-      formData.append('publisher', data.publisher);
-      formData.append('genre', data.genre);
-      formData.append('available', data.available.toString());
-
-      // Add image file
-      if (data.image[0]) {
-        formData.append('image', data.image[0]);
-      }
-
       const response = await fetch('/api/books', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create book');
+        throw new Error(errorData.error || 'Failed to create book');
       }
 
       // Success
@@ -176,23 +154,6 @@ export function AddBookForm({ onSuccess, onCancel }: AddBookFormProps) {
                 <p className="text-red-500 text-sm">{errors.genre.message}</p>
               )}
             </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="image">Book Cover Image *</Label>
-            <Input
-              id="image"
-              type="file"
-              accept="image/*"
-              {...register('image')}
-              className={errors.image ? 'border-red-500' : ''}
-            />
-            {errors.image && (
-              <p className="text-red-500 text-sm">{errors.image.message}</p>
-            )}
-            <p className="text-xs text-gray-500">
-              Accepted formats: JPG, PNG, GIF. Maximum size: 5MB
-            </p>
           </div>
 
           <div className="flex items-center space-x-2">
