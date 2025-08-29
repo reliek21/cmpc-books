@@ -1,15 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
-import { z } from 'zod'
 
-const schema = z.object({
-  title: z.string().min(1, 'Title required'),
-  author: z.string().min(1, 'Author required'),
-  publisher: z.string().min(1, 'Publisher required'),
-  genre: z.string().min(1, 'Genre required'),
-  available: z.boolean(),
-})
 
 type Props = {
   initial?: Record<string, unknown>
