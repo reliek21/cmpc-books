@@ -1,4 +1,5 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../entities/user.entity';
 
 /**
@@ -8,7 +9,7 @@ import { User } from '../entities/user.entity';
 @Injectable()
 export class UserRepository {
   constructor(
-    @Inject('USERS_REPOSITORY')
+    @InjectModel(User)
     private readonly userModel: typeof User,
   ) {}
 
