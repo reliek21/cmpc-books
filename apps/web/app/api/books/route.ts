@@ -3,13 +3,32 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
+    const endpoint = searchParams.get('endpoint');
+
+    // If requesting filter options
+    if (endpoint === 'filters') {
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${backendUrl}/books/filters`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Backend API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return NextResponse.json(data);
+    }
 
     // Build query parameters for the backend
     const params = new URLSearchParams();
 
     // Map frontend parameters to backend parameters
     searchParams.forEach((value, key) => {
-      if (value) {
+      if (value && key !== 'endpoint') {
         // Map parameter names
         let backendKey = key;
         if (key === 'pageSize') {

@@ -1,7 +1,7 @@
 import { Injectable, ConflictException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../users/users.service';
 import { PasswordService } from '../../../core/helpers/password.service';
-import { JwtService } from '../../../core/helpers/jwt.service';
 import {
   IRegisterUseCase,
   ICreateUser,
@@ -39,7 +39,7 @@ export class RegisterUseCase implements IRegisterUseCase {
     const user = await this.userService.createUser(userData);
 
     // Generate tokens
-    const accessToken = this.jwtService.generateAccessToken({
+    const accessToken = this.jwtService.sign({
       sub: user.id,
       email: user.email,
     });

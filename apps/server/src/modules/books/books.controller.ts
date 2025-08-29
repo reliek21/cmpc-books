@@ -6,12 +6,14 @@ import {
   Patch,
   Param,
   Delete,
-  Query,
   ParseIntPipe,
   UseInterceptors,
   UploadedFile,
   BadRequestException,
   UseGuards,
+  Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -48,7 +50,7 @@ export class BooksController {
     private readonly uploadService: UploadService,
   ) {}
 
-  @Post()
+    @Post()
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('image', UploadService.getMulterOptions()))
   @ApiBearerAuth()
@@ -93,6 +95,48 @@ export class BooksController {
     }
     const bookData = { ...createBookDto, userId: user.sub };
     return this.booksService.create(bookData);
+  }
+
+  @Get('filters')
+  @UsePipes(new ValidationPipe({ transform: false, whitelist: false }))
+  @ApiOperation({
+    summary: 'Get filter options',
+    description:
+      'Retrieves unique values for filter dropdowns (genres, authors, publishers).',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Filter options retrieved successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        genres: {
+          type: 'array',
+          items: { type: 'string' },
+          example: [
+            'Fiction',
+            'Non-Fiction',
+            'Mystery',
+            'Romance',
+            'Science Fiction',
+          ],
+        },
+        authors: {
+          type: 'array',
+          items: { type: 'string' },
+          example: ['F. Scott Fitzgerald', 'Ernest Hemingway', 'Jane Austen'],
+        },
+        publishers: {
+          type: 'array',
+          items: { type: 'string' },
+          example: ['Scribner', 'Penguin', 'HarperCollins'],
+        },
+      },
+    },
+  })
+  getFilterOptions() {
+    console.log('getFilterOptions called');
+    return this.booksService.getFilterOptions();
   }
 
   @Get()
@@ -180,8 +224,8 @@ export class BooksController {
       },
     },
   })
-  findAll(@Query() filterDto: FilterBooksDto) {
-    return this.booksService.findAll(filterDto);
+  findAll(@Query() filterBooksDto: FilterBooksDto) {
+    return this.booksService.findAll(filterBooksDto);
   }
 
   @Get(':id')
@@ -218,6 +262,43 @@ export class BooksController {
     return this.booksService.findOne(id);
   }
 
+  @Get('filters')
+  @UsePipes(new ValidationPipe({ transform: false, whitelist: false }))
+  @ApiOperation({
+    summary: 'Get filter options',
+    description:
+      'Retrieves unique values for filter dropdowns (genres, authors, publishers).',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Filter options retrieved successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        genres: {
+          type: 'array',
+          items: { type: 'string' },
+          example: [
+            'Fiction',
+            'Non-Fiction',
+            'Mystery',
+            'Romance',
+            'Science Fiction',
+          ],
+        },
+        authors: {
+          type: 'array',
+          items: { type: 'string' },
+          example: ['F. Scott Fitzgerald', 'Ernest Hemingway', 'Jane Austen'],
+        },
+        publishers: {
+          type: 'array',
+          items: { type: 'string' },
+          example: ['Scribner', 'Penguin', 'HarperCollins'],
+        },
+      },
+    },
+  })
   @Patch(':id')
   @ApiOperation({
     summary: 'Update a book',
@@ -368,7 +449,7 @@ export class BooksController {
   })
   @ApiResponse({ status: 404, description: 'Book not found' })
   forceDelete(@Param('id', ParseIntPipe) id: number) {
-    return this.booksService.forceDelete(id);
+    return this.booksService.remove(id);
   }
 
   @Post(':id/upload-image')

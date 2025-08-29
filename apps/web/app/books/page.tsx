@@ -1,4 +1,4 @@
-import BooksList from '../../src/components/BooksList';
+import BooksList from '../../components/BooksList';
 
 export default function BooksPage() {
   return (

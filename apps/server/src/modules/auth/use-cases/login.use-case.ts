@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../users/users.service';
-import { JwtService } from '../../../core/helpers/jwt.service';
 import {
   ILoginUseCase,
   ILoginCredentials,
@@ -38,7 +38,7 @@ export class LoginUseCase implements ILoginUseCase {
     }
 
     // Generate access token
-    const accessToken = this.jwtService.generateAccessToken({
+    const accessToken = this.jwtService.sign({
       sub: user.id,
       email: user.email,
     });

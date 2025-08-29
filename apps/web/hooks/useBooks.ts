@@ -14,6 +14,11 @@ interface UseBooksReturn {
   error: string | null;
   pagination: PaginationInfo;
   filters: BookFilters;
+  filterOptions: {
+    genres: string[];
+    authors: string[];
+    publishers: string[];
+  };
   debouncedSearch: string;
   sorts: BookSort[];
   setPage: (page: number) => void;
@@ -57,6 +62,12 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
 
   const [sorts, setSorts] = useState<BookSort[]>(initialSorts);
 
+  const [filterOptions, setFilterOptions] = useState({
+    genres: [] as string[],
+    authors: [] as string[],
+    publishers: [] as string[],
+  });
+
   const totalPages = Math.max(1, Math.ceil(total / Number(perPage)));
   const pagination: PaginationInfo = {
     page,
@@ -72,9 +83,9 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
 
       const params = new URLSearchParams();
       params.set('page', String(page));
-      params.set('pageSize', String(perPage));
+      params.set('per_page', String(perPage));
 
-      if (filters.q) params.set('q', filters.q);
+      if (filters.q) params.set('search', filters.q);
       if (filters.genre && filters.genre !== 'all') params.set('genre', filters.genre);
       if (filters.publisher && filters.publisher !== 'all') params.set('publisher', filters.publisher);
       if (filters.author && filters.author !== 'all') params.set('author', filters.author);
@@ -130,6 +141,19 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     } catch (err) {
       console.error('Error exporting CSV:', err);
       throw err;
+    }
+  }, []);
+
+  const fetchFilterOptions = useCallback(async () => {
+    try {
+      const response = await fetch('/api/books?endpoint=filters');
+      if (!response.ok) {
+        throw new Error('Failed to fetch filter options');
+      }
+      const data = await response.json();
+      setFilterOptions(data);
+    } catch (err) {
+      console.error('Error fetching filter options:', err);
     }
   }, []);
 
@@ -306,7 +330,8 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
 
   useEffect(() => {
     fetchBooks();
-  }, [fetchBooks]);
+    fetchFilterOptions();
+  }, [fetchBooks, fetchFilterOptions]);
 
   return {
     books,
@@ -315,6 +340,7 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     error,
     pagination,
     filters,
+    filterOptions,
     debouncedSearch: filters.q,
     sorts,
     setPage: handleSetPage,

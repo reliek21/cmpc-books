@@ -137,11 +137,56 @@ export class BooksService {
       .then((books) => books.filter((book) => book.deletedAt !== null));
   }
 
-  async forceDelete(id: number): Promise<void> {
-    const book = await this.bookModel.findByPk(id, { paranoid: false });
-    if (!book) {
-      throw new NotFoundException(`Book with ID ${id} not found`);
+  async getFilterOptions(): Promise<{
+    genres: string[];
+    authors: string[];
+    publishers: string[];
+  }> {
+    try {
+      const sequelize = this.bookModel.sequelize;
+      if (!sequelize) {
+        throw new Error('Sequelize instance not found');
+      }
+
+      const [genresResult, authorsResult, publishersResult] = await Promise.all(
+        [
+          sequelize.query(
+            "SELECT DISTINCT genre FROM books WHERE genre IS NOT NULL AND genre != '' ORDER BY genre",
+            { type: 'SELECT' },
+          ),
+          sequelize.query(
+            "SELECT DISTINCT author FROM books WHERE author IS NOT NULL AND author != '' ORDER BY author",
+            { type: 'SELECT' },
+          ),
+          sequelize.query(
+            "SELECT DISTINCT publisher FROM books WHERE publisher IS NOT NULL AND publisher != '' ORDER BY publisher",
+            { type: 'SELECT' },
+          ),
+        ],
+      );
+
+      const genres = (genresResult as any[])
+        .map((item: any) => item.genre)
+        .filter(Boolean);
+      const authors = (authorsResult as any[])
+        .map((item: any) => item.author)
+        .filter(Boolean);
+      const publishers = (publishersResult as any[])
+        .map((item: any) => item.publisher)
+        .filter(Boolean);
+
+      return {
+        genres,
+        authors,
+        publishers,
+      };
+    } catch (error) {
+      console.error('Error fetching filter options:', error);
+      return {
+        genres: [],
+        authors: [],
+        publishers: [],
+      };
     }
-    await book.destroy({ force: true });
   }
 }

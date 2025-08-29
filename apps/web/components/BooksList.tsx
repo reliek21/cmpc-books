@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useBooks } from '../../hooks/useBooks';
+import { useBooks } from '../hooks/useBooks';
 import { Book } from '../types/books';
 import Link from 'next/link';
-import { ImageUpload } from '../../components/ui/image-upload';
+import { ImageUpload } from './ui/image-upload';
 
 const BooksList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,6 +20,7 @@ const BooksList: React.FC = () => {
     error,
     pagination,
     filters,
+    filterOptions,
     setPage,
     setPerPage,
     setSearch,
@@ -111,11 +112,11 @@ const BooksList: React.FC = () => {
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="">All Genres</option>
-            <option value="Fiction">Fiction</option>
-            <option value="Non-Fiction">Non-Fiction</option>
-            <option value="Mystery">Mystery</option>
-            <option value="Romance">Romance</option>
-            <option value="Science Fiction">Science Fiction</option>
+            {filterOptions.genres.map((genre) => (
+              <option key={genre} value={genre}>
+                {genre}
+              </option>
+            ))}
           </select>
 
           <input
@@ -123,16 +124,28 @@ const BooksList: React.FC = () => {
             placeholder="Filter by publisher"
             value={filters.publisher || ''}
             onChange={(e) => handleFilterChange('publisher', e.target.value)}
+            list="publishers-list"
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
+          <datalist id="publishers-list">
+            {filterOptions.publishers.map((publisher) => (
+              <option key={publisher} value={publisher} />
+            ))}
+          </datalist>
 
           <input
             type="text"
             placeholder="Filter by author"
             value={filters.author || ''}
             onChange={(e) => handleFilterChange('author', e.target.value)}
+            list="authors-list"
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
+          <datalist id="authors-list">
+            {filterOptions.authors.map((author) => (
+              <option key={author} value={author} />
+            ))}
+          </datalist>
 
           <select
             value={filters.available || ''}
@@ -228,7 +241,7 @@ const BooksList: React.FC = () => {
               {showImageUpload === book.id && (
                 <div className="mt-4 p-4 border rounded-lg bg-gray-50">
                   <ImageUpload
-                    onImageUpload={(file) => handleImageUpload(book.id, file)}
+                    onImageUpload={(file: File) => handleImageUpload(book.id, file)}
                     currentImageUrl={book.imageUrl ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}${book.imageUrl}` : undefined}
                     isUploading={uploadingId === book.id}
                     bookId={book.id}

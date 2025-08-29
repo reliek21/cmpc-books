@@ -5,11 +5,13 @@ import { BooksController } from './books.controller';
 import { Book } from './entities/book.entity';
 import { UploadModule } from '../upload/upload.module';
 import { User } from '../users/entities/user.entity';
+import { AuthModule } from '../auth/auth.module';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Book, User]), UploadModule],
+  imports: [SequelizeModule.forFeature([Book, User]), UploadModule, AuthModule],
   controllers: [BooksController],
-  providers: [BooksService],
+  providers: [BooksService, JwtAuthGuard],
   exports: [BooksService],
 })
 export class BooksModule {}
