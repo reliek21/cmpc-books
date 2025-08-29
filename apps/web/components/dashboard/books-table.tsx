@@ -1,42 +1,138 @@
 import { Book, BooksTableColumn } from '@/types/books';
 import DataTable from '@/components/ui/data-table';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 
 interface BooksTableProps {
   books: Book[];
   loading?: boolean;
   columns?: BooksTableColumn[];
   emptyMessage?: string;
+  onDeleteBook?: (id: number) => Promise<void>;
+  onRestoreBook?: (id: number) => Promise<void>;
+  onForceDeleteBook?: (id: number) => Promise<void>;
+  showDeleted?: boolean;
 }
-
-const defaultColumns: BooksTableColumn[] = [
-  { key: 'title', header: 'Title', sortable: true },
-  { key: 'author', header: 'Author', sortable: true },
-  { key: 'publisher', header: 'Publisher', sortable: true },
-  { key: 'genre', header: 'Genre', sortable: true },
-  {
-    key: 'available',
-    header: 'Available',
-    render: (book: Book) => (
-      <span className={book.available ? 'text-green-600' : 'text-red-600'}>
-        {book.available ? 'Yes' : 'No'}
-      </span>
-    ),
-  },
-  {
-    key: 'createdAt',
-    header: 'Created',
-    render: (book: Book) =>
-      book.createdAt ? new Date(book.createdAt).toLocaleDateString() : '',
-    sortable: true,
-  },
-];
 
 export function BooksTable({
   books,
   loading = false,
-  columns = defaultColumns,
+  columns,
   emptyMessage = 'No books found',
+  onDeleteBook,
+  onRestoreBook,
+  onForceDeleteBook,
+  showDeleted = false,
 }: BooksTableProps) {
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [restoringId, setRestoringId] = useState<number | null>(null);
+
+  const handleDelete = async (id: number) => {
+    if (!onDeleteBook) return;
+    setDeletingId(id);
+    try {
+      await onDeleteBook(id);
+    } catch (error) {
+      console.error('Error deleting book:', error);
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const handleRestore = async (id: number) => {
+    if (!onRestoreBook) return;
+    setRestoringId(id);
+    try {
+      await onRestoreBook(id);
+    } catch (error) {
+      console.error('Error restoring book:', error);
+    } finally {
+      setRestoringId(null);
+    }
+  };
+
+  const handleForceDelete = async (id: number) => {
+    if (!onForceDeleteBook) return;
+    if (!window.confirm('Are you sure you want to permanently delete this book? This action cannot be undone.')) {
+      return;
+    }
+    setDeletingId(id);
+    try {
+      await onForceDeleteBook(id);
+    } catch (error) {
+      console.error('Error permanently deleting book:', error);
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const defaultColumns: BooksTableColumn[] = [
+    { key: 'title', header: 'Title', sortable: true },
+    { key: 'author', header: 'Author', sortable: true },
+    { key: 'publisher', header: 'Publisher', sortable: true },
+    { key: 'genre', header: 'Genre', sortable: true },
+    {
+      key: 'available',
+      header: 'Available',
+      render: (book: Book) => (
+        <span className={book.available ? 'text-green-600' : 'text-red-600'}>
+          {book.available ? 'Yes' : 'No'}
+        </span>
+      ),
+    },
+    {
+      key: 'createdAt',
+      header: showDeleted ? 'Deleted At' : 'Created',
+      render: (book: Book) => {
+        const date = showDeleted ? book.deletedAt : book.createdAt;
+        return date ? new Date(date).toLocaleDateString() : '';
+      },
+      sortable: true,
+    },
+    {
+      key: 'id',
+      header: 'Actions',
+      render: (book: Book) => (
+        <div className="flex gap-2">
+          {showDeleted ? (
+            <>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => handleRestore(book.id)}
+                disabled={restoringId === book.id}
+                className="text-green-600 hover:text-green-700"
+              >
+                {restoringId === book.id ? 'Restoring...' : 'Restore'}
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => handleForceDelete(book.id)}
+                disabled={deletingId === book.id}
+                className="text-red-600 hover:text-red-700"
+              >
+                {deletingId === book.id ? 'Deleting...' : 'Delete Forever'}
+              </Button>
+            </>
+          ) : (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => handleDelete(book.id)}
+              disabled={deletingId === book.id}
+              className="text-red-600 hover:text-red-700"
+            >
+              {deletingId === book.id ? 'Deleting...' : 'Delete'}
+            </Button>
+          )}
+        </div>
+      ),
+    },
+  ];
+
+  const finalColumns = columns || defaultColumns;
+
   if (loading) {
     return (
       <div className="border rounded-lg p-4">
@@ -60,8 +156,8 @@ export function BooksTable({
 
   return (
     <DataTable
-      columns={columns}
       data={books}
+      columns={finalColumns}
     />
   );
 }

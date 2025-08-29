@@ -45,4 +45,19 @@ export class BooksController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.booksService.remove(id);
   }
+
+  @Post(':id/restore')
+  restore(@Param('id', ParseIntPipe) id: number) {
+    return this.booksService.restore(id);
+  }
+
+  @Get('deleted')
+  findDeleted() {
+    return this.booksService.findDeleted();
+  }
+
+  @Delete(':id/force')
+  forceDelete(@Param('id', ParseIntPipe) id: number) {
+    return this.booksService.forceDelete(id);
+  }
 }

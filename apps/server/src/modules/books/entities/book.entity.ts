@@ -5,12 +5,14 @@ import {
   DataType,
   CreatedAt,
   UpdatedAt,
+  DeletedAt,
 } from 'sequelize-typescript';
 
 @Table({
   tableName: 'books',
   timestamps: true,
   underscored: true,
+  paranoid: true, // Enable soft delete
 })
 export class Book extends Model<Book> {
   @Column({
@@ -58,4 +60,8 @@ export class Book extends Model<Book> {
   @UpdatedAt
   @Column({ field: 'updated_at', type: DataType.DATE })
   declare updatedAt: Date;
+
+  @DeletedAt
+  @Column({ field: 'deleted_at', type: DataType.DATE })
+  declare deletedAt?: Date;
 }

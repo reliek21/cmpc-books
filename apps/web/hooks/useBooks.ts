@@ -34,6 +34,10 @@ interface UseBooksReturn {
   resetSorts: () => void;
   refetch: () => Promise<void>;
   exportCsv: () => Promise<void>;
+  deleteBook: (id: number) => Promise<void>;
+  restoreBook: (id: number) => Promise<void>;
+  forceDeleteBook: (id: number) => Promise<void>;
+  fetchDeletedBooks: () => Promise<Book[]>;
 }
 
 /**
@@ -187,6 +191,83 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     setSorts(initialSorts);
   }, [initialSorts]);
 
+  // Delete operations
+  const deleteBook = useCallback(async (id: number) => {
+    try {
+      const response = await fetch(`/api/books/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to delete book');
+      }
+
+      // Refetch data after deletion
+      await fetchBooks();
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to delete book';
+      setError(errorMessage);
+      throw err;
+    }
+  }, [fetchBooks]);
+
+  const restoreBook = useCallback(async (id: number) => {
+    try {
+      const response = await fetch(`/api/books/${id}/restore`, {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to restore book');
+      }
+
+      // Refetch data after restoration
+      await fetchBooks();
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to restore book';
+      setError(errorMessage);
+      throw err;
+    }
+  }, [fetchBooks]);
+
+  const forceDeleteBook = useCallback(async (id: number) => {
+    try {
+      const response = await fetch(`/api/books/${id}/force`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to permanently delete book');
+      }
+
+      // Refetch data after permanent deletion
+      await fetchBooks();
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to permanently delete book';
+      setError(errorMessage);
+      throw err;
+    }
+  }, [fetchBooks]);
+
+  const fetchDeletedBooks = useCallback(async (): Promise<Book[]> => {
+    try {
+      const response = await fetch('/api/books/deleted');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch deleted books');
+      }
+
+      return await response.json();
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch deleted books';
+      setError(errorMessage);
+      throw err;
+    }
+  }, []);
+
   // Pagination actions
   const handleSetPage = useCallback((newPage: number) => {
     setPage(Math.max(1, Math.min(totalPages, newPage)));
@@ -229,5 +310,9 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     resetSorts,
     refetch: fetchBooks,
     exportCsv,
+    deleteBook,
+    restoreBook,
+    forceDeleteBook,
+    fetchDeletedBooks,
   };
 }

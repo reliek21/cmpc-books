@@ -1,83 +1,76 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useBooks } from '../hooks/useBooks';
-import { Book, FilterBooksDto } from '../types/books';
+'use client';
+
+import React, { useState } from 'react';
+import { useBooks } from '../../hooks/useBooks';
+import { Book } from '../types/books';
+import Link from 'next/link';
 
 const BooksList: React.FC = () => {
-  const [filters, setFilters] = useState<FilterBooksDto>({
-    page: 1,
-    per_page: 10,
-  });
   const [searchTerm, setSearchTerm] = useState('');
-  const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(null);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
-  // Fetch books with filters
-  const { data, isLoading, error } = useBooks(filters);
+  // Use the books hook
+  const {
+    books,
+    total,
+    loading,
+    error,
+    pagination,
+    filters,
+    setPage,
+    setPerPage,
+    setSearch,
+    setFilters,
+    deleteBook,
+  } = useBooks();
 
-  // Handle search with debounce
-  const handleSearch = useCallback((value: string) => {
-    setSearchTerm(value);
-
-    if (debounceTimer) {
-      clearTimeout(debounceTimer);
+  // Handle delete with confirmation
+  const handleDelete = async (book: Book) => {
+    if (!window.confirm(`Are you sure you want to delete "${book.title}"?`)) {
+      return;
     }
 
-    const timer = setTimeout(() => {
-      setFilters(prev => ({
-        ...prev,
-        search: value || undefined,
-        page: 1, // Reset to first page on search
-      }));
-    }, 500); // 500ms debounce
+    setDeletingId(book.id);
+    try {
+      await deleteBook(book.id);
+    } catch (error) {
+      console.error('Error deleting book:', error);
+      alert('Failed to delete book. Please try again.');
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
-    setDebounceTimer(timer);
-  }, [debounceTimer]);
+  // Handle search
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setSearch(value);
+  };
 
   // Handle filter changes
-  const handleFilterChange = (key: keyof FilterBooksDto, value: any) => {
-    setFilters(prev => ({
-      ...prev,
-      [key]: value || undefined,
-      page: 1, // Reset to first page on filter change
-    }));
+  const handleFilterChange = (key: string, value: string) => {
+    setFilters({ [key]: value || undefined });
   };
 
-  // Handle sort change
-  const handleSortChange = (sort: string) => {
-    setFilters(prev => ({
-      ...prev,
-      sort: sort || undefined,
-      page: 1,
-    }));
-  };
-
-  // Handle page change
-  const handlePageChange = (page: number) => {
-    setFilters(prev => ({
-      ...prev,
-      page,
-    }));
-  };
-
-  // Cleanup debounce timer
-  useEffect(() => {
-    return () => {
-      if (debounceTimer) {
-        clearTimeout(debounceTimer);
-      }
-    };
-  }, [debounceTimer]);
-
-  if (isLoading) {
+  if (loading) {
     return <div className="flex justify-center items-center h-64">Loading...</div>;
   }
 
   if (error) {
-    return <div className="text-red-500 text-center">Error loading books</div>;
+    return <div className="text-red-500 text-center">Error loading books: {error}</div>;
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Books Library</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Books Library</h1>
+        <Link
+          href="/books/deleted"
+          className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+        >
+          View Deleted Books
+        </Link>
+      </div>
 
       {/* Search and Filters */}
       <div className="mb-6 space-y-4">
@@ -87,7 +80,7 @@ const BooksList: React.FC = () => {
             type="text"
             placeholder="Search books..."
             value={searchTerm}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -124,8 +117,8 @@ const BooksList: React.FC = () => {
           />
 
           <select
-            value={filters.available === undefined ? '' : String(filters.available)}
-            onChange={(e) => handleFilterChange('available', e.target.value === '' ? undefined : e.target.value === 'true')}
+            value={filters.available || ''}
+            onChange={(e) => handleFilterChange('available', e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="">All Availability</option>
@@ -134,35 +127,34 @@ const BooksList: React.FC = () => {
           </select>
         </div>
 
-        {/* Sort */}
-        <div>
+        {/* Page Size */}
+        <div className="flex items-center gap-4">
+          <label htmlFor="pageSize" className="text-sm font-medium">
+            Books per page:
+          </label>
           <select
-            value={filters.sort || ''}
-            onChange={(e) => handleSortChange(e.target.value)}
+            id="pageSize"
+            value={pagination.perPage}
+            onChange={(e) => setPerPage(e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="">Default Sort</option>
-            <option value="title:asc">Title A-Z</option>
-            <option value="title:desc">Title Z-A</option>
-            <option value="author:asc">Author A-Z</option>
-            <option value="author:desc">Author Z-A</option>
-            <option value="created_at:desc">Newest First</option>
-            <option value="created_at:asc">Oldest First</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
           </select>
         </div>
       </div>
 
       {/* Results Info */}
-      {data && (
-        <div className="mb-4 text-gray-600">
-          Showing {data.data.length} of {data.total} books
-          (Page {data.page} of {data.total_pages})
-        </div>
-      )}
+      <div className="mb-4 text-gray-600">
+        Showing {books.length} of {total} books
+        (Page {pagination.page} of {pagination.totalPages})
+      </div>
 
       {/* Books Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data?.data.map((book: Book) => (
+        {books.map((book: Book) => (
           <div key={book.id} className="bg-white rounded-lg shadow-md p-6">
             <h3 className="text-xl font-semibold mb-2">{book.title}</h3>
             <p className="text-gray-600 mb-1">Author: {book.author}</p>
@@ -172,32 +164,43 @@ const BooksList: React.FC = () => {
               {book.available ? 'Available' : 'Not Available'}
             </p>
             <p className="text-xs text-gray-500 mt-2">
-              Added: {new Date(book.createdAt || '').toLocaleDateString()}
+              Added: {book.createdAt ? new Date(book.createdAt).toLocaleDateString() : 'N/A'}
             </p>
+            
+            {/* Delete Button */}
+            <div className="mt-4">
+              <button
+                onClick={() => handleDelete(book)}
+                disabled={deletingId === book.id}
+                className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {deletingId === book.id ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
           </div>
         ))}
       </div>
 
       {/* Pagination */}
-      {data && data.total_pages > 1 && (
+      {pagination.totalPages > 1 && (
         <div className="flex justify-center items-center space-x-2 mt-8">
           <button
-            onClick={() => handlePageChange(data.page - 1)}
-            disabled={data.page <= 1}
+            onClick={() => setPage(pagination.page - 1)}
+            disabled={pagination.page <= 1}
             className="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Previous
           </button>
 
           {/* Page Numbers */}
-          {Array.from({ length: Math.min(5, data.total_pages) }, (_, i) => {
-            const pageNum = Math.max(1, Math.min(data.total_pages - 4, data.page - 2)) + i;
+          {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
+            const pageNum = Math.max(1, Math.min(pagination.totalPages - 4, pagination.page - 2)) + i;
             return (
               <button
                 key={pageNum}
-                onClick={() => handlePageChange(pageNum)}
+                onClick={() => setPage(pageNum)}
                 className={`px-4 py-2 text-sm font-medium rounded-lg ${
-                  pageNum === data.page
+                  pageNum === pagination.page
                     ? 'text-blue-600 bg-blue-50 border border-blue-300'
                     : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50'
                 }`}
@@ -208,8 +211,8 @@ const BooksList: React.FC = () => {
           })}
 
           <button
-            onClick={() => handlePageChange(data.page + 1)}
-            disabled={data.page >= data.total_pages}
+            onClick={() => setPage(pagination.page + 1)}
+            disabled={pagination.page >= pagination.totalPages}
             className="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
@@ -218,7 +221,7 @@ const BooksList: React.FC = () => {
       )}
 
       {/* No Results */}
-      {data && data.data.length === 0 && (
+      {books.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">No books found matching your criteria.</p>
         </div>

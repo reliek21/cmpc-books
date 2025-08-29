@@ -1,0 +1,63 @@
+
+
+> web@0.1.0 build /Users/reliek21/Desktop/technical-test/cmcp-libros/apps/web
+> next build --turbopack
+
+   [1m[38;2;173;127;168m▲ Next.js 15.5.2[39m[22m (Turbopack)
+   - Environments: .env.local
+
+ [37m[1m [22m[39m Creating an optimized production build ...
+ ✓ Finished writing to disk in 30ms
+ [32m[1m✓[22m[39m Compiled successfully in 1757ms
+[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G[?25h
+./app/dashboard/page.tsx
+17:5  Warning: 'total' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/auth/login-form.tsx
+61:14  Warning: 'err' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/auth/register-form.tsx
+14:10  Warning: 'useAuth' is defined but never used.  @typescript-eslint/no-unused-vars
+77:14  Warning: 'err' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/dashboard/books-sort-controls.tsx
+28:3  Warning: 'sorts' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/hooks/useBooks.ts
+2:10  Warning: 'Book' is defined but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+[?25l [36m.[39m [2K[1G [36m..[39m [2K[1G[?25h    [32m[1m✓[22m[39m Linting and checking validity of types 
+[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting page data     [32m[1m✓[22m[39m Collecting page data 
+[?25l [37m[1m [22m[39m Generating static pages (0/15)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (1/15)  [36m[=   ][39m[2K[1G[?25h [32m[1m✓[22m[39m Generating static pages (15/15)
+[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[?25l [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G[?25h [37m[1m [22m[39m Collecting build traces     [32m[1m✓[22m[39m Collecting build traces 
+[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization     [32m[1m✓[22m[39m Finalizing page optimization 
+
+[4mRoute (app)[24m                         [4mSize[24m  [4mFirst Load JS[24m  [4m[24m  [4m[24m
+┌ ○ /                             5.4 kB         [37m[1m121 kB[22m[39m
+├ ○ /_not-found                      0 B         [37m[1m116 kB[22m[39m
+├ ƒ /api/books                       0 B            [37m[1m0 B[22m[39m
+├ ƒ /api/books/[id]                  0 B            [37m[1m0 B[22m[39m
+├ ƒ /api/books/[id]/force            0 B            [37m[1m0 B[22m[39m
+├ ƒ /api/books/[id]/restore          0 B            [37m[1m0 B[22m[39m
+├ ƒ /api/books/deleted               0 B            [37m[1m0 B[22m[39m
+├ ƒ /api/login                       0 B            [37m[1m0 B[22m[39m
+├ ƒ /api/register                    0 B            [37m[1m0 B[22m[39m
+├ ○ /auth/login                  2.71 kB         [37m[1m192 kB[22m[39m
+├ ○ /auth/register               2.93 kB         [37m[1m192 kB[22m[39m
+├ ○ /books                       6.15 kB         [37m[1m122 kB[22m[39m
+├ ○ /books/deleted               2.74 kB         [37m[1m128 kB[22m[39m
+├ ○ /dashboard                   32.8 kB         [37m[1m158 kB[22m[39m
+└ ○ /dashboard/new               70.2 kB         [37m[1m195 kB[22m[39m
++ First Load JS shared by all     [37m[1m126 kB[22m[39m
+  ├ chunks/8e7d861ddefca71b.js   17.1 kB
+  ├ chunks/b6d6a3d88c9dd264.js   59.2 kB
+  ├ chunks/d05788168671af38.js     13 kB
+  ├ chunks/0d41efd4dda21e57.css  10.8 kB
+  └ other shared chunks (total)  26.3 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+[?25h

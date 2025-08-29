@@ -117,6 +117,36 @@ export class BooksService {
 
   async remove(id: number): Promise<void> {
     const book = await this.findOne(id);
-    await book.destroy();
+    await book.destroy(); // This performs soft delete with paranoid: true
+  }
+
+  async restore(id: number): Promise<Book> {
+    const book = await this.bookModel.findByPk(id, { paranoid: false });
+    if (!book) {
+      throw new NotFoundException(`Book with ID ${id} not found`);
+    }
+    if (!book.deletedAt) {
+      throw new Error(`Book with ID ${id} is not deleted`);
+    }
+    await book.restore();
+    return book;
+  }
+
+  async findDeleted(): Promise<Book[]> {
+    return this.bookModel
+      .findAll({
+        where: {},
+        paranoid: false,
+        order: [['deletedAt', 'DESC']],
+      })
+      .then((books) => books.filter((book) => book.deletedAt !== null));
+  }
+
+  async forceDelete(id: number): Promise<void> {
+    const book = await this.bookModel.findByPk(id, { paranoid: false });
+    if (!book) {
+      throw new NotFoundException(`Book with ID ${id} not found`);
+    }
+    await book.destroy({ force: true }); // Permanent delete
   }
 }
