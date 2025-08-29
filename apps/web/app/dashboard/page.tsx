@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectLabel, SelectItem } from '@/components/ui/select';
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { ProtectedRoute } from '@/components/auth/protected-route'
 import { useRouter } from 'next/navigation';
 
 type Book = {
@@ -132,139 +133,141 @@ export default function DashboardPage() {
 	], [])
 
 	return (
-		<div className="p-6 max-w-7xl mx-auto">
-			<h2 className="text-2xl font-semibold mb-4">Books dashboard</h2>
+		<ProtectedRoute>
+			<div className="p-6 max-w-7xl mx-auto">
+				<h2 className="text-2xl font-semibold mb-4">Books dashboard</h2>
 
-      <div className="grid gap-3 md:grid-cols-4 mb-4">
-        <Input placeholder='Search books...' value={q} onChange={(e) => { setQ(e.target.value); setPage(1) }} />
+	      <div className="grid gap-3 md:grid-cols-4 mb-4">
+	        <Input placeholder='Search books...' value={q} onChange={(e) => { setQ(e.target.value); setPage(1) }} />
 
-        <Select value={genre} onValueChange={(value) => { setGenre(value); setPage(1); }}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="All genres" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="all">All genres</SelectItem>
-              <SelectItem value="Fiction">Fiction</SelectItem>
-              <SelectItem value="Sci-Fi">Sci-Fi</SelectItem>
-              <SelectItem value="Fantasy">Fantasy</SelectItem>
-              <SelectItem value="Non-Fiction">Non-Fiction</SelectItem>
-              <SelectItem value="Mystery">Mystery</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+	        <Select value={genre} onValueChange={(value) => { setGenre(value); setPage(1); }}>
+	          <SelectTrigger className="w-[180px]">
+	            <SelectValue placeholder="All genres" />
+	          </SelectTrigger>
+	          <SelectContent>
+	            <SelectGroup>
+	              <SelectItem value="all">All genres</SelectItem>
+	              <SelectItem value="Fiction">Fiction</SelectItem>
+	              <SelectItem value="Sci-Fi">Sci-Fi</SelectItem>
+	              <SelectItem value="Fantasy">Fantasy</SelectItem>
+	              <SelectItem value="Non-Fiction">Non-Fiction</SelectItem>
+	              <SelectItem value="Mystery">Mystery</SelectItem>
+	            </SelectGroup>
+	          </SelectContent>
+	        </Select>
 
-        <Select value={publisher} onValueChange={(value) => { setPublisher(value); setPage(1); }}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="All publishers" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="all">All publishers</SelectItem>
-              <SelectItem value="ACME">ACME</SelectItem>
-              <SelectItem value="Orbit">Orbit</SelectItem>
-              <SelectItem value="Penguin">Penguin</SelectItem>
-              <SelectItem value="Harper">Harper</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+	        <Select value={publisher} onValueChange={(value) => { setPublisher(value); setPage(1); }}>
+	          <SelectTrigger className="w-[180px]">
+	            <SelectValue placeholder="All publishers" />
+	          </SelectTrigger>
+	          <SelectContent>
+	            <SelectGroup>
+	              <SelectItem value="all">All publishers</SelectItem>
+	              <SelectItem value="ACME">ACME</SelectItem>
+	              <SelectItem value="Orbit">Orbit</SelectItem>
+	              <SelectItem value="Penguin">Penguin</SelectItem>
+	              <SelectItem value="Harper">Harper</SelectItem>
+	            </SelectGroup>
+	          </SelectContent>
+	        </Select>
 
-        <Select value={author} onValueChange={(value) => { setAuthor(value); setPage(1); }}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="All authors" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="all">All authors</SelectItem>
-              <SelectItem value="Alice">Alice</SelectItem>
-              <SelectItem value="Bob">Bob</SelectItem>
-              <SelectItem value="Carol">Carol</SelectItem>
-              <SelectItem value="David">David</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+	        <Select value={author} onValueChange={(value) => { setAuthor(value); setPage(1); }}>
+	          <SelectTrigger className="w-[180px]">
+	            <SelectValue placeholder="All authors" />
+	          </SelectTrigger>
+	          <SelectContent>
+	            <SelectGroup>
+	              <SelectItem value="all">All authors</SelectItem>
+	              <SelectItem value="Alice">Alice</SelectItem>
+	              <SelectItem value="Bob">Bob</SelectItem>
+	              <SelectItem value="Carol">Carol</SelectItem>
+	              <SelectItem value="David">David</SelectItem>
+	            </SelectGroup>
+	          </SelectContent>
+	        </Select>
+	      </div>
 
-			<div className="flex items-center gap-3 mb-4">
-        {/* <Select value={available} onValueChange={(value) => { setAvailable(value); setPage(1); }}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Any" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {availableOptions.map((o) => (
-                <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select> */}
+				<div className="flex items-center gap-3 mb-4">
+	        {/* <Select value={available} onValueChange={(value) => { setAvailable(value); setPage(1); }}>
+	          <SelectTrigger className="w-[180px]">
+	            <SelectValue placeholder="Any" />
+	          </SelectTrigger>
+	          <SelectContent>
+	            <SelectGroup>
+	              {availableOptions.map((o) => (
+	                <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+	              ))}
+	            </SelectGroup>
+	          </SelectContent>
+	        </Select> */}
 
-        <div className="flex items-center gap-2">
-          <Label>Per page:</Label>
-          <Select value={perPage} onValueChange={(value) => { setPerPage(value); setPage(1); }}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="10" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="5">5</SelectItem>
-                <SelectItem value="10">10</SelectItem>
-                <SelectItem value="20">20</SelectItem>
-                <SelectItem value="50">50</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+	        <div className="flex items-center gap-2">
+	          <Label>Per page:</Label>
+	          <Select value={perPage} onValueChange={(value) => { setPerPage(value); setPage(1); }}>
+	            <SelectTrigger className="w-[180px]">
+	              <SelectValue placeholder="10" />
+	            </SelectTrigger>
+	            <SelectContent>
+	              <SelectGroup>
+	                <SelectItem value="5">5</SelectItem>
+	                <SelectItem value="10">10</SelectItem>
+	                <SelectItem value="20">20</SelectItem>
+	                <SelectItem value="50">50</SelectItem>
+	              </SelectGroup>
+	            </SelectContent>
+	          </Select>
+	        </div>
 
-        <div className="ml-auto flex items-center gap-2">
-          <Button onClick={() => { setSorts([{ field: 'createdAt', dir: 'desc' }]) }} className="border">Reset sort</Button>
-          <Button onClick={() => addSort('title')} className="border">Sort title</Button>
-          <Button onClick={() => addSort('author')} className="border">Sort author</Button>
-          <Button onClick={() => exportCsv()} className="bg-slate-800 text-white">Export CSV</Button>
-        </div>
-			</div>
+	        <div className="ml-auto flex items-center gap-2">
+	          <Button onClick={() => { setSorts([{ field: 'createdAt', dir: 'desc' }]) }} className="border">Reset sort</Button>
+	          <Button onClick={() => addSort('title')} className="border">Sort title</Button>
+	          <Button onClick={() => addSort('author')} className="border">Sort author</Button>
+	          <Button onClick={() => exportCsv()} className="bg-slate-800 text-white">Export CSV</Button>
+	        </div>
+				</div>
 
-      {loading ? (
-        <SkeletonTable rows={Number(perPage)} />
-      ) : (
-        <DataTable
-          columns={[
-            { key: 'title', header: 'Title' },
-            { key: 'author', header: 'Author' },
-            { key: 'publisher', header: 'Publisher' },
-            { key: 'genre', header: 'Genre' },
-            { key: 'available', header: 'Available', render: (r) => (r.available ? 'Yes' : 'No') },
-            { key: 'createdAt', header: 'Created', render: (r) => (r.createdAt ? new Date(r.createdAt).toLocaleDateString() : '') },
-          ]}
-          data={books}
-        />
-      )}
+	      {loading ? (
+	        <SkeletonTable rows={Number(perPage)} />
+	      ) : (
+	        <DataTable
+	          columns={[
+	            { key: 'title', header: 'Title' },
+	            { key: 'author', header: 'Author' },
+	            { key: 'publisher', header: 'Publisher' },
+	            { key: 'genre', header: 'Genre' },
+	            { key: 'available', header: 'Available', render: (r) => (r.available ? 'Yes' : 'No') },
+	            { key: 'createdAt', header: 'Created', render: (r) => (r.createdAt ? new Date(r.createdAt).toLocaleDateString() : '') },
+	          ]}
+	          data={books}
+	        />
+	      )}
 
-			<div className="flex items-center justify-between gap-4 mt-4">
-				<div>Showing {books.length} of {total}</div>
-				<div className="flex items-center gap-2">
-					<button disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} className="px-3 py-1 border rounded">Prev</button>
-					<span className="px-3 py-1 border rounded">{page} / {totalPages}</span>
-					<button disabled={page >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} className="px-3 py-1 border rounded">Next</button>
+				<div className="flex items-center justify-between gap-4 mt-4">
+					<div>Showing {books.length} of {total}</div>
+					<div className="flex items-center gap-2">
+						<button disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} className="px-3 py-1 border rounded">Prev</button>
+						<span className="px-3 py-1 border rounded">{page} / {totalPages}</span>
+						<button disabled={page >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} className="px-3 py-1 border rounded">Next</button>
+					</div>
+				</div>
+
+				<div className="mt-4">
+					<div className="text-sm">Active sorts:</div>
+					<div className="flex gap-2 mt-2">
+						{sorts.map((s) => (
+							<div key={s.field} className="px-2 py-1 border rounded flex items-center gap-2">
+								<strong>{s.field}</strong>
+								<span>{s.dir}</span>
+								<button onClick={() => removeSort(s.field)} className="text-xs text-red-600">x</button>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<div className="flex justify-end mb-4">
+					<Button onClick={() => router.push('/dashboard/new')} className="text-white px-4 py-2 rounded">Add Book</Button>
 				</div>
 			</div>
-
-			<div className="mt-4">
-				<div className="text-sm">Active sorts:</div>
-				<div className="flex gap-2 mt-2">
-					{sorts.map((s) => (
-						<div key={s.field} className="px-2 py-1 border rounded flex items-center gap-2">
-							<strong>{s.field}</strong>
-							<span>{s.dir}</span>
-							<button onClick={() => removeSort(s.field)} className="text-xs text-red-600">x</button>
-						</div>
-					))}
-				</div>
-			</div>
-
-			<div className="flex justify-end mb-4">
-				<Button onClick={() => router.push('/dashboard/new')} className="text-white px-4 py-2 rounded">Add Book</Button>
-			</div>
-		</div>
+		</ProtectedRoute>
 	)
 }
