@@ -50,7 +50,7 @@ export class BooksController {
     private readonly uploadService: UploadService,
   ) {}
 
-    @Post()
+  @Post()
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('image', UploadService.getMulterOptions()))
   @ApiBearerAuth()
@@ -262,44 +262,9 @@ export class BooksController {
     return this.booksService.findOne(id);
   }
 
-  @Get('filters')
-  @UsePipes(new ValidationPipe({ transform: false, whitelist: false }))
-  @ApiOperation({
-    summary: 'Get filter options',
-    description:
-      'Retrieves unique values for filter dropdowns (genres, authors, publishers).',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Filter options retrieved successfully',
-    schema: {
-      type: 'object',
-      properties: {
-        genres: {
-          type: 'array',
-          items: { type: 'string' },
-          example: [
-            'Fiction',
-            'Non-Fiction',
-            'Mystery',
-            'Romance',
-            'Science Fiction',
-          ],
-        },
-        authors: {
-          type: 'array',
-          items: { type: 'string' },
-          example: ['F. Scott Fitzgerald', 'Ernest Hemingway', 'Jane Austen'],
-        },
-        publishers: {
-          type: 'array',
-          items: { type: 'string' },
-          example: ['Scribner', 'Penguin', 'HarperCollins'],
-        },
-      },
-    },
-  })
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Update a book',
     description: 'Updates a book by its ID with the provided data.',
@@ -339,32 +304,6 @@ export class BooksController {
     @Body() updateBookDto: UpdateBookDto,
   ) {
     return this.booksService.update(id, updateBookDto);
-  }
-
-  @Delete(':id')
-  @ApiOperation({
-    summary: 'Soft delete a book',
-    description:
-      'Soft deletes a book by its ID (marks as deleted but keeps in database).',
-  })
-  @ApiParam({
-    name: 'id',
-    description: 'Book ID',
-    example: 1,
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Book deleted successfully',
-    schema: {
-      type: 'object',
-      properties: {
-        message: { type: 'string', example: 'Book deleted successfully' },
-      },
-    },
-  })
-  @ApiResponse({ status: 404, description: 'Book not found' })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.booksService.remove(id);
   }
 
   @Post(':id/restore')

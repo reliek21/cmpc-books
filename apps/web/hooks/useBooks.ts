@@ -5,6 +5,7 @@ interface UseBooksOptions {
   initialPage?: number;
   initialPerPage?: number;
   initialSorts?: BookSort[];
+  searchDebounceMs?: number;
 }
 
 interface UseBooksReturn {
@@ -43,6 +44,7 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     initialPage = 1,
     initialPerPage = 10,
     initialSorts = [{ field: 'createdAt', dir: 'desc' }],
+    searchDebounceMs = 350,
   } = options;
 
   const [books, setBooks] = useState<Book[]>([]);
@@ -69,6 +71,17 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     publishers: [] as string[],
   });
 
+  // Debounce search query
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(filters.q);
+    }, searchDebounceMs);
+
+    return () => clearTimeout(timer);
+  }, [filters.q, searchDebounceMs]);
+
   const totalPages = Math.max(1, Math.ceil(total / Number(perPage)));
   const pagination: PaginationInfo = {
     page,
@@ -86,7 +99,7 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
       params.set('page', String(page));
       params.set('per_page', String(perPage));
 
-      if (filters.q) params.set('search', filters.q);
+      if (debouncedSearch) params.set('search', debouncedSearch);
       if (filters.genre && filters.genre !== 'all') params.set('genre', filters.genre);
       if (filters.publisher && filters.publisher !== 'all') params.set('publisher', filters.publisher);
       if (filters.author && filters.author !== 'all') params.set('author', filters.author);
@@ -96,13 +109,18 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
         params.set('sort', sorts.map((s) => `${s.field}:${s.dir}`).join(','));
       }
 
-      const response = await fetch(`/api/books?${params.toString()}`);
+      const queryString = params.toString();
+      console.log('🔍 Fetching books with params:', queryString);
+
+      const response = await fetch(`/api/books?${queryString}`);
 
       if (!response.ok) {
         throw new Error(`Failed to fetch books: ${response.statusText}`);
       }
 
       const data: BooksResponse = await response.json();
+      console.log('📚 Books fetched:', data.data?.length || 0, 'books');
+      
       setBooks(data.data || data.items || []);
       setTotal(data.total || 0);
     } catch (err) {
@@ -112,7 +130,7 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     } finally {
       setLoading(false);
     }
-  }, [page, perPage, filters, sorts]);
+  }, [page, perPage, debouncedSearch, filters.genre, filters.publisher, filters.author, filters.available, sorts]);
 
   const exportCsv = useCallback(async () => {
     try {
@@ -392,7 +410,7 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     pagination,
     filters,
     filterOptions,
-    debouncedSearch: filters.q,
+    debouncedSearch,
     sorts,
     setPage: handleSetPage,
     setPerPage: handleSetPerPage,

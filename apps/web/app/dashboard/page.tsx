@@ -39,7 +39,7 @@ export default function DashboardPage() {
     fetchDeletedBooks,
     uploadBookImage,
     updateBook,
-  } = useBooks();
+  } = useBooks({ searchDebounceMs: 100 });
 
   // Convert dynamic filter options to FilterOption format
   const genreOptions = [
@@ -66,14 +66,8 @@ export default function DashboardPage() {
   // Debounce search to avoid too many API calls
   const debouncedSearch = useDebounce(filters.q, 350);
 
-  // Update search when debounced value changes
-  React.useEffect(() => {
-    if (debouncedSearch !== filters.q) {
-      setSearch(debouncedSearch);
-    }
-  }, [debouncedSearch, filters.q, setSearch]);
-
   const handleSearchChange = (search: string) => {
+    console.log('🔍 Search changed to:', search);
     // Update local filters immediately for UI responsiveness
     setFilters({ q: search });
   };
