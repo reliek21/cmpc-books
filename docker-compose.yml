@@ -1,26 +1,67 @@
-version: '3'
+version: '3.8'
 
 services:
   db:
     image: postgres:16
+    container_name: cmcp-postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    ports: ["5432:5432"]
-    volumes: ["db_data:/var/lib/postgresql/data"]
+      POSTGRES_USER: ${POSTGRES_USER:-cmpc123}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgrescmpc}
+      POSTGRES_DB: ${POSTGRES_DB:-cmpc}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - cmcp-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cmpc123}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
-    build: ./apps/backend
-    env_file: ./apps/backend/.env
-    ports: ["3001:3001"]
-    depends_on: [db]
+    build: 
+      context: ./apps/server
+      dockerfile: Dockerfile
+    container_name: cmcp-backend
+    env_file: 
+      - ./apps/server/.env
+    ports:
+      - "3001:3001"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads_data:/app/uploads
+    networks:
+      - cmcp-network
+    environment:
+      - DATABASE_HOST=db
+      - NODE_ENV=development
 
-  fdrontend:
-    build: ./apps/frontend
-    env_file: ./apps/frontend/.env.local
-    ports: ["3000:3000"]
-    depends_on: [backend]
+  frontend:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: cmcp-frontend
+    env_file:
+      - ./apps/web/.env.local
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - cmcp-network
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
 
 volumes:
-  db_data: {}
+  db_data:
+    driver: local
+  uploads_data:
+    driver: local
+
+networks:
+  cmcp-network:
+    driver: bridge
