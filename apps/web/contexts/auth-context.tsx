@@ -25,9 +25,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const token = localStorage.getItem('auth-token');
     const userData = localStorage.getItem('user');
+
     if (token && userData) {
-      setIsAuthenticated(true);
-      setUser(JSON.parse(userData));
+      try {
+        setIsAuthenticated(true);
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        localStorage.removeItem('auth-token');
+        localStorage.removeItem('user');
+        console.error('Error parsing stored user data:', error);
+      }
     }
   }, []);
 
@@ -42,11 +49,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Login failed:', errorData);
         return false;
       }
 
       const data = await response.json();
-      if (data.access_token) {
+      if (data.access_token && data.user) {
         localStorage.setItem('auth-token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data.user));
         setIsAuthenticated(true);
