@@ -33,10 +33,12 @@ export interface BookSort {
 }
 
 export interface BooksResponse {
-  items: Book[];
+  data: Book[];
+  items: Book[]; // Keep for backward compatibility
   total: number;
   page: number;
-  pageSize: number;
+  per_page: number;
+  total_pages: number;
 }
 
 export interface PaginationInfo {

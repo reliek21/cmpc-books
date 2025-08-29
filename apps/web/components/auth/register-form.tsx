@@ -68,8 +68,8 @@ export function RegisterForm({
         localStorage.setItem('auth-token', responseData.access_token);
         localStorage.setItem('user', JSON.stringify(responseData.user));
 
-        // Redirect to dashboard after successful registration
-        router.push('/dashboard');
+        // Redirect to login after successful registration
+        router.push('/auth/login?message=Registration successful, please login');
       } else {
         // Fallback: redirect to login with success message
         router.push('/auth/login?message=Registration successful, please login');

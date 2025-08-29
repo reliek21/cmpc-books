@@ -35,6 +35,7 @@ interface UseBooksReturn {
   forceDeleteBook: (id: number) => Promise<void>;
   fetchDeletedBooks: () => Promise<Book[]>;
   uploadBookImage: (id: number, file: File) => Promise<void>;
+  updateBook: (id: number, data: Partial<Book>) => Promise<void>;
 }
 
 export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
@@ -102,7 +103,7 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
       }
 
       const data: BooksResponse = await response.json();
-      setBooks(data.items || []);
+      setBooks(data.data || data.items || []);
       setTotal(data.total || 0);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An error occurred while fetching books';
@@ -121,7 +122,7 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
       const data = await response.json();
       const headers = ['id', 'title', 'author', 'publisher', 'genre', 'available', 'createdAt'];
 
-      const rows = (data.items || []).map((book: Record<string, unknown>) =>
+      const rows = (data.data || data.items || []).map((book: Record<string, unknown>) =>
         headers.map((header) => {
           const value = book[header];
           return JSON.stringify(value ?? '');
@@ -151,9 +152,30 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
         throw new Error('Failed to fetch filter options');
       }
       const data = await response.json();
-      setFilterOptions(data);
+      
+      // Validate the response structure
+      if (data && typeof data === 'object') {
+        setFilterOptions({
+          genres: Array.isArray(data.genres) ? data.genres : [],
+          authors: Array.isArray(data.authors) ? data.authors : [],
+          publishers: Array.isArray(data.publishers) ? data.publishers : [],
+        });
+      } else {
+        console.warn('Invalid filter options response:', data);
+        setFilterOptions({
+          genres: [],
+          authors: [],
+          publishers: [],
+        });
+      }
     } catch (err) {
       console.error('Error fetching filter options:', err);
+      // Set empty arrays on error to prevent crashes
+      setFilterOptions({
+        genres: [],
+        authors: [],
+        publishers: [],
+      });
     }
   }, []);
 
@@ -319,6 +341,35 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     }
   }, [fetchBooks]);
 
+  const updateBook = useCallback(async (id: number, data: Partial<Book>): Promise<void> => {
+    try {
+      const token = localStorage.getItem('auth-token');
+      if (!token) {
+        throw new Error('Authentication required. Please log in again.');
+      }
+
+      const response = await fetch(`/api/books/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to update book');
+      }
+
+      await fetchBooks();
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to update book';
+      setError(errorMessage);
+      throw err;
+    }
+  }, [fetchBooks]);
+
   const handleSetPage = useCallback((newPage: number) => {
     setPage(Math.max(1, Math.min(totalPages, newPage)));
   }, [totalPages]);
@@ -357,5 +408,6 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     forceDeleteBook,
     fetchDeletedBooks,
     uploadBookImage,
+    updateBook,
   };
 }

@@ -11,6 +11,7 @@ interface BooksTableProps {
   onDeleteBook?: (id: number) => Promise<void>;
   onRestoreBook?: (id: number) => Promise<void>;
   onForceDeleteBook?: (id: number) => Promise<void>;
+  onEditBook?: (book: Book) => void;
   showDeleted?: boolean;
 }
 
@@ -22,6 +23,7 @@ export function BooksTable({
   onDeleteBook,
   onRestoreBook,
   onForceDeleteBook,
+  onEditBook,
   showDeleted = false,
 }: BooksTableProps) {
   const [deletingId, setDeletingId] = useState<number | null>(null);
@@ -116,15 +118,27 @@ export function BooksTable({
               </Button>
             </>
           ) : (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => handleDelete(book.id)}
-              disabled={deletingId === book.id}
-              className="text-red-600 hover:text-red-700"
-            >
-              {deletingId === book.id ? 'Deleting...' : 'Delete'}
-            </Button>
+            <div className="flex gap-2">
+              {onEditBook && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => onEditBook(book)}
+                  className="text-blue-600 hover:text-blue-700"
+                >
+                  Edit
+                </Button>
+              )}
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => handleDelete(book.id)}
+                disabled={deletingId === book.id}
+                className="text-red-600 hover:text-red-700"
+              >
+                {deletingId === book.id ? 'Deleting...' : 'Delete'}
+              </Button>
+            </div>
           )}
         </div>
       ),
