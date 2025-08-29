@@ -298,8 +298,6 @@ docker-compose down -v
 
 ### ER Diagram
 
-![CMPC Books Database Schema](https://dbdiagram.io/d/CMPC-Books-68afd837777b52b76ce76658)
-
 The database schema includes the following main entities:
 
 - **Users**: User management with authentication
