@@ -17,12 +17,23 @@ export class BooksService {
 
   async create(createBookDto: CreateBookDto): Promise<Book> {
     try {
-      this.logger.log(`Creating new book: ${createBookDto.title}`);
-      const book = await this.bookModel.create(createBookDto);
+      const bookData = {
+        title: createBookDto.title,
+        author: createBookDto.author,
+        publisher: createBookDto.publisher,
+        genre: createBookDto.genre,
+        isActive: createBookDto.available ?? true,
+        imageUrl: createBookDto.image_url,
+      };
+      
+      const book = await this.bookModel.create(bookData as any);
       this.logger.log(`Book created successfully with ID: ${book.id}`);
       return book;
     } catch (error) {
-      this.logger.error(`Error creating book: ${error.message}`, error.stack);
+      this.logger.error(
+        `Error creating book: ${(error as Error).message}`,
+        (error as Error).stack,
+      );
       throw error;
     }
   }
@@ -310,6 +321,77 @@ export class BooksService {
         authors: [],
         publishers: [],
       };
+    }
+  }
+
+  async exportToCsv(filterDto: FilterBooksDto): Promise<string> {
+    try {
+      this.logger.debug(
+        `Exporting books to CSV with filters: ${JSON.stringify(filterDto)}`,
+      );
+
+      // Reuse the existing findAll method logic to get books
+      const result = await this.findAll({
+        ...filterDto,
+        page: 1,
+        per_page: 999999,
+      });
+      const books = result.data;
+
+      // Transform data for CSV export
+      const csvData = books.map((book) => ({
+        id: book.id,
+        title: book.title,
+        author: book.author,
+        publisher: book.publisher,
+        genre: book.genre,
+        isActive: book.isActive ? 'Yes' : 'No',
+        imageUrl: book.imageUrl || '',
+        userId: book.userId,
+        createdAt: book.createdAt.toISOString(),
+        updatedAt: book.updatedAt.toISOString(),
+      }));
+
+      // Generate CSV manually for now
+      const csvHeaders = [
+        'ID',
+        'Title',
+        'Author',
+        'Publisher',
+        'Genre',
+        'Active',
+        'Image URL',
+        'User ID',
+        'Created At',
+        'Updated At',
+      ];
+
+      const csvRows = csvData.map((book) => [
+        book.id,
+        `"${book.title.replace(/"/g, '""')}"`,
+        `"${book.author.replace(/"/g, '""')}"`,
+        `"${book.publisher.replace(/"/g, '""')}"`,
+        `"${book.genre.replace(/"/g, '""')}"`,
+        book.isActive,
+        book.imageUrl,
+        book.userId,
+        book.createdAt,
+        book.updatedAt,
+      ]);
+
+      const csv = [
+        csvHeaders.join(','),
+        ...csvRows.map((row) => row.join(',')),
+      ].join('\n');
+
+      this.logger.log(`Exported ${books.length} books to CSV`);
+      return csv;
+    } catch (error) {
+      this.logger.error(
+        `Error exporting books to CSV: ${(error as Error).message}`,
+        (error as Error).stack,
+      );
+      throw error;
     }
   }
 }

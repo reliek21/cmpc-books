@@ -20,7 +20,7 @@ export async function DELETE(
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
-    const response = await fetch(`${backendUrl}/books/${id}`, {
+    const response = await fetch(`${backendUrl}/api/v1/books/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export async function PATCH(
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
-    const response = await fetch(`${backendUrl}/books/${id}`, {
+    const response = await fetch(`${backendUrl}/api/v1/books/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

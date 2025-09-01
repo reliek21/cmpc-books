@@ -27,7 +27,7 @@ export async function POST(
       backendFormData.append(key, value);
     }
 
-    const response = await fetch(`${backendUrl}/books/${id}/upload-image`, {
+    const response = await fetch(`${backendUrl}/api/v1/books/${id}/upload-image`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,

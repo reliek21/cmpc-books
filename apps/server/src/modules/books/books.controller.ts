@@ -14,7 +14,10 @@ import {
   Query,
   UsePipes,
   ValidationPipe,
+  Res,
+  Header,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiTags,
@@ -136,6 +139,65 @@ export class BooksController {
   })
   getFilterOptions() {
     return this.booksService.getFilterOptions();
+  }
+
+  @Get('export.csv')
+  @ApiOperation({ summary: 'Export books to CSV' })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Search term for title, author, publisher, or genre',
+  })
+  @ApiQuery({
+    name: 'genre',
+    required: false,
+    description: 'Filter by genre',
+  })
+  @ApiQuery({
+    name: 'publisher',
+    required: false,
+    description: 'Filter by publisher',
+  })
+  @ApiQuery({
+    name: 'author',
+    required: false,
+    description: 'Filter by author',
+  })
+  @ApiQuery({
+    name: 'available',
+    required: false,
+    description: 'Filter by availability',
+  })
+  @ApiQuery({
+    name: 'sort',
+    required: false,
+    description: 'Sort fields with direction (asc/desc)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'CSV file with books data',
+    headers: {
+      'Content-Type': {
+        description: 'text/csv',
+      },
+      'Content-Disposition': {
+        description: 'attachment; filename="books.csv"',
+      },
+    },
+  })
+  @UseGuards(JwtAuthGuard)
+  async exportToCsv(
+    @Query() filterDto: FilterBooksDto,
+    @Res() res: Response,
+  ): Promise<void> {
+    const csv = await this.booksService.exportToCsv(filterDto);
+    
+    res.set({
+      'Content-Type': 'text/csv',
+      'Content-Disposition': 'attachment; filename="books.csv"',
+    });
+    
+    res.send(csv);
   }
 
   @Get()

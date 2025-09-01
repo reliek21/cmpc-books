@@ -20,7 +20,7 @@ export async function POST(
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
-    const response = await fetch(`${backendUrl}/books/${id}/restore`, {
+    const response = await fetch(`${backendUrl}/api/v1/books/${id}/restore`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

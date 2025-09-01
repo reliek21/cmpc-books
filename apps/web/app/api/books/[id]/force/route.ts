@@ -20,7 +20,7 @@ export async function DELETE(
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
-    const response = await fetch(`${backendUrl}/books/${id}/force`, {
+    const response = await fetch(`${backendUrl}/api/v1/books/${id}/force`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

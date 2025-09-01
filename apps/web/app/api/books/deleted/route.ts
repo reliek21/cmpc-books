@@ -4,7 +4,7 @@ const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export async function GET() {
   try {
-    const response = await fetch(`${backendUrl}/books/deleted`, {
+    const response = await fetch(`${backendUrl}/api/v1/books/deleted`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

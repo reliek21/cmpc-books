@@ -134,34 +134,57 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
 
   const exportCsv = useCallback(async () => {
     try {
-      const response = await fetch('/api/books?limit=1000');
-      if (!response.ok) throw new Error('Failed to export');
+      const token = localStorage.getItem('auth-token');
+      if (!token) {
+        throw new Error('Authentication required. Please log in again.');
+      }
 
-      const data = await response.json();
-      const headers = ['id', 'title', 'author', 'publisher', 'genre', 'available', 'createdAt'];
+      // Build export URL with current filters
+      const params = new URLSearchParams();
+      if (debouncedSearch) params.set('search', debouncedSearch);
+      if (filters.genre && filters.genre !== 'all') params.set('genre', filters.genre);
+      if (filters.publisher && filters.publisher !== 'all') params.set('publisher', filters.publisher);
+      if (filters.author && filters.author !== 'all') params.set('author', filters.author);
+      if (filters.available && filters.available !== 'any') params.set('available', filters.available);
+      if (sorts.length) {
+        params.set('sort', sorts.map((s) => `${s.field}:${s.dir}`).join(','));
+      }
 
-      const rows = (data.data || data.items || []).map((book: Record<string, unknown>) =>
-        headers.map((header) => {
-          const value = book[header];
-          return JSON.stringify(value ?? '');
-        }).join(',')
-      );
+      const queryString = params.toString();
+      const exportUrl = `/api/books/export${queryString ? `?${queryString}` : ''}`;
+      
+      const response = await fetch(exportUrl, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
 
-      const csv = [headers.join(','), ...rows].join('\n');
-      const blob = new Blob([csv], { type: 'text/csv' });
+      if (!response.ok) {
+        throw new Error(`Failed to export CSV: ${response.statusText}`);
+      }
+
+      // Get the CSV content as text
+      const csvContent = await response.text();
+      
+      // Create and download the file
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
 
       const a = document.createElement('a');
       a.href = url;
       a.download = `books-export-${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
 
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error('Error exporting CSV:', err);
+      setError(err instanceof Error ? err.message : 'Failed to export CSV');
       throw err;
     }
-  }, []);
+  }, [debouncedSearch, filters.genre, filters.publisher, filters.author, filters.available, sorts]);
 
   const fetchFilterOptions = useCallback(async () => {
     try {

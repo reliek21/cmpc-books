@@ -1,17 +1,50 @@
 
 
-> web@0.1.0 build /Users/reliek21/Desktop/technical-test/cmcp-libros/apps/web
+> web@0.1.0 build /Users/reliek21/Desktop/cmpc-books/apps/web
 > next build --turbopack
 
    [1m[38;2;173;127;168m▲ Next.js 15.5.2[39m[22m (Turbopack)
    - Environments: .env.local
+   - Experiments (use with caution):
+     · serverActions
 
  [37m[1m [22m[39m Creating an optimized production build ...
- ✓ Finished writing to disk in 27ms
+ ✓ Finished writing to disk in 105ms
  [32m[1m✓[22m[39m Compiled successfully in 2.3s
-[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G[?25h
+[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G[?25h[31m
+Failed to compile.[39m
+[?25l [36m.[39m [2K[1G[?25h
 ./app/dashboard/page.tsx
-17:5  Warning: 'total' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+21:5  Warning: 'total' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+30:5  Warning: 'setSearch' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+39:5  Warning: 'fetchDeletedBooks' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+40:5  Warning: 'uploadBookImage' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+41:5  Warning: 'updateBook' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+67:9  Warning: 'debouncedSearch' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/BooksList.tsx
+193:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/__tests__/BooksList.test.tsx
+2:26  Warning: 'fireEvent' is defined but never used.  @typescript-eslint/no-unused-vars
+13:49  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+14:12  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+18:22  Error: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+
+./components/__tests__/BooksTable.test.tsx
+2:26  Warning: 'fireEvent' is defined but never used.  @typescript-eslint/no-unused-vars
+2:37  Warning: 'waitFor' is defined but never used.  @typescript-eslint/no-unused-vars
+8:71  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+22:34  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+28:30  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+30:36  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+46:81  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/__tests__/DeletedBooksTable.test.tsx
+2:26  Warning: 'fireEvent' is defined but never used.  @typescript-eslint/no-unused-vars
+24:6  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+31:27  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+45:63  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
 
 ./components/auth/login-form.tsx
 61:14  Warning: 'err' is defined but never used.  @typescript-eslint/no-unused-vars
@@ -27,45 +60,5 @@
 18:3  Warning: 'bookId' is defined but never used.  @typescript-eslint/no-unused-vars
 80:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
 
-./src/components/BooksList.tsx
-180:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
-
-./src/hooks/useBooks.ts
-2:10  Warning: 'Book' is defined but never used.  @typescript-eslint/no-unused-vars
-
 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
-[?25l [36m.[39m [2K[1G [36m..[39m [2K[1G [36m...[39m [2K[1G[?25h    [32m[1m✓[22m[39m Linting and checking validity of types 
-[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting page data     [32m[1m✓[22m[39m Collecting page data 
-[?25l [37m[1m [22m[39m Generating static pages (0/15)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/15)  [36m[=   ][39m[2K[1G[?25h [32m[1m✓[22m[39m Generating static pages (15/15)
-[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[?25l [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting build traces     [32m[1m✓[22m[39m Collecting build traces 
-[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization     [32m[1m✓[22m[39m Finalizing page optimization 
-
-[4mRoute (app)[24m                          [4mSize[24m  [4mFirst Load JS[24m  [4m[24m  [4m[24m
-┌ ○ /                              5.4 kB         [37m[1m121 kB[22m[39m
-├ ○ /_not-found                       0 B         [37m[1m116 kB[22m[39m
-├ ƒ /api/books                        0 B            [37m[1m0 B[22m[39m
-├ ƒ /api/books/[id]                   0 B            [37m[1m0 B[22m[39m
-├ ƒ /api/books/[id]/force             0 B            [37m[1m0 B[22m[39m
-├ ƒ /api/books/[id]/restore           0 B            [37m[1m0 B[22m[39m
-├ ƒ /api/books/[id]/upload-image      0 B            [37m[1m0 B[22m[39m
-├ ƒ /api/books/deleted                0 B            [37m[1m0 B[22m[39m
-├ ƒ /api/login                        0 B            [37m[1m0 B[22m[39m
-├ ƒ /api/register                     0 B            [37m[1m0 B[22m[39m
-├ ○ /auth/login                   2.71 kB         [37m[1m192 kB[22m[39m
-├ ○ /auth/register                2.93 kB         [37m[1m192 kB[22m[39m
-├ ○ /books                        7.62 kB         [37m[1m133 kB[22m[39m
-├ ○ /books/deleted                2.81 kB         [37m[1m128 kB[22m[39m
-├ ○ /dashboard                    32.9 kB         [37m[1m158 kB[22m[39m
-└ ○ /dashboard/new                70.2 kB         [37m[1m195 kB[22m[39m
-+ First Load JS shared by all      [37m[1m127 kB[22m[39m
-  ├ chunks/8e7d861ddefca71b.js    17.1 kB
-  ├ chunks/b6d6a3d88c9dd264.js    59.2 kB
-  ├ chunks/d05788168671af38.js      13 kB
-  ├ chunks/e9bb4e5224e53019.css   10.9 kB
-  └ other shared chunks (total)   26.3 kB
-
-
-○  (Static)   prerendered as static content
-ƒ  (Dynamic)  server-rendered on demand
-
-[?25h
+[?25l [36m.[39m [?25h[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m

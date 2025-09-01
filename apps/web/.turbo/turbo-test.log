@@ -1,0 +1,1513 @@
+
+
+> web@0.1.0 test /Users/reliek21/Desktop/cmpc-books/apps/web
+> jest
+
+[1m[2mDetermining test suites to run...[22m[22m[?2026h[999D[K
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        0 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        0 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        1 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m[1m[32m14 passed[39m[22m, 14 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m[1m[32m14 passed[39m[22m, 14 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A  [1m● [22mTest suite failed to run
+
+    ReferenceError: Request is not defined
+
+    [0m [90m 3 |[39m
+     [90m 4 |[39m [90m// Mock fetch[39m
+    [31m[1m>[22m[39m[90m 5 |[39m global[33m.[39mfetch [33m=[39m jest[33m.[39mfn()
+     [90m   |[39m                 [31m[1m^[22m[39m
+     [90m 6 |[39m
+     [90m 7 |[39m [36mconst[39m mockFetch [33m=[39m fetch [36mas[39m jest[33m.[39m[33mMockedFunction[39m[33m<[39m[36mtypeof[39m fetch[33m>[39m
+     [90m 8 |[39m[0m
+
+      [2mat Object.Request ([22m../../node_modules/.pnpm/next@15.5.2_@babel+core@7.28.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/next/src/server/web/spec-extension/request.ts[2m:14:34)[22m
+      [2mat Object.<anonymous> ([22m../../node_modules/.pnpm/next@15.5.2_@babel+core@7.28.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/next/server.js[2m:2:16)[22m
+      [2mat Object.<anonymous> ([22m[0m[36m__tests__/api/books/[id]/route.test.ts[39m[0m[2m:5:17)[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m[1m[32m14 passed[39m[22m, 14 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m[1m[32m14 passed[39m[22m, 14 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m[1m[32m14 passed[39m[22m, 14 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A  [1m● [22mTest suite failed to run
+
+    Cannot find module '../../src/components/BooksList' from 'components/__tests__/BooksList.test.tsx'
+
+    [0m [90m 21 |[39m   [36mconst[39m mockBooks [33m=[39m [
+     [90m 22 |[39m     {
+    [31m[1m>[22m[39m[90m 23 |[39m       id[33m:[39m [35m1[39m[33m,[39m
+     [90m    |[39m                                           [31m[1m^[22m[39m
+     [90m 24 |[39m       title[33m:[39m [32m'Test Book 1'[39m[33m,[39m
+     [90m 25 |[39m       author[33m:[39m [32m'Test Author 1'[39m[33m,[39m
+     [90m 26 |[39m       publisher[33m:[39m [32m'Test Publisher 1'[39m[33m,[39m[0m
+
+      [2mat Resolver._throwModNotFoundError ([22m../../node_modules/.pnpm/jest-resolve@30.1.0/node_modules/jest-resolve/build/index.js[2m:863:11)[22m
+      [2mat Object.<anonymous> ([22m[0m[36mcomponents/__tests__/BooksList.test.tsx[39m[0m[2m:23:59)[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m[1m[32m14 passed[39m[22m, 14 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m[1m[32m14 passed[39m[22m, 14 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A  [1m● [22mTest suite failed to run
+
+    Cannot find module '../ImageUpload' from 'components/__tests__/ImageUpload.test.tsx'
+
+    [0m [90m  6 |[39m   [36mconst[39m mockOnUpload [33m=[39m jest[33m.[39mfn()
+     [90m  7 |[39m   [36mconst[39m defaultProps [33m=[39m {
+    [31m[1m>[22m[39m[90m  8 |[39m     onUpload[33m:[39m mockOnUpload[33m,[39m
+     [90m    |[39m                      [31m[1m^[22m[39m
+     [90m  9 |[39m     loading[33m:[39m [36mfalse[39m[33m,[39m
+     [90m 10 |[39m   }
+     [90m 11 |[39m[0m
+
+      [2mat Resolver._throwModNotFoundError ([22m../../node_modules/.pnpm/jest-resolve@30.1.0/node_modules/jest-resolve/build/index.js[2m:863:11)[22m
+      [2mat Object.<anonymous> ([22m[0m[36mcomponents/__tests__/ImageUpload.test.tsx[39m[0m[2m:8:22)[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksList.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2m__tests__/api/books/[id]/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mImageUpload.test.tsx[22m
+
+[1mTest Suites: [22m0 of 8 total
+[1mTests:       [22m[1m[32m14 passed[39m[22m, 14 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+
+[1mTest Suites: [22m[1m[31m3 failed[39m[22m, 3 of 8 total
+[1mTests:       [22m[1m[31m3 failed[39m[22m, [1m[32m20 passed[39m[22m, 23 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+
+[1mTest Suites: [22m[1m[31m3 failed[39m[22m, 3 of 8 total
+[1mTests:       [22m[1m[31m3 failed[39m[22m, [1m[32m20 passed[39m[22m, 23 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+
+[1mTest Suites: [22m[1m[31m3 failed[39m[22m, 3 of 8 total
+[1mTests:       [22m[1m[31m3 failed[39m[22m, [1m[32m20 passed[39m[22m, 23 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[1m[31m  [1m● [22m[1mBooksTable › shows loading state[39m[22m
+
+    TestingLibraryElementError: Unable to find an element with the text: Loading.... This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"border rounded-lg p-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"animate-pulse"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"h-4 bg-gray-200 rounded w-full mb-2"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"h-4 bg-gray-200 rounded w-3/4 mb-2"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"h-4 bg-gray-200 rounded w-1/2 mb-2"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"h-4 bg-gray-200 rounded w-2/3"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+[2m[22m
+[2m    [0m [90m 117 |[39m     render([33m<[39m[33mBooksTable[39m {[33m...[39mmockProps} loading[33m=[39m{[36mtrue[39m} [33m/[39m[33m>[39m)[22m
+[2m     [90m 118 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 119 |[39m     expect(screen[33m.[39mgetByText([32m'Loading...'[39m))[33m.[39mtoBeInTheDocument()[22m
+[2m     [90m     |[39m                   [31m[1m^[22m[2m[39m[22m
+[2m     [90m 120 |[39m   })[22m
+[2m     [90m 121 |[39m[22m
+[2m     [90m 122 |[39m   it([32m'shows empty message when no books'[39m[33m,[39m () [33m=>[39m {[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:76:38[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:52:17[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:95:19[22m[2m[22m
+[2m      [2mat Object.getByText ([22m[2m[0m[36mcomponents/__tests__/BooksTable.test.tsx[39m[0m[2m:119:19)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mBooksTable › shows restore and force delete buttons for deleted books[39m[22m
+
+    TestingLibraryElementError: Found multiple elements with the text: Restore
+
+    Here are the matching elements:
+
+    Ignored nodes: comments, script, style
+    [36m<button[39m
+      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+      [33mvariant[39m=[32m"outline"[39m
+    [36m>[39m
+      [0mRestore[0m
+    [36m</button>[39m
+
+    Ignored nodes: comments, script, style
+    [36m<button[39m
+      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+      [33mvariant[39m=[32m"outline"[39m
+    [36m>[39m
+      [0mRestore[0m
+    [36m</button>[39m
+
+    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mdata-testid[39m=[32m"data-table"[39m
+        [36m>[39m
+          [36m<table>[39m
+            [36m<thead>[39m
+              [36m<tr>[39m
+                [36m<th>[39m
+                  [0mTitle[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mAuthor[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mPublisher[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mGenre[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mAvailable[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mDeleted At[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mActions[0m
+                [36m</th>[39m
+              [36m</tr>[39m
+            [36m</thead>[39m
+            [36m<tbody>[39m
+              [36m<tr>[39m
+                [36m<td>[39m
+                  [0mTest Book 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Author 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Publisher 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mFiction[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-green-600"[39m
+                  [36m>[39m
+                    [0mYes[0m
+                  [36m</span>[39m
+                [36m</td>[39m
+                [36m<td />[39m
+                [36m<td>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex gap-2"[39m
+                  [36m>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mRestore[0m
+                    [36m</button>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mDelete Forever[0m
+                    [36m</button>[39m
+                  [36m</div>[39m
+                [36m</td>[39m
+              [36m</tr>[39m
+              [36m<tr>[39m
+                [36m<td>[39m
+                  [0mTest Book 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Author 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Publisher 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mNon-Fiction[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-red-600"[39m
+                  [36m>[39m
+                    [0mNo[0m
+                  [36m</span>[39m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0m1/2/2023[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex gap-2"[39m
+                  [36m>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mRestore[0m
+                    [36m</button>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mDelete Forever[0m
+                    [36m</button>[39m
+                  [36m</div>[39m
+                [36m</td>[39m
+              [36m</tr>[39m
+            [36m</tbody>[39m
+          [36m</table>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+[2m[22m
+[2m    [0m [90m 154 |[39m     render([33m<[39m[33mBooksTable[39m {[33m...[39mmockProps} showDeleted[33m=[39m{[36mtrue[39m} [33m/[39m[33m>[39m)[22m
+[2m     [90m 155 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 156 |[39m     expect(screen[33m.[39mgetByText([32m'Restore'[39m))[33m.[39mtoBeInTheDocument()[22m
+[2m     [90m     |[39m                   [31m[1m^[22m[2m[39m[22m
+[2m     [90m 157 |[39m     expect(screen[33m.[39mgetByText([32m'Delete Forever'[39m))[33m.[39mtoBeInTheDocument()[22m
+[2m     [90m 158 |[39m   })[22m
+[2m     [90m 159 |[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:20:35)[22m[2m[22m
+[2m      [2mat getMultipleElementsFoundError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:23:10)[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:55:13[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:95:19[22m[2m[22m
+[2m      [2mat Object.getByText ([22m[2m[0m[36mcomponents/__tests__/BooksTable.test.tsx[39m[0m[2m:156:19)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mBooksTable › calls onRestoreBook when restore button is clicked[39m[22m
+
+    TestingLibraryElementError: Found multiple elements with the text: Restore
+
+    Here are the matching elements:
+
+    Ignored nodes: comments, script, style
+    [36m<button[39m
+      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+      [33mvariant[39m=[32m"outline"[39m
+    [36m>[39m
+      [0mRestore[0m
+    [36m</button>[39m
+
+    Ignored nodes: comments, script, style
+    [36m<button[39m
+      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+      [33mvariant[39m=[32m"outline"[39m
+    [36m>[39m
+      [0mRestore[0m
+    [36m</button>[39m
+
+    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mdata-testid[39m=[32m"data-table"[39m
+        [36m>[39m
+          [36m<table>[39m
+            [36m<thead>[39m
+              [36m<tr>[39m
+                [36m<th>[39m
+                  [0mTitle[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mAuthor[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mPublisher[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mGenre[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mAvailable[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mDeleted At[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mActions[0m
+                [36m</th>[39m
+              [36m</tr>[39m
+            [36m</thead>[39m
+            [36m<tbody>[39m
+              [36m<tr>[39m
+                [36m<td>[39m
+                  [0mTest Book 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Author 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Publisher 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mFiction[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-green-600"[39m
+                  [36m>[39m
+                    [0mYes[0m
+                  [36m</span>[39m
+                [36m</td>[39m
+                [36m<td />[39m
+                [36m<td>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex gap-2"[39m
+                  [36m>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mRestore[0m
+                    [36m</button>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mDelete Forever[0m
+                    [36m</button>[39m
+                  [36m</div>[39m
+                [36m</td>[39m
+              [36m</tr>[39m
+              [36m<tr>[39m
+                [36m<td>[39m
+                  [0mTest Book 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Author 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Publisher 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mNon-Fiction[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-red-600"[39m
+                  [36m>[39m
+                    [0mNo[0m
+                  [36m</span>[39m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0m1/2/2023[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex gap-2"[39m
+                  [36m>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mRestore[0m
+                    [36m</button>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mDelete Forever[0m
+                    [36m</button>[39m
+                  [36m</div>[39m
+                [36m</td>[39m
+              [36m</tr>[39m
+            [36m</tbody>[39m
+          [36m</table>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+[2m[22m
+[2m    [0m [90m 162 |[39m     render([33m<[39m[33mBooksTable[39m {[33m...[39mmockProps} showDeleted[33m=[39m{[36mtrue[39m} [33m/[39m[33m>[39m)[22m
+[2m     [90m 163 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 164 |[39m     [36mconst[39m restoreButton [33m=[39m screen[33m.[39mgetByText([32m'Restore'[39m)[22m
+[2m     [90m     |[39m                                  [31m[1m^[22m[2m[39m[22m
+[2m     [90m 165 |[39m     [36mawait[39m user[33m.[39mclick(restoreButton)[22m
+[2m     [90m 166 |[39m[22m
+[2m     [90m 167 |[39m     expect(mockProps[33m.[39monRestoreBook)[33m.[39mtoHaveBeenCalledWith([35m1[39m)[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:20:35)[22m[2m[22m
+[2m      [2mat getMultipleElementsFoundError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:23:10)[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:55:13[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:95:19[22m[2m[22m
+[2m      [2mat Object.getByText ([22m[2m[0m[36mcomponents/__tests__/BooksTable.test.tsx[39m[0m[2m:164:34)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mBooksTable › calls onForceDeleteBook when delete forever button is clicked[39m[22m
+
+    TestingLibraryElementError: Found multiple elements with the text: Delete Forever
+
+    Here are the matching elements:
+
+    Ignored nodes: comments, script, style
+    [36m<button[39m
+      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+      [33mvariant[39m=[32m"outline"[39m
+    [36m>[39m
+      [0mDelete Forever[0m
+    [36m</button>[39m
+
+    Ignored nodes: comments, script, style
+    [36m<button[39m
+      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+      [33mvariant[39m=[32m"outline"[39m
+    [36m>[39m
+      [0mDelete Forever[0m
+    [36m</button>[39m
+
+    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mdata-testid[39m=[32m"data-table"[39m
+        [36m>[39m
+          [36m<table>[39m
+            [36m<thead>[39m
+              [36m<tr>[39m
+                [36m<th>[39m
+                  [0mTitle[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mAuthor[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mPublisher[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mGenre[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mAvailable[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mDeleted At[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mActions[0m
+                [36m</th>[39m
+              [36m</tr>[39m
+            [36m</thead>[39m
+            [36m<tbody>[39m
+              [36m<tr>[39m
+                [36m<td>[39m
+                  [0mTest Book 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Author 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Publisher 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mFiction[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-green-600"[39m
+                  [36m>[39m
+                    [0mYes[0m
+                  [36m</span>[39m
+                [36m</td>[39m
+                [36m<td />[39m
+                [36m<td>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex gap-2"[39m
+                  [36m>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mRestore[0m
+                    [36m</button>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mDelete Forever[0m
+                    [36m</button>[39m
+                  [36m</div>[39m
+                [36m</td>[39m
+              [36m</tr>[39m
+              [36m<tr>[39m
+                [36m<td>[39m
+                  [0mTest Book 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Author 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Publisher 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mNon-Fiction[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-red-600"[39m
+                  [36m>[39m
+                    [0mNo[0m
+                  [36m</span>[39m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0m1/2/2023[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex gap-2"[39m
+                  [36m>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mRestore[0m
+                    [36m</button>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mDelete Forever[0m
+                    [36m</button>[39m
+                  [36m</div>[39m
+                [36m</td>[39m
+              [36m</tr>[39m
+            [36m</tbody>[39m
+          [36m</table>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+[2m[22m
+[2m    [0m [90m 172 |[39m     render([33m<[39m[33mBooksTable[39m {[33m...[39mmockProps} showDeleted[33m=[39m{[36mtrue[39m} [33m/[39m[33m>[39m)[22m
+[2m     [90m 173 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 174 |[39m     [36mconst[39m forceDeleteButton [33m=[39m screen[33m.[39mgetByText([32m'Delete Forever'[39m)[22m
+[2m     [90m     |[39m                                      [31m[1m^[22m[2m[39m[22m
+[2m     [90m 175 |[39m     [36mawait[39m user[33m.[39mclick(forceDeleteButton)[22m
+[2m     [90m 176 |[39m[22m
+[2m     [90m 177 |[39m     expect(mockProps[33m.[39monForceDeleteBook)[33m.[39mtoHaveBeenCalledWith([35m1[39m)[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:20:35)[22m[2m[22m
+[2m      [2mat getMultipleElementsFoundError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:23:10)[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:55:13[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:95:19[22m[2m[22m
+[2m      [2mat Object.getByText ([22m[2m[0m[36mcomponents/__tests__/BooksTable.test.tsx[39m[0m[2m:174:38)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mBooksTable › shows restoring state while restoring[39m[22m
+
+    TestingLibraryElementError: Found multiple elements with the text: Restore
+
+    Here are the matching elements:
+
+    Ignored nodes: comments, script, style
+    [36m<button[39m
+      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+      [33mvariant[39m=[32m"outline"[39m
+    [36m>[39m
+      [0mRestore[0m
+    [36m</button>[39m
+
+    Ignored nodes: comments, script, style
+    [36m<button[39m
+      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+      [33mvariant[39m=[32m"outline"[39m
+    [36m>[39m
+      [0mRestore[0m
+    [36m</button>[39m
+
+    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mdata-testid[39m=[32m"data-table"[39m
+        [36m>[39m
+          [36m<table>[39m
+            [36m<thead>[39m
+              [36m<tr>[39m
+                [36m<th>[39m
+                  [0mTitle[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mAuthor[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mPublisher[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mGenre[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mAvailable[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mDeleted At[0m
+                [36m</th>[39m
+                [36m<th>[39m
+                  [0mActions[0m
+                [36m</th>[39m
+              [36m</tr>[39m
+            [36m</thead>[39m
+            [36m<tbody>[39m
+              [36m<tr>[39m
+                [36m<td>[39m
+                  [0mTest Book 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Author 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Publisher 1[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mFiction[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-green-600"[39m
+                  [36m>[39m
+                    [0mYes[0m
+                  [36m</span>[39m
+                [36m</td>[39m
+                [36m<td />[39m
+                [36m<td>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex gap-2"[39m
+                  [36m>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mRestore[0m
+                    [36m</button>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mDelete Forever[0m
+                    [36m</button>[39m
+                  [36m</div>[39m
+                [36m</td>[39m
+              [36m</tr>[39m
+              [36m<tr>[39m
+                [36m<td>[39m
+                  [0mTest Book 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Author 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mTest Publisher 2[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0mNon-Fiction[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-red-600"[39m
+                  [36m>[39m
+                    [0mNo[0m
+                  [36m</span>[39m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [0m1/2/2023[0m
+                [36m</td>[39m
+                [36m<td>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex gap-2"[39m
+                  [36m>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-green-600 hover:text-green-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mRestore[0m
+                    [36m</button>[39m
+                    [36m<button[39m
+                      [33mclass[39m=[32m"text-red-600 hover:text-red-700"[39m
+                      [33mvariant[39m=[32m"outline"[39m
+                    [36m>[39m
+                      [0mDelete Forever[0m
+                    [36m</button>[39m
+                  [36m</div>[39m
+                [36m</td>[39m
+              [36m</tr>[39m
+            [36m</tbody>[39m
+          [36m</table>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+[2m[22m
+[2m    [0m [90m 222 |[39m     render([33m<[39m[33mBooksTable[39m {[33m...[39mmockProps} showDeleted[33m=[39m{[36mtrue[39m} [33m/[39m[33m>[39m)[22m
+[2m     [90m 223 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 224 |[39m     [36mconst[39m restoreButton [33m=[39m screen[33m.[39mgetByText([32m'Restore'[39m)[22m
+[2m     [90m     |[39m                                  [31m[1m^[22m[2m[39m[22m
+[2m     [90m 225 |[39m     [36mawait[39m user[33m.[39mclick(restoreButton)[22m
+[2m     [90m 226 |[39m[22m
+[2m     [90m 227 |[39m     expect(screen[33m.[39mgetByText([32m'Restoring...'[39m))[33m.[39mtoBeInTheDocument()[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:20:35)[22m[2m[22m
+[2m      [2mat getMultipleElementsFoundError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:23:10)[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:55:13[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:95:19[22m[2m[22m
+[2m      [2mat Object.getByText ([22m[2m[0m[36mcomponents/__tests__/BooksTable.test.tsx[39m[0m[2m:224:34)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mlib/utils/__tests__/[22m[1mbooks.test.ts[22m
+
+[1mTest Suites: [22m[1m[31m3 failed[39m[22m, 3 of 8 total
+[1mTests:       [22m[1m[31m3 failed[39m[22m, [1m[32m20 passed[39m[22m, 23 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+
+[1mTest Suites: [22m[1m[31m4 failed[39m[22m, [1m[32m1 passed[39m[22m, 5 of 8 total
+[1mTests:       [22m[1m[31m10 failed[39m[22m, [1m[32m39 passed[39m[22m, 49 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+
+[1mTest Suites: [22m[1m[31m4 failed[39m[22m, [1m[32m1 passed[39m[22m, 5 of 8 total
+[1mTests:       [22m[1m[31m10 failed[39m[22m, [1m[32m39 passed[39m[22m, 49 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A  [1m● [22mConsole
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=20&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&genre=Fiction&author=Test+Author&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+
+[1mTest Suites: [22m[1m[31m4 failed[39m[22m, [1m[32m1 passed[39m[22m, 5 of 8 total
+[1mTests:       [22m[1m[31m10 failed[39m[22m, [1m[32m39 passed[39m[22m, 49 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[1m[31m  [1m● [22m[1museBooks Hook - Simple Tests › should handle pagination[39m[22m
+
+    [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m2[39m
+    Received: [31m1[39m
+[2m[22m
+[2m    [0m [90m 54 |[39m     })[22m
+[2m     [90m 55 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 56 |[39m     expect(result[33m.[39mcurrent[33m.[39mpagination[33m.[39mpage)[33m.[39mtoBe([35m2[39m)[22m
+[2m     [90m    |[39m                                            [31m[1m^[22m[2m[39m[22m
+[2m     [90m 57 |[39m   })[22m
+[2m     [90m 58 |[39m[22m
+[2m     [90m 59 |[39m   it([32m'should handle per page changes'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m[22m
+[2m[22m
+[2m      [2mat Object.toBe ([22m[2m[0m[36mhooks/__tests__/useBooks.simple.test.ts[39m[0m[2m:56:44)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1museBooks Hook - Simple Tests › should export CSV[39m[22m
+
+    TypeError: Cannot read properties of undefined (reading 'ok')
+[2m[22m
+[2m    [0m [90m 136 |[39m     [36mtry[39m {[22m
+[2m     [90m 137 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m fetch([32m'/api/books?limit=1000'[39m)[33m;[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 138 |[39m       [36mif[39m ([33m![39mresponse[33m.[39mok) [36mthrow[39m [36mnew[39m [33mError[39m([32m'Failed to export'[39m)[33m;[39m[22m
+[2m     [90m     |[39m                     [31m[1m^[22m[2m[39m[22m
+[2m     [90m 139 |[39m[22m
+[2m     [90m 140 |[39m       [36mconst[39m data [33m=[39m [36mawait[39m response[33m.[39mjson()[33m;[39m[22m
+[2m     [90m 141 |[39m       [36mconst[39m headers [33m=[39m [[32m'id'[39m[33m,[39m [32m'title'[39m[33m,[39m [32m'author'[39m[33m,[39m [32m'publisher'[39m[33m,[39m [32m'genre'[39m[33m,[39m [32m'available'[39m[33m,[39m [32m'createdAt'[39m][33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.ok [as exportCsv] ([22m[2mhooks/useBooks.ts[2m:138:21)[22m[2m[22m
+[2m      [2mat [22m[2m[0m[36mhooks/__tests__/useBooks.simple.test.ts[39m[0m[2m:142:7[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.simple.test.ts[22m
+
+[1mTest Suites: [22m[1m[31m4 failed[39m[22m, [1m[32m1 passed[39m[22m, 5 of 8 total
+[1mTests:       [22m[1m[31m10 failed[39m[22m, [1m[32m39 passed[39m[22m, 49 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m11 failed[39m[22m, [1m[32m41 passed[39m[22m, 52 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m11 failed[39m[22m, [1m[32m41 passed[39m[22m, 52 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m11 failed[39m[22m, [1m[32m41 passed[39m[22m, 52 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        4 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m11 failed[39m[22m, [1m[32m41 passed[39m[22m, 52 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        5 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m11 failed[39m[22m, [1m[32m41 passed[39m[22m, 52 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        6 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m11 failed[39m[22m, [1m[32m41 passed[39m[22m, 52 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        7 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m12 failed[39m[22m, [1m[32m41 passed[39m[22m, 53 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        7 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m ([0m[1m[41m6.294 s[49m[22m[0m)
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m12 failed[39m[22m, [1m[32m41 passed[39m[22m, 53 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        7 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A  [1m● [22mConsole
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      🔍 Fetching books with params: page=1&per_page=10&genre=Fiction&sort=createdAt%3Adesc
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:113:15)[22m[2m[22m
+
+    [2mconsole.log[22m
+      📚 Books fetched: 0 books
+[2m[22m
+[2m      [2mat log ([22m[2mhooks/useBooks.ts[2m:122:15)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m12 failed[39m[22m, [1m[32m41 passed[39m[22m, 53 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        7 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[1m[31m  [1m● [22m[1museBooks › should initialize with correct default values[39m[22m
+
+    [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mfalse[39m
+    Received: [31mtrue[39m
+[2m[22m
+[2m    [0m [90m 16 |[39m     expect(result[33m.[39mcurrent[33m.[39mbooks)[33m.[39mtoEqual([])[22m
+[2m     [90m 17 |[39m     expect(result[33m.[39mcurrent[33m.[39mtotal)[33m.[39mtoBe([35m0[39m)[22m
+[2m    [31m[1m>[22m[2m[39m[90m 18 |[39m     expect(result[33m.[39mcurrent[33m.[39mloading)[33m.[39mtoBe([36mfalse[39m)[22m
+[2m     [90m    |[39m                                    [31m[1m^[22m[2m[39m[22m
+[2m     [90m 19 |[39m     expect(result[33m.[39mcurrent[33m.[39merror)[33m.[39mtoBe([36mnull[39m)[22m
+[2m     [90m 20 |[39m     expect(result[33m.[39mcurrent[33m.[39mpagination[33m.[39mpage)[33m.[39mtoBe([35m1[39m)[22m
+[2m     [90m 21 |[39m     expect(result[33m.[39mcurrent[33m.[39mpagination[33m.[39mperPage)[33m.[39mtoBe([35m10[39m)[0m[22m
+[2m[22m
+[2m      [2mat Object.toBe ([22m[2m[0m[36mhooks/__tests__/useBooks.test.ts[39m[0m[2m:18:36)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1museBooks › should delete book successfully[39m[22m
+
+    Authentication required. Please log in again.
+[2m[22m
+[2m    [0m [90m 236 |[39m       [36mconst[39m token [33m=[39m localStorage[33m.[39mgetItem([32m'auth-token'[39m)[33m;[39m[22m
+[2m     [90m 237 |[39m       [36mif[39m ([33m![39mtoken) {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 238 |[39m         [36mthrow[39m [36mnew[39m [33mError[39m([32m'Authentication required. Please log in again.'[39m)[33m;[39m[22m
+[2m     [90m     |[39m               [31m[1m^[22m[2m[39m[22m
+[2m     [90m 239 |[39m       }[22m
+[2m     [90m 240 |[39m[22m
+[2m     [90m 241 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m fetch([32m`/api/books/${id}`[39m[33m,[39m {[0m[22m
+[2m[22m
+[2m      [2mat Object.deleteBook ([22m[2mhooks/useBooks.ts[2m:238:15)[22m[2m[22m
+[2m      [2mat Object.deleteBook ([22m[2m[0m[36mhooks/__tests__/useBooks.test.ts[39m[0m[2m:95:26)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1museBooks › should restore book successfully[39m[22m
+
+    Authentication required. Please log in again.
+[2m[22m
+[2m    [0m [90m 263 |[39m       [36mconst[39m token [33m=[39m localStorage[33m.[39mgetItem([32m'auth-token'[39m)[33m;[39m[22m
+[2m     [90m 264 |[39m       [36mif[39m ([33m![39mtoken) {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 265 |[39m         [36mthrow[39m [36mnew[39m [33mError[39m([32m'Authentication required. Please log in again.'[39m)[33m;[39m[22m
+[2m     [90m     |[39m               [31m[1m^[22m[2m[39m[22m
+[2m     [90m 266 |[39m       }[22m
+[2m     [90m 267 |[39m[22m
+[2m     [90m 268 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m fetch([32m`/api/books/${id}/restore`[39m[33m,[39m {[0m[22m
+[2m[22m
+[2m      [2mat Object.restoreBook ([22m[2mhooks/useBooks.ts[2m:265:15)[22m[2m[22m
+[2m      [2mat Object.restoreBook ([22m[2m[0m[36mhooks/__tests__/useBooks.test.ts[39m[0m[2m:123:26)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1museBooks › should upload book image successfully[39m[22m
+
+    Authentication required. Please log in again.
+[2m[22m
+[2m    [0m [90m 333 |[39m       [36mconst[39m token [33m=[39m localStorage[33m.[39mgetItem([32m'auth-token'[39m)[33m;[39m[22m
+[2m     [90m 334 |[39m       [36mif[39m ([33m![39mtoken) {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 335 |[39m         [36mthrow[39m [36mnew[39m [33mError[39m([32m'Authentication required. Please log in again.'[39m)[33m;[39m[22m
+[2m     [90m     |[39m               [31m[1m^[22m[2m[39m[22m
+[2m     [90m 336 |[39m       }[22m
+[2m     [90m 337 |[39m[22m
+[2m     [90m 338 |[39m       [36mconst[39m formData [33m=[39m [36mnew[39m [33mFormData[39m()[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.uploadBookImage ([22m[2mhooks/useBooks.ts[2m:335:15)[22m[2m[22m
+[2m      [2mat Object.uploadBookImage ([22m[2m[0m[36mhooks/__tests__/useBooks.test.ts[39m[0m[2m:148:26)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1museBooks › should handle pagination changes[39m[22m
+
+    thrown: "Exceeded timeout of 5000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+[2m[22m
+[2m    [0m [90m 171 |[39m   })[22m
+[2m     [90m 172 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 173 |[39m   it([32m'should handle pagination changes'[39m[33m,[39m [36masync[39m () [33m=>[39m {[22m
+[2m     [90m     |[39m   [31m[1m^[22m[2m[39m[22m
+[2m     [90m 174 |[39m     mockFetch[33m.[39mmockResolvedValue({[22m
+[2m     [90m 175 |[39m       ok[33m:[39m [36mtrue[39m[33m,[39m[22m
+[2m     [90m 176 |[39m       json[33m:[39m [36masync[39m () [33m=>[39m ({ items[33m:[39m [][33m,[39m total[33m:[39m [35m0[39m })[33m,[39m[0m[22m
+[2m[22m
+[2m      [2mat it ([22m[2m[0m[36mhooks/__tests__/useBooks.test.ts[39m[0m[2m:173:3)[22m[2m[22m
+[2m      [2mat Object.describe ([22m[2m[0m[36mhooks/__tests__/useBooks.test.ts[39m[0m[2m:8:1)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1museBooks › should export CSV successfully[39m[22m
+
+    Target container is not a DOM element.
+[2m[22m
+[2m    [0m [90m 238 |[39m       })[22m
+[2m     [90m 239 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 240 |[39m     [36mconst[39m { result } [33m=[39m renderHook(() [33m=>[39m useBooks())[22m
+[2m     [90m     |[39m                                  [31m[1m^[22m[2m[39m[22m
+[2m     [90m 241 |[39m[22m
+[2m     [90m 242 |[39m     [36mawait[39m result[33m.[39mcurrent[33m.[39mexportCsv()[22m
+[2m     [90m 243 |[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.process.env.NODE_ENV.exports.createRoot ([22m[2m../../node_modules/.pnpm/react-dom@19.1.0_react@19.1.0/node_modules/react-dom/cjs/react-dom-client.development.js[2m:24878:15)[22m[2m[22m
+[2m      [2mat createConcurrentRoot ([22m[2m../../node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.1_@types+react-dom@19.1.8_@type_fbfb155a624a0ecbc82f003841e5e7fe/node_modules/@testing-library/react/dist/pure.js[2m:147:27)[22m[2m[22m
+[2m      [2mat render ([22m[2m../../node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.1_@types+react-dom@19.1.8_@type_fbfb155a624a0ecbc82f003841e5e7fe/node_modules/@testing-library/react/dist/pure.js[2m:266:12)[22m[2m[22m
+[2m      [2mat renderHook ([22m[2m../../node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.1_@types+react-dom@19.1.8_@type_fbfb155a624a0ecbc82f003841e5e7fe/node_modules/@testing-library/react/dist/pure.js[2m:340:7)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36mhooks/__tests__/useBooks.test.ts[39m[0m[2m:240:34)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mhooks/__tests__/[22m[1museBooks.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, [1m[32m1 passed[39m[22m, 6 of 8 total
+[1mTests:       [22m[1m[31m12 failed[39m[22m, [1m[32m41 passed[39m[22m, 53 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        7 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m14 failed[39m[22m, [1m[32m42 passed[39m[22m, 56 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        7 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m14 failed[39m[22m, [1m[32m42 passed[39m[22m, 56 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        8 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m14 failed[39m[22m, [1m[32m42 passed[39m[22m, 56 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        9 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m14 failed[39m[22m, [1m[32m42 passed[39m[22m, 56 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        10 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m14 failed[39m[22m, [1m[32m42 passed[39m[22m, 56 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        11 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m14 failed[39m[22m, [1m[32m42 passed[39m[22m, 56 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        12 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m16 failed[39m[22m, [1m[32m42 passed[39m[22m, 58 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        12 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m16 failed[39m[22m, [1m[32m42 passed[39m[22m, 58 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        13 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m16 failed[39m[22m, [1m[32m42 passed[39m[22m, 58 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        14 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m16 failed[39m[22m, [1m[32m42 passed[39m[22m, 58 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        15 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m16 failed[39m[22m, [1m[32m42 passed[39m[22m, 58 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        16 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m16 failed[39m[22m, [1m[32m42 passed[39m[22m, 58 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        17 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m ([0m[1m[41m16.015 s[49m[22m[0m)
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m16 failed[39m[22m, [1m[32m42 passed[39m[22m, 58 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        17 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[1m[31m  [1m● [22m[1mDeletedBooksTable › fetches deleted books on mount[39m[22m
+
+    thrown: "Exceeded timeout of 5000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+[2m[22m
+[2m    [0m [90m 68 |[39m   })[22m
+[2m     [90m 69 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 70 |[39m   it([32m'fetches deleted books on mount'[39m[33m,[39m [36masync[39m () [33m=>[39m {[22m
+[2m     [90m    |[39m   [31m[1m^[22m[2m[39m[22m
+[2m     [90m 71 |[39m     [36mconst[39m mockBooks [33m=[39m [[22m
+[2m     [90m 72 |[39m       { id[33m:[39m [35m1[39m[33m,[39m title[33m:[39m [32m'Deleted Book 1'[39m[33m,[39m deletedAt[33m:[39m [32m'2023-01-01'[39m }[33m,[39m[22m
+[2m     [90m 73 |[39m       { id[33m:[39m [35m2[39m[33m,[39m title[33m:[39m [32m'Deleted Book 2'[39m[33m,[39m deletedAt[33m:[39m [32m'2023-01-02'[39m }[33m,[39m[0m[22m
+[2m[22m
+[2m      [2mat it ([22m[2m[0m[36mcomponents/__tests__/DeletedBooksTable.test.tsx[39m[0m[2m:70:3)[22m[2m[22m
+[2m      [2mat Object.describe ([22m[2m[0m[36mcomponents/__tests__/DeletedBooksTable.test.tsx[39m[0m[2m:57:1)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mDeletedBooksTable › handles fetch error gracefully[39m[22m
+
+    thrown: "Exceeded timeout of 5000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+[2m[22m
+[2m    [0m [90m 88 |[39m   })[22m
+[2m     [90m 89 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 90 |[39m   it([32m'handles fetch error gracefully'[39m[33m,[39m [36masync[39m () [33m=>[39m {[22m
+[2m     [90m    |[39m   [31m[1m^[22m[2m[39m[22m
+[2m     [90m 91 |[39m     [33m;[39m(global[33m.[39mfetch [36mas[39m jest[33m.[39m[33mMock[39m)[33m.[39mmockRejectedValueOnce([36mnew[39m [33mError[39m([32m'Network error'[39m))[22m
+[2m     [90m 92 |[39m[22m
+[2m     [90m 93 |[39m     [90m// Mock console.error to avoid noise in test output[39m[0m[22m
+[2m[22m
+[2m      [2mat it ([22m[2m[0m[36mcomponents/__tests__/DeletedBooksTable.test.tsx[39m[0m[2m:90:3)[22m[2m[22m
+[2m      [2mat Object.describe ([22m[2m[0m[36mcomponents/__tests__/DeletedBooksTable.test.tsx[39m[0m[2m:57:1)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mDeletedBooksTable › shows loading state initially[39m[22m
+
+    TestingLibraryElementError: Unable to find an element with the text: Loading: true. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"space-y-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between items-center"[39m
+          [36m>[39m
+            [36m<h2[39m
+              [33mclass[39m=[32m"text-2xl font-semibold"[39m
+            [36m>[39m
+              [0mDeleted Books[0m
+            [36m</h2>[39m
+            [36m<button[39m
+              [33mdata-variant[39m=[32m"outline"[39m
+            [36m>[39m
+              [0mRefresh[0m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mdata-testid[39m=[32m"books-table"[39m
+          [36m>[39m
+            [36m<div />[39m
+            [36m<div />[39m
+            [36m<div />[39m
+            [36m<div />[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+[2m[22m
+[2m    [0m [90m 106 |[39m     render([33m<[39m[33mDeletedBooksTable[39m [33m/[39m[33m>[39m)[22m
+[2m     [90m 107 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 108 |[39m     expect(screen[33m.[39mgetByText([32m'Loading: true'[39m))[33m.[39mtoBeInTheDocument()[22m
+[2m     [90m     |[39m                   [31m[1m^[22m[2m[39m[22m
+[2m     [90m 109 |[39m   })[22m
+[2m     [90m 110 |[39m[22m
+[2m     [90m 111 |[39m   it([32m'passes correct props to BooksTable'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:76:38[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:52:17[22m[2m[22m
+[2m      [2mat [22m[2m../../node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js[2m:95:19[22m[2m[22m
+[2m      [2mat Object.getByText ([22m[2m[0m[36mcomponents/__tests__/DeletedBooksTable.test.tsx[39m[0m[2m:108:19)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mDeletedBooksTable › passes correct props to BooksTable[39m[22m
+
+    thrown: "Exceeded timeout of 5000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+[2m[22m
+[2m    [0m [90m 109 |[39m   })[22m
+[2m     [90m 110 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 111 |[39m   it([32m'passes correct props to BooksTable'[39m[33m,[39m [36masync[39m () [33m=>[39m {[22m
+[2m     [90m     |[39m   [31m[1m^[22m[2m[39m[22m
+[2m     [90m 112 |[39m     [36mconst[39m mockBooks [33m=[39m [{ id[33m:[39m [35m1[39m[33m,[39m title[33m:[39m [32m'Test Book'[39m }][22m
+[2m     [90m 113 |[39m[22m
+[2m     [90m 114 |[39m     [33m;[39m(global[33m.[39mfetch [36mas[39m jest[33m.[39m[33mMock[39m)[33m.[39mmockResolvedValueOnce({[0m[22m
+[2m[22m
+[2m      [2mat it ([22m[2m[0m[36mcomponents/__tests__/DeletedBooksTable.test.tsx[39m[0m[2m:111:3)[22m[2m[22m
+[2m      [2mat Object.describe ([22m[2m[0m[36mcomponents/__tests__/DeletedBooksTable.test.tsx[39m[0m[2m:57:1)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2mcomponents/__tests__/[22m[1mDeletedBooksTable.test.tsx[22m
+
+[1mTest Suites: [22m[1m[31m6 failed[39m[22m, [1m[32m1 passed[39m[22m, 7 of 8 total
+[1mTests:       [22m[1m[31m16 failed[39m[22m, [1m[32m42 passed[39m[22m, 58 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        17 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+
+[1mTest Suites: [22m[1m[31m7 failed[39m[22m, [1m[32m1 passed[39m[22m, 8 total
+[1mTests:       [22m[1m[31m17 failed[39m[22m, [1m[32m46 passed[39m[22m, 63 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        17 s[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[?2026l[999D[K[1mTest Suites: [22m[1m[31m7 failed[39m[22m, [1m[32m1 passed[39m[22m, 8 total
+[1mTests:       [22m[1m[31m17 failed[39m[22m, [1m[32m46 passed[39m[22m, 63 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        17.443 s
+[2mRan all test suites[22m[2m.[22m
+[41m[30m ELIFECYCLE [39m[49m [31mTest failed. See above for more details.[39m

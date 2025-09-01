@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     
     try {
       const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-      const backendResponse = await fetch(`${backendUrl}/books/filters`, {
+      const backendResponse = await fetch(`${backendUrl}/api/v1/books/filters`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
   
   try {
     const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-    const backendResponse = await fetch(`${backendUrl}/books?${searchParams.toString()}`, {
+    const backendResponse = await fetch(`${backendUrl}/api/v1/books?${searchParams.toString()}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     // Call backend API with authentication
     const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-    const response = await fetch(`${backendUrl}/books`, {
+    const response = await fetch(`${backendUrl}/api/v1/books`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
