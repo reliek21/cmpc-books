@@ -1,20 +1,61 @@
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
 import { join } from 'path';
+import * as http from 'node:http';
+
+import { NestFactory } from '@nestjs/core';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app: NestExpressApplication =
+    await NestFactory.create<NestExpressApplication>(AppModule);
 
+  // Enable CORS
+  app.enableCors();
+
+  // Enable Content Security Policy
+  app.use(
+    (
+      _: any,
+      res: import('express').Response,
+      next: import('express').NextFunction,
+    ) => {
+      res.header(
+        'Content-Security-Policy',
+        "default-src 'self'; script-src 'self'",
+      );
+      next();
+    },
+  );
+
+  // Versioning with URI
+  app.setGlobalPrefix('api');
+  app.enableVersioning({
+    type: VersioningType.URI,
+    prefix: 'v',
+    defaultVersion: '1',
+  });
+
+  // Validation pipe for all requests
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
       whitelist: true,
-      forbidNonWhitelisted: false,
+      transform: true,
+      forbidNonWhitelisted: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
+
+  // Timeout for requests
+  const server: http.Server = app.getHttpServer();
+  server.setTimeout(30 * 1000); // 30 seconds
+  server.keepAliveTimeout = 60 * 1000;
+  server.headersTimeout = 20 * 1000;
 
   // Swagger/OpenAPI configuration
   const config = new DocumentBuilder()
@@ -38,7 +79,7 @@ async function bootstrap() {
     )
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
@@ -50,7 +91,9 @@ async function bootstrap() {
     prefix: '/uploads/',
   });
 
-  await app.listen(process.env.PORT ?? 3001);
+  const configService: ConfigService = app.get(ConfigService);
+  const SERVER_PORT: string = configService.get<string>('SERVER.PORT')!;
+  await app.listen(parseInt(SERVER_PORT) ?? 3001);
 }
 
 void bootstrap();
