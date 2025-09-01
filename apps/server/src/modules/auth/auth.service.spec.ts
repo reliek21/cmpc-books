@@ -5,10 +5,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 import { AuthService } from './auth.service';
 import { UserRepository } from '../users/repositories/user.repository';
-import { PasswordService, JwtService } from '../../core';
+import { PasswordService } from '../../core';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import {
   ILoginCredentials,
@@ -33,7 +34,7 @@ describe('AuthService', () => {
   let jwt: {
     signAsync: jest.Mock;
     verifyAsync: jest.Mock;
-    decodeToken: jest.Mock;
+    decode: jest.Mock;
   };
 
   // Common fixtures
@@ -106,16 +107,19 @@ describe('AuthService', () => {
     jwt = {
       signAsync: jest.fn(),
       verifyAsync: jest.fn(),
-      decodeToken: jest.fn(),
+      decode: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
-        { provide: ConfigService, useValue: config },
         { provide: UserRepository, useValue: repo },
         { provide: PasswordService, useValue: pwd },
-        { provide: JwtService, useValue: jwt },
+        { provide: ConfigService, useValue: config },
+        {
+          provide: JwtService,
+          useValue: jwt,
+        },
       ],
     }).compile();
 
@@ -131,9 +135,18 @@ describe('AuthService', () => {
       jest
         .spyOn(service['passwordService'], 'hashPassword')
         .mockResolvedValue('hashed:ok');
+      const mockUser = {
+        id: '1',
+        email: 'test@example.com',
+        password: 'hashed',
+        first_name: 'Test',
+        last_name: 'User',
+        is_active: true,
+      } as User;
+
       jest
         .spyOn(service['userRepository'], 'create')
-        .mockResolvedValue(undefined);
+        .mockResolvedValue(mockUser);
 
       await expect(service.register(createDto)).resolves.toBeUndefined();
 
@@ -230,7 +243,7 @@ describe('AuthService', () => {
         .mockResolvedValueOnce('access-token') // first call: access
         .mockResolvedValueOnce('refresh-token'); // second call: refresh
 
-      jwt.decodeToken.mockReturnValue({ exp: 123456 });
+      jwt.decode.mockReturnValue({ exp: 123456 });
 
       const result: IAuthResponse = await service.login(loginDto);
 
@@ -356,7 +369,7 @@ describe('AuthService', () => {
       jwt.signAsync
         .mockResolvedValueOnce('new-access')
         .mockResolvedValueOnce('new-refresh');
-      jwt.decodeToken.mockReturnValue({ exp: 999999 });
+      jwt.decode.mockReturnValue({ exp: 999999 });
 
       const tokens: IAuthTokens = await service.refreshToken('refresh');
 

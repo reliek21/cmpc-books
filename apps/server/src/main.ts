@@ -9,12 +9,24 @@ import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 
-async function bootstrap() {
+export async function bootstrap() {
   const app: NestExpressApplication =
     await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // Enable CORS
-  app.enableCors();
+  const configService = app.get(ConfigService);
+
+  // Enable CORS with specific configuration
+  const corsOrigins = configService.get<string>('CORS_ORIGIN');
+  const allowedOrigins = corsOrigins
+    ? corsOrigins.split(',').map((origin) => origin.trim())
+    : ['http://localhost:3000'];
+  
+  app.enableCors({
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  });
 
   // Enable Content Security Policy
   app.use(
@@ -91,7 +103,6 @@ async function bootstrap() {
     prefix: '/uploads/',
   });
 
-  const configService: ConfigService = app.get(ConfigService);
   const SERVER_PORT: string = configService.get<string>('SERVER.PORT')!;
   await app.listen(parseInt(SERVER_PORT) ?? 3001);
 }

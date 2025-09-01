@@ -15,7 +15,9 @@ export class BooksService {
     private bookModel: typeof Book,
   ) {}
 
-  async create(createBookDto: CreateBookDto): Promise<Book> {
+  async create(
+    createBookDto: CreateBookDto & { userId?: string },
+  ): Promise<Book> {
     try {
       const bookData = {
         title: createBookDto.title,
@@ -24,6 +26,7 @@ export class BooksService {
         genre: createBookDto.genre,
         isActive: createBookDto.available ?? true,
         imageUrl: createBookDto.image_url,
+        userId: createBookDto.userId,
       };
 
       const book = await this.bookModel.create(bookData as any);

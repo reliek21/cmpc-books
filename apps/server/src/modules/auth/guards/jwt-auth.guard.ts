@@ -26,11 +26,18 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     try {
+      const secret = this.configService.get<string>('SECURITY.JWT_SECRET');
+      console.log('JWT Secret being used:', secret); // Debug log
+      console.log('Token being verified:', token.substring(0, 20) + '...'); // Debug log
+
       const payload: JwtPayload = this.jwtService.verify<JwtPayload>(token, {
-        secret: this.configService.get('SECURITY.JWT_SECRET'),
+        secret: secret as string,
       });
+
+      console.log('Decoded JWT payload:', payload); // Debug log
       request.user = payload;
-    } catch {
+    } catch (error) {
+      console.error('JWT verification error:', error); // Debug log
       throw new UnauthorizedException('Invalid token');
     }
 

@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     console.log('🎯 FILTERS ENDPOINT HIT! Forwarding to backend...');
     
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+      const backendUrl = process.env.BASE_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
       const backendResponse = await fetch(`${backendUrl}/api/v1/books/filters`, {
         method: 'GET',
         headers: {
@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
   console.log('📚 BOOKS ENDPOINT HIT! Forwarding to backend...');
   
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.BASE_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
     const backendResponse = await fetch(`${backendUrl}/api/v1/books?${searchParams.toString()}`, {
       method: 'GET',
       headers: {
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
     // Call backend API with authentication
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.BASE_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
     const response = await fetch(`${backendUrl}/api/v1/books`, {
       method: 'POST',
       headers: {

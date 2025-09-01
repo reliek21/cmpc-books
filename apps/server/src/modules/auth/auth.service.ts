@@ -14,6 +14,7 @@ import {
   IAuthUser,
   IAuthTokens,
   IJwtPayload,
+  IRegisterResponse,
 } from '../../common/interfaces';
 
 import { JwtService } from '@nestjs/jwt';
@@ -33,7 +34,7 @@ export class AuthService implements IAuthService {
     private readonly config: ConfigService,
   ) {}
 
-  async register(createUserDto: CreateUserDto): Promise<void> {
+  async register(createUserDto: CreateUserDto): Promise<IRegisterResponse> {
     const email: string = createUserDto.email.toLowerCase();
     const exists: boolean = await this.userRepository.exists(email);
     if (exists) {
@@ -50,6 +51,11 @@ export class AuthService implements IAuthService {
         email,
         password: hashed,
       });
+      
+      return {
+        message: 'User registered successfully',
+        success: true,
+      };
     } catch (error: any) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (error?.name === 'SequelizeUniqueConstraintError') {

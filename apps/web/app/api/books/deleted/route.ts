@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const backendUrl = process.env.BASE_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export async function GET() {
   try {

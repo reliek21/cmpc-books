@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     console.log('Export params:', Object.fromEntries(searchParams.entries()));
 
     // Call backend CSV export endpoint
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.BASE_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
     const backendResponse = await fetch(`${backendUrl}/api/v1/books/export.csv?${searchParams.toString()}`, {
       method: 'GET',
       headers: {

@@ -69,15 +69,24 @@ describe('BooksService', () => {
         author: 'Test Author',
         publisher: 'Test Publisher',
         genre: 'Fiction',
+        available: true,
+        image_url: undefined,
+      };
+
+      const expectedBookData = {
+        title: 'New Book',
+        author: 'Test Author',
+        publisher: 'Test Publisher',
+        genre: 'Fiction',
         isActive: true,
-        userId: 'user-123',
+        imageUrl: undefined,
       };
 
       mockBookModel.create.mockResolvedValue(mockBook);
 
       const result = await service.create(createBookDto);
 
-      expect(mockBookModel.create).toHaveBeenCalledWith(createBookDto);
+      expect(mockBookModel.create).toHaveBeenCalledWith(expectedBookData);
       expect(result).toEqual(mockBook);
     });
 

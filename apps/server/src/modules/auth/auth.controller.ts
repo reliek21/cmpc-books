@@ -25,13 +25,25 @@ export class AuthController {
     description: 'Creates a new user account with the provided information.',
   })
   @ApiBody({ type: CreateUserDto })
-  @ApiResponse({ status: 201, description: 'User successfully registered' })
+  @ApiResponse({
+    status: 201,
+    description: 'User successfully registered',
+    schema: {
+      type: 'object',
+      properties: {
+        message: { type: 'string', example: 'User registered successfully' },
+        success: { type: 'boolean', example: true },
+      },
+    },
+  })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
   @ApiConflictResponse({
     description: 'User with this email already exists',
   })
-  async register(@Body() createUserDto: CreateUserDto): Promise<void> {
-    await this.authService.register(createUserDto);
+  async register(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<{ message: string; success: boolean }> {
+    return await this.authService.register(createUserDto);
   }
 
   @Post('login')

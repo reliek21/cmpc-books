@@ -65,6 +65,11 @@ export interface IAuthResponse {
   expires_in: number;
 }
 
+export interface IRegisterResponse {
+  message: string;
+  success: boolean;
+}
+
 // Repository Interfaces - Data Access Abstractions
 export interface IUserRepository {
   findById(id: string): Promise<IUser | null>;
@@ -100,7 +105,7 @@ export interface IUserService {
 }
 
 export interface IAuthService {
-  register(userData: ICreateUser): Promise<void>;
+  register(userData: ICreateUser): Promise<IRegisterResponse>;
   login(credentials: ILoginCredentials): Promise<IAuthResponse>;
   validateToken(token: string): Promise<IAuthUser>;
   refreshToken(refreshToken: string): Promise<IAuthTokens>;
