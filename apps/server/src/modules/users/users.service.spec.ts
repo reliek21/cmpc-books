@@ -7,11 +7,11 @@ import {
 
 import { UserService } from './users.service';
 import { UserRepository } from './repositories/user.repository';
-import { PasswordService } from 'src/core';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IUser } from './types';
 import { User } from './entities/user.entity';
+import { PasswordService } from '../../core/services/password.service';
 
 describe('UserService', () => {
   let service: UserService;
@@ -47,6 +47,8 @@ describe('UserService', () => {
     last_name: 'Doe',
     is_active: true,
     created_at: new Date(),
+    updated_at: new Date(),
+    deleted_at: null,
   };
 
   const createDto: CreateUserDto = {

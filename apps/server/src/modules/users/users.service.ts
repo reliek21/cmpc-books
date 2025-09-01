@@ -6,8 +6,8 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
-import { PasswordService } from 'src/core';
-import { IUserService } from 'src/common/interfaces';
+import { PasswordService } from '../../core';
+import { IUserService } from '../../common/interfaces';
 
 import { IUser } from './types';
 import { User } from './entities/user.entity';
@@ -126,6 +126,6 @@ export class UserService implements IUserService {
   private excludePassword(user: User): IUser {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...userData } = user;
-    return userData;
+    return userData as IUser;
   }
 }

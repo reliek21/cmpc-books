@@ -13,7 +13,7 @@ import {
   Unique,
 } from 'sequelize-typescript';
 
-import { Book } from 'src/modules/books/entities/book.entity';
+import { Book } from '../../books/entities/book.entity';
 
 @DefaultScope(() => ({
   attributes: { exclude: ['password'] }, // Hides password by default
