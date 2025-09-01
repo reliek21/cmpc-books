@@ -36,14 +36,10 @@ import { BooksModule } from './modules/books/books.module';
 				limit: 100,
 			},
 		]),
-		JwtModule.registerAsync({
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useFactory: (configService: ConfigService) => ({
-				secret: configService.get('SECURITY.JWT_SECRET'),
-				signOptions: { expiresIn: configService.get('SECURITY.JWT_EXPIRES') },
-				global: true,
-			}),
+		JwtModule.register({
+			secret: process.env.JWT_SECRET,
+			signOptions: { expiresIn: process.env.JWT_EXPIRES },
+			global: true,
 		}),
 		SequelizeModule.forRootAsync({
 			imports: [ConfigModule],

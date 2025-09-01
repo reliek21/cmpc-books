@@ -9,9 +9,9 @@ import { AuthModule } from '../auth/auth.module';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Module({
-	imports: [SequelizeModule.forFeature([Book, User]), UploadModule, AuthModule],
-	controllers: [BooksController],
-	providers: [BooksService, JwtAuthGuard],
-	exports: [BooksService],
+  imports: [SequelizeModule.forFeature([Book, User]), UploadModule, AuthModule],
+  controllers: [BooksController],
+  providers: [BooksService, JwtAuthGuard],
+  exports: [BooksService],
 })
 export class BooksModule {}

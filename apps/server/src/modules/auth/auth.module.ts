@@ -8,15 +8,15 @@ import { PasswordService } from '../../core/services/password.service';
 import { PasswordHelper } from '../../core/helpers/password.helper';
 
 @Module({
-	controllers: [AuthController],
-	providers: [
-		AuthService,
-		RegisterUseCase,
-		LoginUseCase,
-		PasswordService,
-		PasswordHelper,
-	],
-	imports: [UsersModule],
-	exports: [AuthService],
+  controllers: [AuthController],
+  providers: [
+    AuthService,
+    RegisterUseCase,
+    LoginUseCase,
+    PasswordService,
+    PasswordHelper,
+  ],
+  imports: [UsersModule],
+  exports: [AuthService],
 })
 export class AuthModule {}
