@@ -1,26 +1,9 @@
-import {
-  IsBoolean,
-  IsDefined,
-  IsEmail,
-  IsOptional,
-  IsString,
-} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsDefined, IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsOptional()
   public id?: string;
-
-  @ApiProperty({
-    name: 'is_active',
-    description: 'Set the user as active',
-    default: true,
-    example: true,
-    required: false,
-  })
-  @IsOptional()
-  @IsBoolean()
-  public readonly is_active?: boolean;
 
   @ApiProperty({
     name: 'first_name',

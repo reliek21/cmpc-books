@@ -82,7 +82,6 @@ export interface IUserService {
   getAllUsers(): Promise<IUser[]>;
   updateUser(id: string, userData: Partial<IUser>): Promise<IUser>;
   deleteUser(id: string): Promise<void>;
-  validateUserCredentials(email: string, password: string): Promise<IUser>;
 }
 
 export interface IAuthService {

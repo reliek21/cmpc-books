@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../entities/user.entity';
 
@@ -69,18 +69,16 @@ export class UserRepository {
    * @returns Updated user
    */
   async update(id: string, userData: Partial<User>): Promise<User> {
-    const [affectedRows] = await this.userModel.update(userData, {
-      where: { id },
-      returning: true,
-    });
+    const [affectedRows, [updatedUser]] = await this.userModel.update(
+      userData,
+      {
+        where: { id },
+        returning: true,
+      },
+    );
 
-    if (affectedRows === 0) {
-      throw new Error('User not found');
-    }
-
-    const updatedUser = await this.findById(id);
-    if (!updatedUser) {
-      throw new Error('Failed to retrieve updated user');
+    if (affectedRows === 0 || !updatedUser) {
+      throw new NotFoundException(`User with id ${id} not found`);
     }
 
     return updatedUser;
@@ -96,7 +94,7 @@ export class UserRepository {
     });
 
     if (affectedRows === 0) {
-      throw new Error('User not found');
+      throw new NotFoundException(`User with id ${id} not found`);
     }
   }
 

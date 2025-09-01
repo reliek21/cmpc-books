@@ -1,4 +1,3 @@
-import { UUIDV4 } from 'sequelize';
 import {
   Table,
   Column,
@@ -10,9 +9,15 @@ import {
   UpdatedAt,
   DeletedAt,
   HasMany,
+  DefaultScope,
+  Unique,
 } from 'sequelize-typescript';
-import { Book } from '../../books/entities/book.entity';
 
+import { Book } from 'src/modules/books/entities/book.entity';
+
+@DefaultScope(() => ({
+  attributes: { exclude: ['password'] }, // Hides password by default
+}))
 @Table({
   tableName: 'users',
   timestamps: true,
@@ -21,7 +26,7 @@ import { Book } from '../../books/entities/book.entity';
 })
 export class User extends Model {
   @PrimaryKey
-  @Default(UUIDV4)
+  @Default(DataType.UUIDV4)
   @Column({
     type: DataType.UUID,
   })
@@ -30,6 +35,24 @@ export class User extends Model {
   @Default(true)
   @Column({ type: DataType.BOOLEAN })
   declare is_active: boolean;
+
+  @Column({ type: DataType.STRING(100), allowNull: false })
+  declare first_name: string;
+
+  @Column({ type: DataType.STRING(100), allowNull: false })
+  declare last_name: string;
+
+  @Unique('users_email_unique')
+  @Column({
+    type: DataType.STRING(255),
+    unique: true,
+    allowNull: false,
+    validate: { isEmail: true },
+  })
+  declare email: string;
+
+  @Column({ type: DataType.TEXT, allowNull: false })
+  declare password: string;
 
   @CreatedAt
   @Column({ field: 'created_at', type: DataType.DATE })
@@ -42,18 +65,6 @@ export class User extends Model {
   @DeletedAt
   @Column({ field: 'deleted_at', type: DataType.DATE })
   declare deleted_at?: Date | null;
-
-  @Column({ type: DataType.TEXT, allowNull: true })
-  declare first_name?: string;
-
-  @Column({ type: DataType.TEXT, allowNull: true })
-  declare last_name?: string;
-
-  @Column({ type: DataType.STRING, unique: true, allowNull: false })
-  declare email: string;
-
-  @Column({ type: DataType.TEXT, allowNull: false })
-  declare password: string;
 
   @HasMany(() => Book)
   declare books: Book[];

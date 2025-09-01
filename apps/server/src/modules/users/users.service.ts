@@ -2,127 +2,130 @@ import {
   Injectable,
   ConflictException,
   NotFoundException,
+  Logger,
+  InternalServerErrorException,
 } from '@nestjs/common';
+
+import { PasswordService } from 'src/core';
+import { IUserService } from 'src/common/interfaces';
+
+import { IUser } from './types';
+import { User } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './repositories/user.repository';
-import { PasswordService } from '../../core/services/password.service';
-import {
-  IUserService,
-  IUser,
-  ICreateUser,
-  IUpdateUser,
-} from '../../common/interfaces';
 
 @Injectable()
 export class UserService implements IUserService {
+  private logger: Logger = new Logger(UserService.name);
+
   constructor(
     private readonly userRepository: UserRepository,
     private readonly passwordService: PasswordService,
   ) {}
 
-  async createUser(userData: ICreateUser): Promise<IUser> {
-    const existingUser = await this.userRepository.exists(userData.email);
-    if (existingUser) {
+  async createUser(createUserDto: CreateUserDto): Promise<IUser> {
+    const existingUser: boolean = await this.userRepository.exists(
+      createUserDto.email,
+    );
+    if (existingUser)
       throw new ConflictException('User with this email already exists');
-    }
 
-    const hashedPassword = await this.passwordService.hashPassword(
-      userData.password,
+    const hashedPassword: string = await this.passwordService.hashPassword(
+      createUserDto.password,
     );
 
-    const user = await this.userRepository.create({
-      ...userData,
-      password: hashedPassword,
-    });
-
-    return this.excludePassword(user);
+    try {
+      const user: User = await this.userRepository.create({
+        ...createUserDto,
+        password: hashedPassword,
+      });
+      return this.excludePassword(user);
+    } catch (error) {
+      this.logger.error('Error creating user', (error as Error)?.stack);
+      throw new InternalServerErrorException('Error creating user');
+    }
   }
 
   async getUserById(id: string): Promise<IUser> {
-    const user = await this.userRepository.findById(id);
-    if (!user) {
-      throw new NotFoundException('User not found');
+    const user: User | null = await this.userRepository.findById(id);
+    if (!user) throw new NotFoundException('User not found');
+
+    try {
+      return this.excludePassword(user);
+    } catch (error) {
+      this.logger.error('Error fetching user by ID', (error as Error)?.stack);
+      throw new InternalServerErrorException('Error fetching user by ID');
     }
-    return this.excludePassword(user);
   }
 
   async getUserByEmail(email: string): Promise<IUser> {
-    const user = await this.userRepository.findByEmail(email);
-    if (!user) {
-      throw new NotFoundException('User not found');
+    const user: User | null = await this.userRepository.findByEmail(email);
+    if (!user) throw new NotFoundException('User not found');
+
+    try {
+      return this.excludePassword(user);
+    } catch (error) {
+      this.logger.error(
+        'Error fetching user by email',
+        (error as Error)?.stack,
+      );
+      throw new InternalServerErrorException('Error fetching user by email');
     }
-    return this.excludePassword(user);
   }
 
   async getAllUsers(): Promise<IUser[]> {
-    const users = await this.userRepository.findAll();
-    return users.map((user) => this.excludePassword(user));
+    try {
+      const users: User[] = await this.userRepository.findAll();
+      return users.map((user: User) => this.excludePassword(user));
+    } catch (error) {
+      this.logger.error('Error fetching all users', (error as Error)?.stack);
+      throw new InternalServerErrorException('Error fetching all users');
+    }
   }
 
-  async updateUser(id: string, userData: IUpdateUser): Promise<IUser> {
-    const existingUser = await this.userRepository.findById(id);
+  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<IUser> {
+    const existingUser: User | null = await this.userRepository.findById(id);
     if (!existingUser) {
       throw new NotFoundException('User not found');
     }
 
-    const updateData: Record<string, any> = { ...userData };
-    if (userData.password) {
+    const updateData: UpdateUserDto = { ...updateUserDto };
+    if (updateUserDto.password) {
       updateData.password = await this.passwordService.hashPassword(
-        userData.password,
+        updateUserDto.password,
       );
     }
 
-    const updatedUser = await this.userRepository.update(id, updateData);
-    return this.excludePassword(updatedUser);
+    try {
+      const updatedUser: User = await this.userRepository.update(
+        id,
+        updateData,
+      );
+      return this.excludePassword(updatedUser);
+    } catch (error) {
+      this.logger.error('Error updating user', (error as Error)?.stack);
+      throw new InternalServerErrorException('Error updating user');
+    }
   }
 
   async deleteUser(id: string): Promise<void> {
-    const existingUser = await this.userRepository.findById(id);
+    const existingUser: User | null = await this.userRepository.findById(id);
     if (!existingUser) {
       throw new NotFoundException('User not found');
     }
 
-    await this.userRepository.delete(id);
+    try {
+      await this.userRepository.delete(id);
+    } catch (error) {
+      this.logger.error('Error deleting user', (error as Error)?.stack);
+      throw new InternalServerErrorException('Error deleting user');
+    }
   }
 
-  async validateUserCredentials(
-    email: string,
-    password: string,
-  ): Promise<IUser> {
-    const user = await this.userRepository.findByEmail(email);
-    if (!user) {
-      throw new NotFoundException('Invalid credentials');
-    }
-
-    const isPasswordValid = await this.passwordService.comparePassword(
-      password,
-      user.password,
-    );
-    if (!isPasswordValid) {
-      throw new NotFoundException('Invalid credentials');
-    }
-
-    return this.excludePassword(user);
-  }
-
-  private excludePassword(user: Record<string, any>): IUser {
-    const userData = user as {
-      id: string;
-      email: string;
-      first_name?: string;
-      last_name?: string;
-      is_active: boolean;
-      created_at: Date;
-      updated_at?: Date;
-    };
-
-    return {
-      id: userData.id,
-      email: userData.email,
-      first_name: userData.first_name,
-      last_name: userData.last_name,
-      is_active: userData.is_active,
-      created_at: userData.created_at,
-      updated_at: userData.updated_at,
-    };
+  private excludePassword(user: User): IUser {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...userData } = user;
+    return userData;
   }
 }

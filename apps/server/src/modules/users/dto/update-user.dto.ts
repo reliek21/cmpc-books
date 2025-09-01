@@ -1,9 +1,9 @@
 import { IsDate, IsOptional } from 'class-validator';
-import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
-  @ApiProperty({
+  @ApiPropertyOptional({
     name: 'updated_at',
     description: 'Update date',
     example: '2021-01-01T00:00:00.000Z',
@@ -13,7 +13,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsOptional()
   public updated_at?: Date;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     name: 'deleted_at',
     description: 'Deletion date',
     example: '2021-01-01T00:00:00.000Z',

@@ -1,299 +1,331 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
+
 import { UserService } from './users.service';
 import { UserRepository } from './repositories/user.repository';
-import { PasswordService } from '../../core/services/password.service';
-import { ICreateUser, IUpdateUser } from '../../common/interfaces';
+import { PasswordService } from 'src/core';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { IUser } from './types';
+import { User } from './entities/user.entity';
 
 describe('UserService', () => {
   let service: UserService;
-  let userRepository: jest.Mocked<UserRepository>;
-  let passwordService: jest.Mocked<PasswordService>;
+  let repo: {
+    exists: jest.Mock;
+    create: jest.Mock;
+    findById: jest.Mock;
+    findByEmail: jest.Mock;
+    findAll: jest.Mock;
+    update: jest.Mock;
+    delete: jest.Mock;
+  };
+  let passwordService: { hashPassword: jest.Mock };
 
-  const mockUser = {
-    id: '1',
-    email: 'test@example.com',
+  // A full DB-like object with password (as POJO to make excludePassword work in current impl)
+  const userFromRepoFull: any = {
+    id: 'u-123',
+    email: 'john@doe.com',
     first_name: 'John',
     last_name: 'Doe',
     is_active: true,
-    password: 'hashedPassword123',
     created_at: new Date(),
     updated_at: new Date(),
+    deleted_at: null,
+    password: 'hashed:abc',
   };
 
-  const mockUserWithoutPassword = {
-    id: '1',
-    email: 'test@example.com',
+  // Expected shape returned to callers (without password)
+  const userWithoutPassword: IUser = {
+    id: 'u-123',
+    email: 'john@doe.com',
     first_name: 'John',
     last_name: 'Doe',
     is_active: true,
-    created_at: mockUser.created_at,
-    updated_at: mockUser.updated_at,
+    created_at: new Date(),
+  };
+
+  const createDto: CreateUserDto = {
+    first_name: 'John',
+    last_name: 'Doe',
+    email: 'john@doe.com',
+    password: 'StrongPass123!',
   };
 
   beforeEach(async () => {
-    const mockUserRepository = {
+    repo = {
+      exists: jest.fn(),
       create: jest.fn(),
       findById: jest.fn(),
       findByEmail: jest.fn(),
       findAll: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
-      exists: jest.fn(),
     };
 
-    const mockPasswordService = {
+    passwordService = {
       hashPassword: jest.fn(),
-      comparePassword: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,
-        {
-          provide: UserRepository,
-          useValue: mockUserRepository,
-        },
-        {
-          provide: PasswordService,
-          useValue: mockPasswordService,
-        },
+        { provide: UserRepository, useValue: repo },
+        { provide: PasswordService, useValue: passwordService },
       ],
     }).compile();
 
     service = module.get<UserService>(UserService);
-    userRepository = module.get(UserRepository);
-    passwordService = module.get(PasswordService);
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
   });
 
   describe('createUser', () => {
-    it('should create a user successfully', async () => {
-      const createUserDto: ICreateUser = {
-        email: 'test@example.com',
-        password: 'password123',
-        first_name: 'John',
-        last_name: 'Doe',
-      };
+    it('should create a user, hash password, and return user without password', async () => {
+      repo.exists.mockResolvedValue(false);
+      passwordService.hashPassword.mockResolvedValue('hashed:pass');
+      repo.create.mockResolvedValue({
+        ...userFromRepoFull,
+        password: 'hashed:pass',
+      } as unknown as User);
 
-      userRepository.exists.mockResolvedValue(false);
-      passwordService.hashPassword.mockResolvedValue('hashedPassword123');
-      userRepository.create.mockResolvedValue(mockUser);
+      const result = await service.createUser(createDto);
 
-      const result = await service.createUser(createUserDto);
-
-      expect(userRepository.exists).toHaveBeenCalledWith(createUserDto.email);
-      expect(passwordService.hashPassword).toHaveBeenCalledWith('password123');
-      expect(userRepository.create).toHaveBeenCalledWith({
-        ...createUserDto,
-        password: 'hashedPassword123',
+      expect(repo.exists).toHaveBeenCalledWith(createDto.email);
+      expect(passwordService.hashPassword).toHaveBeenCalledWith(
+        createDto.password,
+      );
+      expect(repo.create).toHaveBeenCalledWith({
+        ...createDto,
+        password: 'hashed:pass',
       });
-      expect(result).toEqual(mockUserWithoutPassword);
-      expect(result).not.toHaveProperty('password');
+      expect(result).toEqual(userWithoutPassword);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect((result as any).password).toBeUndefined();
     });
 
-    it('should throw ConflictException when user already exists', async () => {
-      const createUserDto: ICreateUser = {
-        email: 'existing@example.com',
-        password: 'password123',
-        first_name: 'John',
-        last_name: 'Doe',
-      };
+    it('should throw ConflictException if email already exists', async () => {
+      repo.exists.mockResolvedValue(true);
 
-      userRepository.exists.mockResolvedValue(true);
-
-      await expect(service.createUser(createUserDto)).rejects.toThrow(
+      await expect(service.createUser(createDto)).rejects.toBeInstanceOf(
         ConflictException,
       );
-      await expect(service.createUser(createUserDto)).rejects.toThrow(
-        'User with this email already exists',
-      );
-
-      expect(userRepository.exists).toHaveBeenCalledWith(createUserDto.email);
       expect(passwordService.hashPassword).not.toHaveBeenCalled();
-      expect(userRepository.create).not.toHaveBeenCalled();
+      expect(repo.create).not.toHaveBeenCalled();
+    });
+
+    it('should map unexpected repo errors to InternalServerErrorException', async () => {
+      repo.exists.mockResolvedValue(false);
+      passwordService.hashPassword.mockResolvedValue('hashed:pass');
+      repo.create.mockRejectedValue(new Error('db blew up'));
+
+      await expect(service.createUser(createDto)).rejects.toBeInstanceOf(
+        InternalServerErrorException,
+      );
     });
   });
 
   describe('getUserById', () => {
-    it('should return user by id', async () => {
-      userRepository.findById.mockResolvedValue(mockUser);
+    it('should return user without password', async () => {
+      repo.findById.mockResolvedValue(userFromRepoFull as User);
 
-      const result = await service.getUserById('1');
+      const result = await service.getUserById('u-123');
 
-      expect(userRepository.findById).toHaveBeenCalledWith('1');
-      expect(result).toEqual(mockUserWithoutPassword);
-      expect(result).not.toHaveProperty('password');
+      expect(repo.findById).toHaveBeenCalledWith('u-123');
+      expect(result).toEqual(userWithoutPassword);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect((result as any).password).toBeUndefined();
     });
 
-    it('should throw NotFoundException when user not found', async () => {
-      userRepository.findById.mockResolvedValue(null);
+    it('should throw NotFoundException when user does not exist', async () => {
+      repo.findById.mockResolvedValue(null);
 
-      await expect(service.getUserById('999')).rejects.toThrow(
+      await expect(service.getUserById('missing')).rejects.toBeInstanceOf(
         NotFoundException,
       );
-      await expect(service.getUserById('999')).rejects.toThrow(
-        'User not found',
+    });
+
+    it('should map unexpected errors to InternalServerErrorException (via excludePassword block)', async () => {
+      // Force excludePassword to throw by returning something odd
+      repo.findById.mockResolvedValue({} as User);
+      // Monkey-patch excludePassword to throw (simulate serialization issue)
+      const spy = jest
+        .spyOn<any, any>(service as any, 'excludePassword')
+        .mockImplementation(() => {
+          throw new Error('boom');
+        });
+
+      await expect(service.getUserById('u-123')).rejects.toBeInstanceOf(
+        InternalServerErrorException,
       );
+
+      spy.mockRestore();
     });
   });
 
   describe('getUserByEmail', () => {
-    it('should return user by email', async () => {
-      userRepository.findByEmail.mockResolvedValue(mockUser);
+    it('should return user without password', async () => {
+      repo.findByEmail.mockResolvedValue(userFromRepoFull as User);
 
-      const result = await service.getUserByEmail('test@example.com');
+      const result = await service.getUserByEmail('john@doe.com');
 
-      expect(userRepository.findByEmail).toHaveBeenCalledWith(
-        'test@example.com',
-      );
-      expect(result).toEqual(mockUserWithoutPassword);
-      expect(result).not.toHaveProperty('password');
+      expect(repo.findByEmail).toHaveBeenCalledWith('john@doe.com');
+      expect(result).toEqual(userWithoutPassword);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect((result as any).password).toBeUndefined();
     });
 
-    it('should throw NotFoundException when user not found', async () => {
-      userRepository.findByEmail.mockResolvedValue(null);
+    it('should throw NotFoundException when user does not exist', async () => {
+      repo.findByEmail.mockResolvedValue(null);
+
+      await expect(service.getUserByEmail('none@x.com')).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+    });
+
+    it('should map unexpected errors to InternalServerErrorException (via excludePassword block)', async () => {
+      repo.findByEmail.mockResolvedValue(userFromRepoFull as User);
+      const spy = jest
+        .spyOn<any, any>(service as any, 'excludePassword')
+        .mockImplementation(() => {
+          throw new Error('boom');
+        });
 
       await expect(
-        service.getUserByEmail('nonexistent@example.com'),
-      ).rejects.toThrow(NotFoundException);
+        service.getUserByEmail('john@doe.com'),
+      ).rejects.toBeInstanceOf(InternalServerErrorException);
+
+      spy.mockRestore();
     });
   });
 
   describe('getAllUsers', () => {
-    it('should return all users without passwords', async () => {
-      const users = [
-        mockUser,
-        { ...mockUser, id: '2', email: 'user2@example.com' },
-      ];
-      userRepository.findAll.mockResolvedValue(users);
+    it('should return a list without passwords', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const other = {
+        ...userFromRepoFull,
+        id: 'u-124',
+        email: 'jane@doe.com',
+        first_name: 'Jane',
+      };
+      repo.findAll.mockResolvedValue([userFromRepoFull as User, other as User]);
 
       const result = await service.getAllUsers();
 
-      expect(userRepository.findAll).toHaveBeenCalled();
+      expect(repo.findAll).toHaveBeenCalledTimes(1);
       expect(result).toHaveLength(2);
-      expect(result[0]).not.toHaveProperty('password');
-      expect(result[1]).not.toHaveProperty('password');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      result.forEach((u) => expect((u as any).password).toBeUndefined());
+    });
+
+    it('should map repo errors to InternalServerErrorException', async () => {
+      repo.findAll.mockRejectedValue(new Error('db down'));
+
+      await expect(service.getAllUsers()).rejects.toBeInstanceOf(
+        InternalServerErrorException,
+      );
     });
   });
 
   describe('updateUser', () => {
-    it('should update user successfully', async () => {
-      const updateUserDto: IUpdateUser = {
-        first_name: 'Jane',
-        last_name: 'Smith',
+    it('should hash new password when provided and return sanitized user', async () => {
+      repo.findById.mockResolvedValue(userFromRepoFull as User);
+      passwordService.hashPassword.mockResolvedValue('hashed:new');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const updated = {
+        ...userFromRepoFull,
+        first_name: 'Johnny',
+        password: 'hashed:new',
+      };
+      repo.update.mockResolvedValue(updated as User);
+
+      const dto: UpdateUserDto = {
+        first_name: 'Johnny',
+        password: 'NewStrong123!',
       };
 
-      const updatedUser = { ...mockUser, ...updateUserDto };
-      userRepository.findById.mockResolvedValue(mockUser);
-      userRepository.update.mockResolvedValue(updatedUser);
+      const result = await service.updateUser('u-123', dto);
 
-      const result = await service.updateUser('1', updateUserDto);
-
-      expect(userRepository.findById).toHaveBeenCalledWith('1');
-      expect(userRepository.update).toHaveBeenCalledWith('1', updateUserDto);
-      expect(result.first_name).toBe('Jane');
-      expect(result.last_name).toBe('Smith');
-      expect(result).not.toHaveProperty('password');
-    });
-
-    it('should hash password when updating password', async () => {
-      const updateUserDto: IUpdateUser = {
-        password: 'newPassword123',
-      };
-
-      userRepository.findById.mockResolvedValue(mockUser);
-      passwordService.hashPassword.mockResolvedValue('newHashedPassword');
-      userRepository.update.mockResolvedValue({
-        ...mockUser,
-        password: 'newHashedPassword',
-      });
-
-      await service.updateUser('1', updateUserDto);
-
+      expect(repo.findById).toHaveBeenCalledWith('u-123');
       expect(passwordService.hashPassword).toHaveBeenCalledWith(
-        'newPassword123',
+        'NewStrong123!',
       );
-      expect(userRepository.update).toHaveBeenCalledWith('1', {
-        password: 'newHashedPassword',
+      expect(repo.update).toHaveBeenCalledWith('u-123', {
+        first_name: 'Johnny',
+        password: 'hashed:new',
       });
+      expect(result.first_name).toBe('Johnny');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect((result as any).password).toBeUndefined();
     });
 
-    it('should throw NotFoundException when user not found', async () => {
-      userRepository.findById.mockResolvedValue(null);
+    it('should NOT hash password when not provided', async () => {
+      repo.findById.mockResolvedValue(userFromRepoFull as User);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const updated = { ...userFromRepoFull, last_name: 'Doe-Sr' };
+      repo.update.mockResolvedValue(updated as User);
 
-      const updateUserDto: IUpdateUser = { first_name: 'Jane' };
+      const dto: UpdateUserDto = { last_name: 'Doe-Sr' };
 
-      await expect(service.updateUser('999', updateUserDto)).rejects.toThrow(
-        NotFoundException,
-      );
+      const result = await service.updateUser('u-123', dto);
+
+      expect(passwordService.hashPassword).not.toHaveBeenCalled();
+      expect(repo.update).toHaveBeenCalledWith('u-123', {
+        last_name: 'Doe-Sr',
+      });
+      expect(result.last_name).toBe('Doe-Sr');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect((result as any).password).toBeUndefined();
+    });
+
+    it('should throw NotFoundException when user does not exist before update', async () => {
+      repo.findById.mockResolvedValue(null);
+
+      await expect(
+        service.updateUser('missing', { first_name: 'X' }),
+      ).rejects.toBeInstanceOf(NotFoundException);
+      expect(repo.update).not.toHaveBeenCalled();
+    });
+
+    it('should map repo errors to InternalServerErrorException', async () => {
+      repo.findById.mockResolvedValue(userFromRepoFull as User);
+      repo.update.mockRejectedValue(new Error('write failed'));
+
+      await expect(
+        service.updateUser('u-123', { first_name: 'X' }),
+      ).rejects.toBeInstanceOf(InternalServerErrorException);
     });
   });
 
   describe('deleteUser', () => {
-    it('should delete user successfully', async () => {
-      userRepository.findById.mockResolvedValue(mockUser);
-      userRepository.delete.mockResolvedValue(undefined);
+    it('should delete an existing user', async () => {
+      repo.findById.mockResolvedValue(userFromRepoFull as User);
+      repo.delete.mockResolvedValue(undefined);
 
-      await service.deleteUser('1');
+      await expect(service.deleteUser('u-123')).resolves.toBeUndefined();
 
-      expect(userRepository.findById).toHaveBeenCalledWith('1');
-      expect(userRepository.delete).toHaveBeenCalledWith('1');
+      expect(repo.findById).toHaveBeenCalledWith('u-123');
+      expect(repo.delete).toHaveBeenCalledWith('u-123');
     });
 
-    it('should throw NotFoundException when user not found', async () => {
-      userRepository.findById.mockResolvedValue(null);
+    it('should throw NotFoundException when user does not exist', async () => {
+      repo.findById.mockResolvedValue(null);
 
-      await expect(service.deleteUser('999')).rejects.toThrow(
+      await expect(service.deleteUser('missing')).rejects.toBeInstanceOf(
         NotFoundException,
       );
-    });
-  });
-
-  describe('validateUserCredentials', () => {
-    it('should validate credentials successfully', async () => {
-      userRepository.findByEmail.mockResolvedValue(mockUser);
-      passwordService.comparePassword.mockResolvedValue(true);
-
-      const result = await service.validateUserCredentials(
-        'test@example.com',
-        'password123',
-      );
-
-      expect(userRepository.findByEmail).toHaveBeenCalledWith(
-        'test@example.com',
-      );
-      expect(passwordService.comparePassword).toHaveBeenCalledWith(
-        'password123',
-        'hashedPassword123',
-      );
-      expect(result).toEqual(mockUserWithoutPassword);
+      expect(repo.delete).not.toHaveBeenCalled();
     });
 
-    it('should throw NotFoundException for invalid email', async () => {
-      userRepository.findByEmail.mockResolvedValue(null);
+    it('should map repo errors to InternalServerErrorException', async () => {
+      repo.findById.mockResolvedValue(userFromRepoFull as User);
+      repo.delete.mockRejectedValue(new Error('constraint error'));
 
-      await expect(
-        service.validateUserCredentials('invalid@example.com', 'password123'),
-      ).rejects.toThrow(NotFoundException);
-      await expect(
-        service.validateUserCredentials('invalid@example.com', 'password123'),
-      ).rejects.toThrow('Invalid credentials');
-    });
-
-    it('should throw NotFoundException for invalid password', async () => {
-      userRepository.findByEmail.mockResolvedValue(mockUser);
-      passwordService.comparePassword.mockResolvedValue(false);
-
-      await expect(
-        service.validateUserCredentials('test@example.com', 'wrongpassword'),
-      ).rejects.toThrow(NotFoundException);
-      await expect(
-        service.validateUserCredentials('test@example.com', 'wrongpassword'),
-      ).rejects.toThrow('Invalid credentials');
+      await expect(service.deleteUser('u-123')).rejects.toBeInstanceOf(
+        InternalServerErrorException,
+      );
     });
   });
 });
