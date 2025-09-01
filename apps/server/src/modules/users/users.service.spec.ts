@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { UserService } from './users.service';
 import { UserRepository } from './repositories/user.repository';
-import { PasswordService } from '../../core/helpers/password.service';
+import { PasswordService } from '../../core/services/password.service';
 import { ICreateUser, IUpdateUser } from '../../common/interfaces';
 
 describe('UserService', () => {

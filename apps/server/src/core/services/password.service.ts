@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PasswordHelper } from './password.helper';
+import { PasswordHelper } from '../helpers/password.helper';
 import { IPasswordService } from '../../common/interfaces';
 
 /**

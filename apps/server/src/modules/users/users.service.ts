@@ -4,7 +4,7 @@ import {
 	NotFoundException,
 } from '@nestjs/common';
 import { UserRepository } from './repositories/user.repository';
-import { PasswordService } from '../../core/helpers/password.service';
+import { PasswordService } from '../../core/services/password.service';
 import {
 	IUserService,
 	IUser,

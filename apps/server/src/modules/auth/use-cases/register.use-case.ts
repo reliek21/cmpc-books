@@ -1,7 +1,7 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../users/users.service';
-import { PasswordService } from '../../../core/helpers/password.service';
+import { PasswordService } from '../../../core/services/password.service';
 import {
 	IRegisterUseCase,
 	ICreateUser,
