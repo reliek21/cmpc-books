@@ -40,7 +40,7 @@ export class UpdateBookDto {
   })
   @IsOptional()
   @IsBoolean()
-  public available?: boolean;
+  public is_active?: boolean;
 
   @ApiPropertyOptional({
     description: 'Book cover image URL',
@@ -48,5 +48,5 @@ export class UpdateBookDto {
   })
   @IsOptional()
   @IsString()
-  public imageUrl?: string;
+  public image_url?: string;
 }

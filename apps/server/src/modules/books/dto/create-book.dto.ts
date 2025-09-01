@@ -52,5 +52,5 @@ export class CreateBookDto {
   })
   @IsString()
   @IsOptional()
-  imageUrl?: string;
+  image_url?: string;
 }

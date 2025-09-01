@@ -8,6 +8,7 @@ import {
   DeletedAt,
   ForeignKey,
   BelongsTo,
+  Index,
 } from 'sequelize-typescript';
 import { User } from '../../users/entities/user.entity';
 
@@ -15,60 +16,62 @@ import { User } from '../../users/entities/user.entity';
   tableName: 'books',
   timestamps: true,
   underscored: true,
-  paranoid: true, // Enable soft delete
+  paranoid: true, // soft delete
 })
 export class Book extends Model<Book> {
-  @Column({
-    type: DataType.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  })
+  @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
   declare id: number;
 
+  @Index('books_user_id_idx')
   @ForeignKey(() => User)
-  @Column({
-    type: DataType.UUID,
-    allowNull: false,
-    field: 'user_id',
-  })
+  @Column({ type: DataType.UUID, allowNull: false, field: 'user_id' })
   declare userId: string;
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, { onDelete: 'CASCADE', hooks: true })
   declare user: User;
 
+  @Index('books_title_idx')
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(200),
     allowNull: false,
+    validate: { notEmpty: true },
   })
   declare title: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(150),
     allowNull: false,
+    validate: { notEmpty: true },
   })
   declare author: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(150),
     allowNull: false,
+    validate: { notEmpty: true },
   })
   declare publisher: string;
 
+  @Index('books_genre_idx')
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(80),
     allowNull: false,
+    validate: { notEmpty: true },
   })
   declare genre: string;
 
+  @Index('books_is_active_idx')
   @Column({
+    field: 'is_active',
     type: DataType.BOOLEAN,
     allowNull: false,
     defaultValue: true,
   })
-  declare available: boolean;
+  declare isActive: boolean;
 
   @Column({
-    type: DataType.STRING,
+    field: 'image_url',
+    type: DataType.TEXT,
     allowNull: true,
   })
   declare imageUrl?: string;

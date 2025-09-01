@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
 import { Book } from './entities/book.entity';
@@ -8,13 +8,23 @@ import { FilterBooksDto } from './dto/filter-books.dto';
 
 @Injectable()
 export class BooksService {
+  private readonly logger = new Logger(BooksService.name);
+
   constructor(
     @InjectModel(Book)
     private bookModel: typeof Book,
   ) {}
 
   async create(createBookDto: CreateBookDto): Promise<Book> {
-    return await this.bookModel.create(createBookDto as any);
+    try {
+      this.logger.log(`Creating new book: ${createBookDto.title}`);
+      const book = await this.bookModel.create(createBookDto);
+      this.logger.log(`Book created successfully with ID: ${book.id}`);
+      return book;
+    } catch (error) {
+      this.logger.error(`Error creating book: ${error.message}`, error.stack);
+      throw error;
+    }
   }
 
   async findAll(filterDto: FilterBooksDto): Promise<{
@@ -24,117 +34,221 @@ export class BooksService {
     per_page: number;
     total_pages: number;
   }> {
-    const {
-      search,
-      genre,
-      publisher,
-      author,
-      available,
-      sort,
-      page = 1,
-      per_page = 10,
-    } = filterDto;
+    try {
+      this.logger.debug(
+        `Finding books with filters: ${JSON.stringify(filterDto)}`,
+      );
+      const {
+        search,
+        genre,
+        publisher,
+        author,
+        available,
+        sort,
+        page = 1,
+        per_page = 10,
+      } = filterDto;
 
-    const where: any = {};
+      const where: any = {};
 
-    if (search) {
-      where[Op.or] = [
-        { title: { [Op.iLike]: `%${search}%` } },
-        { author: { [Op.iLike]: `%${search}%` } },
-        { publisher: { [Op.iLike]: `%${search}%` } },
-        { genre: { [Op.iLike]: `%${search}%` } },
-      ];
+      if (search) {
+        where[Op.or] = [
+          { title: { [Op.iLike]: `%${search}%` } },
+          { author: { [Op.iLike]: `%${search}%` } },
+          { publisher: { [Op.iLike]: `%${search}%` } },
+          { genre: { [Op.iLike]: `%${search}%` } },
+        ];
+      }
+
+      if (genre) {
+        where.genre = { [Op.iLike]: `%${genre}%` };
+      }
+
+      if (publisher) {
+        where.publisher = { [Op.iLike]: `%${publisher}%` };
+      }
+
+      if (author) {
+        where.author = { [Op.iLike]: `%${author}%` };
+      }
+
+      if (available !== undefined) {
+        where.available = available;
+      }
+
+      let order: any[] = [['createdAt', 'DESC']];
+
+      if (sort) {
+        const sortFields = sort.split(',').map((s) => s.trim());
+        order = sortFields.map((sortField) => {
+          const [field, direction = 'asc'] = sortField.split(':');
+          let dbField = field;
+          if (field === 'created_at') {
+            dbField = 'createdAt';
+          }
+          return [dbField, direction.toUpperCase()];
+        });
+      }
+
+      const offset = (page - 1) * per_page;
+
+      const { rows: data, count: total } = await this.bookModel.findAndCountAll(
+        {
+          where,
+          order,
+          limit: per_page,
+          offset,
+        },
+      );
+
+      const total_pages = Math.ceil(total / per_page);
+
+      this.logger.log(
+        `Found ${total} books (page ${page}/${total_pages}, ${data.length} returned)`,
+      );
+
+      return {
+        data,
+        total,
+        page,
+        per_page,
+        total_pages,
+      };
+    } catch (error) {
+      this.logger.error(`Error finding books: ${error.message}`, error.stack);
+      throw error;
     }
-
-    if (genre) {
-      where.genre = { [Op.iLike]: `%${genre}%` };
-    }
-
-    if (publisher) {
-      where.publisher = { [Op.iLike]: `%${publisher}%` };
-    }
-
-    if (author) {
-      where.author = { [Op.iLike]: `%${author}%` };
-    }
-
-    if (available !== undefined) {
-      where.available = available;
-    }
-
-    let order: any[] = [['createdAt', 'DESC']];
-
-    if (sort) {
-      const sortFields = sort.split(',').map((s) => s.trim());
-      order = sortFields.map((sortField) => {
-        const [field, direction = 'asc'] = sortField.split(':');
-        let dbField = field;
-        if (field === 'created_at') {
-          dbField = 'createdAt';
-        }
-        return [dbField, direction.toUpperCase()];
-      });
-    }
-
-    const offset = (page - 1) * per_page;
-
-    const { rows: data, count: total } = await this.bookModel.findAndCountAll({
-      where,
-      order,
-      limit: per_page,
-      offset,
-    });
-
-    const total_pages = Math.ceil(total / per_page);
-
-    return {
-      data,
-      total,
-      page,
-      per_page,
-      total_pages,
-    };
   }
 
   async findOne(id: number): Promise<Book> {
-    const book = await this.bookModel.findByPk(id);
-    if (!book) {
-      throw new NotFoundException(`Book with ID ${id} not found`);
+    try {
+      this.logger.debug(`Finding book with ID: ${id}`);
+      const book = await this.bookModel.findByPk(id);
+      if (!book) {
+        this.logger.warn(`Book with ID ${id} not found`);
+        throw new NotFoundException(`Book with ID ${id} not found`);
+      }
+      this.logger.debug(`Book found: ${book.title}`);
+      return book;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      this.logger.error(
+        `Error finding book with ID ${id}: ${error.message}`,
+        error.stack,
+      );
+      throw error;
     }
-    return book;
   }
 
   async update(id: number, updateBookDto: UpdateBookDto): Promise<Book> {
-    const book = await this.findOne(id);
-    await book.update(updateBookDto);
-    return book;
+    try {
+      this.logger.log(`Updating book with ID: ${id}`);
+      const book = await this.findOne(id);
+      await book.update(updateBookDto);
+      this.logger.log(`Book updated successfully: ${book.title} (ID: ${id})`);
+      return book;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      this.logger.error(
+        `Error updating book with ID ${id}: ${error.message}`,
+        error.stack,
+      );
+      throw error;
+    }
+  }
+
+  async softDelete(id: number): Promise<Book> {
+    try {
+      this.logger.log(`Soft deleting book with ID: ${id}`);
+      const book = await this.findOne(id);
+      await book.destroy(); // Soft delete with paranoid: true
+      this.logger.log(
+        `Book soft deleted successfully: ${book.title} (ID: ${id})`,
+      );
+      return book;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      this.logger.error(
+        `Error soft deleting book with ID ${id}: ${error.message}`,
+        error.stack,
+      );
+      throw error;
+    }
   }
 
   async remove(id: number): Promise<void> {
-    const book = await this.findOne(id);
-    await book.destroy();
+    try {
+      this.logger.log(`Force deleting book with ID: ${id}`);
+      const book = await this.findOne(id);
+      await book.destroy({ force: true }); // Hard delete
+      this.logger.log(
+        `Book force deleted successfully: ${book.title} (ID: ${id})`,
+      );
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      this.logger.error(
+        `Error force deleting book with ID ${id}: ${error.message}`,
+        error.stack,
+      );
+      throw error;
+    }
   }
 
   async restore(id: number): Promise<Book> {
-    const book = await this.bookModel.findByPk(id, { paranoid: false });
-    if (!book) {
-      throw new NotFoundException(`Book with ID ${id} not found`);
+    try {
+      this.logger.log(`Restoring book with ID: ${id}`);
+      const book = await this.bookModel.findByPk(id, { paranoid: false });
+      if (!book) {
+        this.logger.warn(`Book with ID ${id} not found for restoration`);
+        throw new NotFoundException(`Book with ID ${id} not found`);
+      }
+      if (!book.deletedAt) {
+        this.logger.warn(`Book with ID ${id} is not deleted, cannot restore`);
+        throw new Error(`Book with ID ${id} is not deleted`);
+      }
+      await book.restore();
+      this.logger.log(`Book restored successfully: ${book.title} (ID: ${id})`);
+      return book;
+    } catch (error) {
+      if (error instanceof NotFoundException || error instanceof Error) {
+        throw error;
+      }
+      this.logger.error(
+        `Error restoring book with ID ${id}: ${error.message}`,
+        error.stack,
+      );
+      throw error;
     }
-    if (!book.deletedAt) {
-      throw new Error(`Book with ID ${id} is not deleted`);
-    }
-    await book.restore();
-    return book;
   }
 
   async findDeleted(): Promise<Book[]> {
-    return this.bookModel
-      .findAll({
-        where: {},
-        paranoid: false,
-        order: [['deletedAt', 'DESC']],
-      })
-      .then((books) => books.filter((book) => book.deletedAt !== null));
+    try {
+      this.logger.debug('Finding all deleted books');
+      const books = await this.bookModel
+        .findAll({
+          where: {},
+          paranoid: false,
+          order: [['deletedAt', 'DESC']],
+        })
+        .then((books) => books.filter((book) => book.deletedAt !== null));
+
+      this.logger.log(`Found ${books.length} deleted books`);
+      return books;
+    } catch (error) {
+      this.logger.error(
+        `Error finding deleted books: ${error.message}`,
+        error.stack,
+      );
+      throw error;
+    }
   }
 
   async getFilterOptions(): Promise<{
@@ -143,8 +257,10 @@ export class BooksService {
     publishers: string[];
   }> {
     try {
+      this.logger.debug('Fetching filter options from database');
       const sequelize = this.bookModel.sequelize;
       if (!sequelize) {
+        this.logger.error('Sequelize instance not found');
         throw new Error('Sequelize instance not found');
       }
 
@@ -165,15 +281,19 @@ export class BooksService {
         ],
       );
 
-      const genres = (genresResult as any[])
-        .map((item: any) => item.genre)
+      const genres = (genresResult as { genre: string }[])
+        .map((item) => item.genre)
         .filter(Boolean);
-      const authors = (authorsResult as any[])
-        .map((item: any) => item.author)
+      const authors = (authorsResult as { author: string }[])
+        .map((item) => item.author)
         .filter(Boolean);
-      const publishers = (publishersResult as any[])
-        .map((item: any) => item.publisher)
+      const publishers = (publishersResult as { publisher: string }[])
+        .map((item) => item.publisher)
         .filter(Boolean);
+
+      this.logger.log(
+        `Filter options fetched: ${genres.length} genres, ${authors.length} authors, ${publishers.length} publishers`,
+      );
 
       return {
         genres,
@@ -181,7 +301,10 @@ export class BooksService {
         publishers,
       };
     } catch (error) {
-      console.error('Error fetching filter options:', error);
+      this.logger.error(
+        `Error fetching filter options: ${error.message}`,
+        error.stack,
+      );
       return {
         genres: [],
         authors: [],

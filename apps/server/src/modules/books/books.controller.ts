@@ -91,7 +91,7 @@ export class BooksController {
     @UploadedFile() file?: MulterFile,
   ) {
     if (file) {
-      createBookDto.imageUrl = this.uploadService.getFileUrl(file.filename);
+      createBookDto.image_url = this.uploadService.getFileUrl(file.filename);
     }
     const bookData = { ...createBookDto, userId: user.sub };
     return this.booksService.create(bookData);
@@ -135,7 +135,6 @@ export class BooksController {
     },
   })
   getFilterOptions() {
-    console.log('getFilterOptions called');
     return this.booksService.getFilterOptions();
   }
 
@@ -306,7 +305,47 @@ export class BooksController {
     return this.booksService.update(id, updateBookDto);
   }
 
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Soft delete a book',
+    description:
+      'Soft deletes a book by its ID. The book can be restored later.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Book ID',
+    example: 1,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Book soft deleted successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', example: 1 },
+        title: { type: 'string', example: 'The Great Gatsby' },
+        author: { type: 'string', example: 'F. Scott Fitzgerald' },
+        publisher: { type: 'string', example: 'Scribner' },
+        genre: { type: 'string', example: 'Fiction' },
+        available: { type: 'boolean', example: true },
+        imageUrl: { type: 'string', example: '/uploads/books/image.jpg' },
+        userId: { type: 'string', example: 'user-uuid' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
+        deletedAt: { type: 'string', format: 'date-time' },
+      },
+    },
+  })
+  @ApiResponse({ status: 404, description: 'Book not found' })
+  softDelete(@Param('id', ParseIntPipe) id: number) {
+    return this.booksService.softDelete(id);
+  }
+
   @Post(':id/restore')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Restore a deleted book',
     description: 'Restores a soft-deleted book by its ID.',
@@ -322,11 +361,21 @@ export class BooksController {
     schema: {
       type: 'object',
       properties: {
-        message: { type: 'string', example: 'Book restored successfully' },
+        id: { type: 'number', example: 1 },
+        title: { type: 'string', example: 'The Great Gatsby' },
+        author: { type: 'string', example: 'F. Scott Fitzgerald' },
+        publisher: { type: 'string', example: 'Scribner' },
+        genre: { type: 'string', example: 'Fiction' },
+        available: { type: 'boolean', example: true },
+        imageUrl: { type: 'string', example: '/uploads/books/image.jpg' },
+        userId: { type: 'string', example: 'user-uuid' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
       },
     },
   })
   @ApiResponse({ status: 404, description: 'Book not found' })
+  @ApiResponse({ status: 400, description: 'Book is not deleted' })
   restore(@Param('id', ParseIntPipe) id: number) {
     return this.booksService.restore(id);
   }
@@ -449,6 +498,6 @@ export class BooksController {
     }
 
     const imageUrl = this.uploadService.getFileUrl(file.filename);
-    return this.booksService.update(id, { imageUrl });
+    return this.booksService.update(id, { image_url: imageUrl });
   }
 }
