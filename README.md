@@ -200,17 +200,10 @@ pnpm start        # Production server
 
 ### Current Coverage
 
-**Backend**: 96.4% coverage (53/55 tests ✅)
-- BooksService: 94.82%
-- UsersService: 100%
-- AuthService: 92.3%
-- Controllers: 95%+
+<img width="1003" height="807" alt="Screenshot 2025-09-01 at 9 23 33 AM" src="https://github.com/user-attachments/assets/73bcd9cd-370e-41e4-be54-c0760b91baba" />
 
-**Frontend**: 87.5% coverage (7/8 tests ✅)
-- Custom hooks
-- UI Components
-- Utilities and helpers
-- API Routes
+**Backend**: 82.4%
+**Frontend**: 87.5%
 
 ### Run Tests
 
@@ -307,11 +300,6 @@ The database schema includes the following main entities:
 For detailed schema information, visit: [CMPC Books Database Diagram](https://dbdiagram.io/d/CMPC-Books-68afd837777b52b76ce76658)
 
 ## 📚 API Documentation
-
-### Test Coverage:
-
-<img width="1003" height="807" alt="image" src="https://github.com/user-attachments/assets/c9e0693e-5713-4386-bf74-a5dee3cfa74b" />
-
 
 ### Swagger UI
 Access the interactive documentation at: http://localhost:3001/api
