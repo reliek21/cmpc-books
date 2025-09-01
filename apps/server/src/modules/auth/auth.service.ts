@@ -16,7 +16,8 @@ import {
   IJwtPayload,
 } from '../../common/interfaces';
 
-import { JwtService, PasswordService } from '../../core';
+import { JwtService } from '@nestjs/jwt';
+import { PasswordService } from '../../core';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UserRepository } from '../users/repositories/user.repository';
 import { User } from '../users/entities/user.entity';
@@ -173,10 +174,7 @@ export class AuthService implements IAuthService {
       { secret: refreshSecret, expiresIn: refreshTtl },
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const decoded: { exp?: number } = this.jwtService.decodeToken(
-      access_token,
-    ) as any;
+    const decoded: { exp?: number } = this.jwtService.decode(access_token);
     const expires_in = decoded?.exp ?? Math.floor(Date.now() / 1000);
 
     return { access_token, refresh_token, expires_in };

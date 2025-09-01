@@ -8,6 +8,7 @@ import { BooksSortControls } from '@/components/dashboard/books-sort-controls'
 import { BooksTable } from '@/components/dashboard/books-table'
 import { BooksPagination } from '@/components/dashboard/books-pagination'
 import { BooksActiveSorts } from '@/components/dashboard/books-active-sorts'
+import { BooksFiltersSummary } from '@/components/dashboard/books-filters-summary'
 import { EditBookForm } from '@/components/dashboard/edit-book-form'
 import { useBooks } from '@/hooks/useBooks'
 import { useDebounce } from '@/hooks/useDebounce'
@@ -29,6 +30,7 @@ export default function DashboardPage() {
     setPerPage,
     setSearch,
     setFilters,
+    clearFilters,
     addSort,
     removeSort,
     resetSorts,
@@ -109,6 +111,12 @@ export default function DashboardPage() {
           authorOptions={authorOptions}
           availabilityOptions={availabilityOptions}
           showAvailability={true}
+        />
+
+        <BooksFiltersSummary
+          filters={filters}
+          onClearFilters={clearFilters}
+          totalResults={total}
         />
 
         <BooksSortControls

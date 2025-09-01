@@ -3,6 +3,7 @@
 
 export { BooksHeader } from './books-header';
 export { BooksFilters } from './books-filters';
+export { BooksFiltersSummary } from './books-filters-summary';
 export { BooksSortControls } from './books-sort-controls';
 export { BooksTable } from './books-table';
 export { BooksPagination } from './books-pagination';

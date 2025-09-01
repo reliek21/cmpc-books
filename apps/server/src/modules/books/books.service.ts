@@ -25,7 +25,7 @@ export class BooksService {
         isActive: createBookDto.available ?? true,
         imageUrl: createBookDto.image_url,
       };
-      
+
       const book = await this.bookModel.create(bookData as any);
       this.logger.log(`Book created successfully with ID: ${book.id}`);
       return book;
@@ -93,10 +93,32 @@ export class BooksService {
         const sortFields = sort.split(',').map((s) => s.trim());
         order = sortFields.map((sortField) => {
           const [field, direction = 'asc'] = sortField.split(':');
+
+          // Map frontend field names to database field names
           let dbField = field;
-          if (field === 'created_at') {
-            dbField = 'createdAt';
+          switch (field) {
+            case 'created_at':
+            case 'createdAt':
+              dbField = 'createdAt';
+              break;
+            case 'updated_at':
+            case 'updatedAt':
+              dbField = 'updatedAt';
+              break;
+            case 'available':
+            case 'isActive':
+              dbField = 'isActive';
+              break;
+            case 'imageUrl':
+            case 'image_url':
+              dbField = 'imageUrl';
+              break;
+            default:
+              // For standard fields like title, author, publisher, genre
+              dbField = field;
           }
+
+          this.logger.debug(`Sorting by ${dbField} ${direction.toUpperCase()}`);
           return [dbField, direction.toUpperCase()];
         });
       }

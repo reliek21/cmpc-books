@@ -63,78 +63,85 @@ export function BooksFilters({
   };
 
   return (
-    <div className="grid gap-3 md:grid-cols-4 mb-4">
-      <Input
-        placeholder="Search books..."
-        value={filters.q}
-        onChange={(e) => handleSearchChange(e.target.value)}
-      />
+    <div className="space-y-4 mb-6">
+      {/* Search bar - full width */}
+      <div className="w-full">
+        <Input
+          placeholder="Search books by title, author, publisher, or genre..."
+          value={filters.q}
+          onChange={(e) => handleSearchChange(e.target.value)}
+          className="w-full"
+        />
+      </div>
 
-      <Select
-        value={filters.genre}
-        onValueChange={(value) => handleFilterChange('genre', value)}
-      >
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="All genres" />
-        </SelectTrigger>
-        <SelectContent>
-          {genreOptions.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      <Select
-        value={filters.publisher}
-        onValueChange={(value) => handleFilterChange('publisher', value)}
-      >
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="All publishers" />
-        </SelectTrigger>
-        <SelectContent>
-          {publisherOptions.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      <Select
-        value={filters.author}
-        onValueChange={(value) => handleFilterChange('author', value)}
-      >
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="All authors" />
-        </SelectTrigger>
-        <SelectContent>
-          {authorOptions.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {showAvailability && (
+      {/* Filter selects */}
+      <div className={`grid gap-3 ${showAvailability ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}>
         <Select
-          value={filters.available}
-          onValueChange={(value) => handleFilterChange('available', value)}
+          value={filters.genre}
+          onValueChange={(value) => handleFilterChange('genre', value)}
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Any availability" />
+            <SelectValue placeholder="All genres" />
           </SelectTrigger>
           <SelectContent>
-            {availabilityOptions.map((option) => (
+            {genreOptions.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
-      )}
+
+        <Select
+          value={filters.publisher}
+          onValueChange={(value) => handleFilterChange('publisher', value)}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="All publishers" />
+          </SelectTrigger>
+          <SelectContent>
+            {publisherOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={filters.author}
+          onValueChange={(value) => handleFilterChange('author', value)}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="All authors" />
+          </SelectTrigger>
+          <SelectContent>
+            {authorOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {showAvailability && (
+          <Select
+            value={filters.available}
+            onValueChange={(value) => handleFilterChange('available', value)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Any availability" />
+            </SelectTrigger>
+            <SelectContent>
+              {availabilityOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+      </div>
     </div>
   );
 }

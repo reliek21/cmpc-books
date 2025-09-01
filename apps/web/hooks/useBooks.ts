@@ -26,6 +26,7 @@ interface UseBooksReturn {
   setPerPage: (perPage: string) => void;
   setSearch: (search: string) => void;
   setFilters: (filters: Partial<BookFilters>) => void;
+  clearFilters: () => void;
   addSort: (field: string) => void;
   removeSort: (field: string) => void;
   resetSorts: () => void;
@@ -227,6 +228,17 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
 
   const setFilters = useCallback((newFilters: Partial<BookFilters>) => {
     setFiltersState(prev => ({ ...prev, ...newFilters }));
+    setPage(1);
+  }, []);
+
+  const clearFilters = useCallback(() => {
+    setFiltersState({
+      q: '',
+      genre: '',
+      publisher: '',
+      author: '',
+      available: '',
+    });
     setPage(1);
   }, []);
 
@@ -439,6 +451,7 @@ export function useBooks(options: UseBooksOptions = {}): UseBooksReturn {
     setPerPage: handleSetPerPage,
     setSearch,
     setFilters,
+    clearFilters,
     addSort,
     removeSort,
     resetSorts,

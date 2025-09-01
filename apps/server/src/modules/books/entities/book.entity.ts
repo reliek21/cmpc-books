@@ -8,7 +8,6 @@ import {
   DeletedAt,
   ForeignKey,
   BelongsTo,
-  Index,
 } from 'sequelize-typescript';
 import { User } from '../../users/entities/user.entity';
 
@@ -17,12 +16,29 @@ import { User } from '../../users/entities/user.entity';
   timestamps: true,
   underscored: true,
   paranoid: true, // soft delete
+  indexes: [
+    {
+      name: 'books_user_id_idx',
+      fields: ['user_id'],
+    },
+    {
+      name: 'books_title_idx',
+      fields: ['title'],
+    },
+    {
+      name: 'books_genre_idx',
+      fields: ['genre'],
+    },
+    {
+      name: 'books_is_active_idx',
+      fields: ['is_active'],
+    },
+  ],
 })
 export class Book extends Model<Book> {
   @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
   declare id: number;
 
-  @Index('books_user_id_idx')
   @ForeignKey(() => User)
   @Column({ type: DataType.UUID, allowNull: false, field: 'user_id' })
   declare userId: string;
@@ -30,7 +46,6 @@ export class Book extends Model<Book> {
   @BelongsTo(() => User, { onDelete: 'CASCADE', hooks: true })
   declare user: User;
 
-  @Index('books_title_idx')
   @Column({
     type: DataType.STRING(200),
     allowNull: false,
@@ -52,7 +67,6 @@ export class Book extends Model<Book> {
   })
   declare publisher: string;
 
-  @Index('books_genre_idx')
   @Column({
     type: DataType.STRING(80),
     allowNull: false,
@@ -60,7 +74,6 @@ export class Book extends Model<Book> {
   })
   declare genre: string;
 
-  @Index('books_is_active_idx')
   @Column({
     field: 'is_active',
     type: DataType.BOOLEAN,

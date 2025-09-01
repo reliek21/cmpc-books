@@ -8,3 +8,6 @@ export * from './helpers/password.helper';
 // Services
 export * from './services/password.service';
 export * from './services/jwt.service';
+
+// Module
+export * from './core.module';

@@ -19,7 +19,9 @@ const defaultSortableFields = [
   { value: 'author', label: 'Author' },
   { value: 'publisher', label: 'Publisher' },
   { value: 'genre', label: 'Genre' },
+  { value: 'available', label: 'Availability' },
   { value: 'createdAt', label: 'Created Date' },
+  { value: 'updatedAt', label: 'Updated Date' },
 ];
 
 const defaultPerPageOptions = ['5', '10', '20', '50'];
@@ -44,42 +46,61 @@ export function BooksSortControls({
   };
 
   return (
-    <div className="flex items-center justify-between gap-3 mb-4">
-      <div className="flex items-center gap-2">
-        <Label>Per page:</Label>
-        <Select value={perPage} onValueChange={onPerPageChange}>
-          <SelectTrigger className="w-[120px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {perPageOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+    <div className="flex flex-col gap-4 mb-4">
+      {/* First row: Per page and quick sort buttons */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Label>Per page:</Label>
+          <Select value={perPage} onValueChange={onPerPageChange}>
+            <SelectTrigger className="w-[120px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {perPageOptions.map((option) => (
+                <SelectItem key={option} value={option}>
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button onClick={onResetSorts} variant="outline" size="sm">
+            Reset Sort
+          </Button>
+
+          <Button onClick={handleExportCsv} className="bg-slate-800 hover:bg-slate-900">
+            Export CSV
+          </Button>
+        </div>
       </div>
 
-      <div className="flex items-center gap-2">
-        <Button onClick={onResetSorts} variant="outline" size="sm">
-          Reset Sort
-        </Button>
-
-        {sortableFields.map((field) => (
-          <Button
-            key={field.value}
-            onClick={() => onAddSort(field.value)}
-            variant="outline"
-            size="sm"
-          >
-            Sort {field.label}
-          </Button>
-        ))}
-
-        <Button onClick={handleExportCsv} className="bg-slate-800 hover:bg-slate-900">
-          Export CSV
-        </Button>
+      {/* Second row: Sort field buttons */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <Label className="text-sm text-gray-600">Quick sort by:</Label>
+        {sortableFields.map((field) => {
+          const currentSort = sorts.find(s => s.field === field.value);
+          const isActive = !!currentSort;
+          const direction = currentSort?.dir || 'asc';
+          
+          return (
+            <Button
+              key={field.value}
+              onClick={() => onAddSort(field.value)}
+              variant={isActive ? "default" : "outline"}
+              size="sm"
+              className={`relative ${isActive ? 'bg-blue-600 hover:bg-blue-700' : ''}`}
+            >
+              {field.label}
+              {isActive && (
+                <span className="ml-1 text-xs">
+                  {direction === 'asc' ? '↑' : '↓'}
+                </span>
+              )}
+            </Button>
+          );
+        })}
       </div>
     </div>
   );

@@ -15,7 +15,6 @@ import {
   UsePipes,
   ValidationPipe,
   Res,
-  Header,
 } from '@nestjs/common';
 import type { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -191,12 +190,12 @@ export class BooksController {
     @Res() res: Response,
   ): Promise<void> {
     const csv = await this.booksService.exportToCsv(filterDto);
-    
+
     res.set({
       'Content-Type': 'text/csv',
       'Content-Disposition': 'attachment; filename="books.csv"',
     });
-    
+
     res.send(csv);
   }
 
@@ -239,7 +238,8 @@ export class BooksController {
   @ApiQuery({
     name: 'sort',
     required: false,
-    description: 'Sort fields with direction (asc/desc)',
+    description:
+      'Sort fields with direction (asc/desc). Multiple sorts: title:asc,author:desc,createdAt:desc',
     example: 'title:asc,author:desc',
   })
   @ApiQuery({

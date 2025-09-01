@@ -3,7 +3,7 @@ import * as process from 'node:process';
 config();
 
 export const envLoader = () => {
-  return {
+  const config = {
     SERVER: {
       ENV: process.env.NODE_ENV,
       PORT: process.env.PORT,
@@ -22,6 +22,7 @@ export const envLoader = () => {
       JWT_REFRESH_TTL: process.env.JWT_REFRESH_TTL,
     },
   };
+  return config;
 };
 
 export enum NodeEnvType {

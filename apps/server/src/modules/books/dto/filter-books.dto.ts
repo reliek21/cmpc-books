@@ -49,8 +49,9 @@ export class FilterBooksDto {
   public available?: boolean;
 
   @ApiPropertyOptional({
-    example: 'title:asc,author:desc',
-    description: 'Sort fields with direction (asc/desc)',
+    example: 'title:asc,author:desc,createdAt:desc',
+    description:
+      'Sort fields with direction (asc/desc). Available fields: title, author, publisher, genre, available, createdAt, updatedAt. Multiple sorts separated by comma.',
   })
   @IsOptional()
   @IsString()
