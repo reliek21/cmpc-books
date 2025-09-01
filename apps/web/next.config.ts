@@ -18,17 +18,17 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['localhost'],
     unoptimized: process.env.NODE_ENV === 'development'
-  },
-
-  // API routes
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/:path*`
-      }
-    ]
   }
+
+  // API routes - Commented out to use our own API routes
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/:path*',
+  //       destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/:path*`
+  //     }
+  //   ]
+  // }
 };
 
 export default nextConfig;

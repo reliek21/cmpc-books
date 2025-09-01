@@ -57,13 +57,16 @@ export function AddBookForm({ onSuccess, onCancel }: AddBookFormProps) {
         throw new Error('Authentication required. Please log in again.');
       }
 
+      // Remove the available property before sending to backend
+      const { available, ...bookData } = data;
+
       const response = await fetch('/api/books', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(bookData),
       });
 
       if (!response.ok) {

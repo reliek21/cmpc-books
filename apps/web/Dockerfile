@@ -47,6 +47,9 @@ COPY --from=deps --chown=nextjs:nodejs /app/pnpm-workspace.yaml ./pnpm-workspace
 # Copy the built application
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web ./apps/web
 
+# Copy environment files
+COPY --chown=nextjs:nodejs apps/web/.env.local ./apps/web/.env.local
+
 USER nextjs
 
 EXPOSE 3000
