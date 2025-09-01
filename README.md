@@ -410,12 +410,6 @@ git checkout -b docs/readme-update
 - **Prettier**: Automatic formatting
 - **Commits**: Conventional commits
 
-## 📄 License
-
-This project is a technical test for full-stack development evaluation.
-
-**Developed with ❤️ for CMPC**
-
 ---
 
 *For more technical information, check the specific READMEs in `apps/server/` and `apps/web/`*
