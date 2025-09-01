@@ -19,7 +19,9 @@ export class UserRepository {
    * @returns User or null
    */
   async findById(id: string): Promise<User | null> {
-    return await this.userModel.findByPk(id);
+    return await this.userModel.findByPk(id, {
+      attributes: { include: ['password'] }, // Include password for authentication
+    });
   }
 
   /**
@@ -30,6 +32,7 @@ export class UserRepository {
   async findByEmail(email: string): Promise<User | null> {
     return await this.userModel.findOne({
       where: { email: email.toLowerCase() },
+      attributes: { include: ['password'] }, // Include password for authentication
     });
   }
 

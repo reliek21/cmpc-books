@@ -11,5 +11,7 @@ export const ENV_SCHEMA: Joi.ObjectSchema<any> = joi.object({
   DATABASE_PASSWORD: joi.string(),
   DATABASE_NAME: joi.string(),
   JWT_SECRET: joi.string(),
-  JWT_EXPIRES: joi.string(),
+  JWT_REFRESH: joi.string(),
+  JWT_SECRET_TTL: joi.string(),
+  JWT_REFRESH_TTL: joi.string(),
 });

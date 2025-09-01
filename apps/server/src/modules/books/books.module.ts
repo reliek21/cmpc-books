@@ -6,7 +6,7 @@ import { Book } from './entities/book.entity';
 import { UploadModule } from '../upload/upload.module';
 import { User } from '../users/entities/user.entity';
 import { AuthModule } from '../auth/auth.module';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Module({
   imports: [SequelizeModule.forFeature([Book, User]), UploadModule, AuthModule],

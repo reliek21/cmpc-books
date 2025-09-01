@@ -17,7 +17,9 @@ export const envLoader = () => {
     },
     SECURITY: {
       JWT_SECRET: process.env.JWT_SECRET,
-      JWT_EXPIRES: process.env.JWT_EXPIRES,
+      JWT_REFRESH: process.env.JWT_REFRESH,
+      JWT_SECRET_TTL: process.env.JWT_SECRET_TTL,
+      JWT_REFRESH_TTL: process.env.JWT_REFRESH_TTL,
     },
   };
 };

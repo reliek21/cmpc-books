@@ -4,15 +4,10 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
 
-interface JwtPayload {
-  sub: string;
-  email: string;
-  iat: number;
-  exp: number;
-}
+import { JwtPayload } from '../types/jwt-payload.type';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -20,15 +15,15 @@ export class JwtAuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest<Request>();
-    const token = this.extractTokenFromHeader(request);
+    const token: string | undefined = this.extractTokenFromHeader(request);
 
     if (!token) {
       throw new UnauthorizedException('No token provided');
     }
 
     try {
-      const payload = this.jwtService.verify<JwtPayload>(token, {
-        secret: process.env.JWT_SECRET || 'supersecret',
+      const payload: JwtPayload = this.jwtService.verify<JwtPayload>(token, {
+        secret: process.env.JWT_SECRET,
       });
       request.user = payload;
     } catch {

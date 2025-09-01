@@ -42,6 +42,20 @@ export interface IAuthUser {
   email: string;
   first_name?: string;
   last_name?: string;
+  is_active?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
+  deleted_at?: Date | null;
+}
+
+export interface IJwtPayload {
+  sub: string;
+  email: string;
+  first_name?: string;
+  last_name?: string;
+  is_active?: boolean;
+  created_at?: string | Date;
+  updated_at?: string | Date;
 }
 
 export interface IAuthResponse {
@@ -89,7 +103,6 @@ export interface IAuthService {
   login(credentials: ILoginCredentials): Promise<IAuthResponse>;
   validateToken(token: string): Promise<IAuthUser>;
   refreshToken(refreshToken: string): Promise<IAuthTokens>;
-  logout(userId: string): Promise<void>;
 }
 
 export interface IPasswordService {
@@ -104,6 +117,8 @@ export interface IJwtService {
   verifyAccessToken(token: string): object;
   verifyRefreshToken(token: string): object;
   decodeToken(token: string): object;
+  signAsync(payload: object, options?: any): Promise<string>;
+  verifyAsync(token: string, options?: any): Promise<IJwtPayload>;
 }
 
 // Use Case Interfaces - Application Logic Abstractions
