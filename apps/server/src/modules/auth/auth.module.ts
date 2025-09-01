@@ -9,21 +9,21 @@ import { PasswordService } from '../../core/helpers/password.service';
 import { PasswordHelper } from '../../core/helpers/password.helper';
 
 @Module({
-  controllers: [AuthController],
-  providers: [
-    AuthService,
-    RegisterUseCase,
-    LoginUseCase,
-    PasswordService,
-    PasswordHelper,
-  ],
-  imports: [
-    UsersModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET || 'supersecret',
-      signOptions: { expiresIn: process.env.JWT_EXPIRES || '1d' },
-    }),
-  ],
-  exports: [AuthService],
+	controllers: [AuthController],
+	providers: [
+		AuthService,
+		RegisterUseCase,
+		LoginUseCase,
+		PasswordService,
+		PasswordHelper,
+	],
+	imports: [
+		UsersModule,
+		JwtModule.register({
+			secret: process.env.JWT_SECRET || 'supersecret',
+			signOptions: { expiresIn: process.env.JWT_EXPIRES || '1d' },
+		}),
+	],
+	exports: [AuthService],
 })
 export class AuthModule {}

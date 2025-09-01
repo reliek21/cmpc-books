@@ -9,58 +9,58 @@ import { IJwtService } from '../../common/interfaces';
  */
 @Injectable()
 export class JwtService implements IJwtService {
-  constructor(private readonly nestJwtService: NestJwtService) {}
+	constructor(private readonly nestJwtService: NestJwtService) {}
 
-  /**
-   * Generate access token
-   * @param payload - Token payload
-   * @returns JWT access token
-   */
-  generateAccessToken(payload: object): string {
-    return this.nestJwtService.sign(payload);
-  }
+	/**
+	 * Generate access token
+	 * @param payload - Token payload
+	 * @returns JWT access token
+	 */
+	generateAccessToken(payload: object): string {
+		return this.nestJwtService.sign(payload);
+	}
 
-  /**
-   * Generate refresh token
-   * @param payload - Token payload
-   * @returns JWT refresh token
-   */
-  generateRefreshToken(payload: object): string {
-    return this.nestJwtService.sign(payload, { expiresIn: '7d' });
-  }
+	/**
+	 * Generate refresh token
+	 * @param payload - Token payload
+	 * @returns JWT refresh token
+	 */
+	generateRefreshToken(payload: object): string {
+		return this.nestJwtService.sign(payload, { expiresIn: '7d' });
+	}
 
-  /**
-   * Verify access token
-   * @param token - JWT token
-   * @returns Decoded payload
-   */
-  verifyAccessToken(token: string): object {
-    try {
-      return this.nestJwtService.verify(token);
-    } catch {
-      throw new Error('Invalid access token');
-    }
-  }
+	/**
+	 * Verify access token
+	 * @param token - JWT token
+	 * @returns Decoded payload
+	 */
+	verifyAccessToken(token: string): object {
+		try {
+			return this.nestJwtService.verify(token);
+		} catch {
+			throw new Error('Invalid access token');
+		}
+	}
 
-  /**
-   * Verify refresh token
-   * @param token - JWT refresh token
-   * @returns Decoded payload
-   */
-  verifyRefreshToken(token: string): object {
-    try {
-      return this.nestJwtService.verify(token);
-    } catch {
-      throw new Error('Invalid refresh token');
-    }
-  }
+	/**
+	 * Verify refresh token
+	 * @param token - JWT refresh token
+	 * @returns Decoded payload
+	 */
+	verifyRefreshToken(token: string): object {
+		try {
+			return this.nestJwtService.verify(token);
+		} catch {
+			throw new Error('Invalid refresh token');
+		}
+	}
 
-  /**
-   * Decode token without verification
-   * @param token - JWT token
-   * @returns Decoded payload
-   */
-  decodeToken(token: string): object {
-    return this.nestJwtService.decode(token) || {};
-  }
+	/**
+	 * Decode token without verification
+	 * @param token - JWT token
+	 * @returns Decoded payload
+	 */
+	decodeToken(token: string): object {
+		return this.nestJwtService.decode(token) || {};
+	}
 }
