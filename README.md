@@ -308,6 +308,11 @@ For detailed schema information, visit: [CMPC Books Database Diagram](https://db
 
 ## 📚 API Documentation
 
+### Test Coverage:
+
+<img width="1003" height="807" alt="image" src="https://github.com/user-attachments/assets/c9e0693e-5713-4386-bf74-a5dee3cfa74b" />
+
+
 ### Swagger UI
 Access the interactive documentation at: http://localhost:3001/api
 
